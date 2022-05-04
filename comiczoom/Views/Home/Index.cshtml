@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2 class="text-white">Accesos directos</h2>
+<hr class="text-white" />
+
+@if((int)Session["IdRol"] == 1) {
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">EMPLEADOS</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+} 
+else 
+{
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">VENTA</h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+}
+

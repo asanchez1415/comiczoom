@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Empleados";
+}
+
+<h2 class="text-white">Lista de empleados</h2>
+<hr class="text-white" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">RUT</label>
+                <select class="selectpicker" data-live-search="true" data-width="100%">
+                    <option disabled selected>Seleccione un rut</option>
+                    <option>11111111-1</option>
+                    <option>12345678-9</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">NOMBRE</label>
+                <select class="selectpicker" data-live-search="true" data-width="100%">
+                    <option disabled selected>Seleccione un nombre</option>
+                    <option>Diego</option>
+                    <option>Juan</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">CARGO</label>
+                <select class="selectpicker" data-width="100%">
+                    <option disabled selected>Seleccione un cargo</option>
+                    <option>Administrador</option>
+                    <option>Vendedor</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 d-flex align-items-end mb-4">
+            <div class="form-group">
+                <button type="button" class="btn btn-success">Filtrar según parámetros</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container table-responsive">
+    <table class="table table-dark table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">RUT</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">DIRECCIÓN</th>
+                <th scope="col">TELÉFONO</th>
+                <th scope="col">CARGO</th>
+                <th scope="col">EDITAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>12345678-9</td>
+                <td>Juan Pérez Rosales</td>
+                <td>Calle 1234, Comuna, Provincia, Región</td>
+                <td>+56982978046</td>
+                <td>Administrador</td>
+                <td><i class="bi bi-pen-fill text-primary"></i></td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+

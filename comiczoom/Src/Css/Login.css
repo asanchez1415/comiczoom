@@ -1,0 +1,20 @@
+﻿body {
+    background: #F2F2F2;
+}
+
+.cz-formlogin {
+    width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border: solid #919191 1px;
+    border-radius: 10px;
+}
+
+.cz-logologin {
+    width: 150px;
+}
+
+.cz-ingcolor {
+    background-color: #006e7f;
+    border-radius: 0.25rem;
+}

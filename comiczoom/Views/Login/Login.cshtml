@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    @Styles.Render("~/Content/bootstrap.css")
+    <link href="~/Src/Css/Login.css" rel="stylesheet" />
+    <link href="~/Src/Img/logo.svg" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <div class="container d-flex justify-content-center mt-5">
+        <div class="cz-formlogin">
+
+            <div class="d-flex justify-content-center mb-4">
+                <img src="~/Src/Img/logo.svg" alt="Alternate Text" class="cz-logologin" />
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <h2>Iniciar Sesión</h2>
+            </div>
+            <hr />
+
+            <form action="@Url.Action("Index", "Login")" method="post">
+                <div class="d-flex justify-content-center">
+                    <div class="form-floating mb-3">
+                        <input name="Rut" type="text" class="form-control" id="floatingInput" placeholder="11111111-1">
+                        <label for="floatingInput">RUT</label>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="form-floating">
+                        <input name="Contrasenia" type="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
+                        <label for="floatingPassword">Contraseña</label>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-center mt-2">
+                    <p class="text-danger"><b>@ViewBag.BadLog</b></p>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="d-grid gap-2 col-6 cz-ingcolor">
+                        <button class="btn text-white" type="submit">Ingresar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <hr class="mt-5" />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ComicZoom</p>
+        </footer>
+    </div>
+
+</body>
+</html>
