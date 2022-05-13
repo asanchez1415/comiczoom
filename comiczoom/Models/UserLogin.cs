@@ -27,7 +27,7 @@ namespace prueba.Models
 
             using (SqlConnection connect = new SqlConnection(connectionString()))
             {
-                string query = "SELECT EMid, EMidSUC, EMidTE, EMrut, EMnombre, EMapellido, EMcontrasenia FROM EMPLEADO WHERE EMrut=@prut AND EMcontrasenia=@pcontrasenia";
+                string query = "SELECT id, idSUC, idTE, rut, nombre, apellido, contrasenia FROM EMPLEADO WHERE rut=@prut AND contrasenia=@pcontrasenia";
                 SqlCommand cmd = new SqlCommand(query, connect);
 
                 cmd.Parameters.AddWithValue("@prut", r);
@@ -42,12 +42,12 @@ namespace prueba.Models
                     {
                         user = new UserLogin()
                         {
-                            Id = (int)dr["EMid"],
-                            IdSUC = (int)dr["EMidSUC"],
-                            Rut = dr["EMrut"].ToString(),
-                            Contrasenia = dr["EMcontrasenia"].ToString(),
-                            Nombres = $"{dr["EMnombre"].ToString()} {dr["EMapellido"].ToString()}",
-                            IdRol = (Rol)dr["EMidTE"]
+                            Id = (int)dr["id"],
+                            IdSUC = (int)dr["idSUC"],
+                            Rut = dr["rut"].ToString(),
+                            Contrasenia = dr["contrasenia"].ToString(),
+                            Nombres = $"{dr["nombre"].ToString()} {dr["apellido"].ToString()}",
+                            IdRol = (Rol)dr["idTE"]
                         };
                     }
                 }

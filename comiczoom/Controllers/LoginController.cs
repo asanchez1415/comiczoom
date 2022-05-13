@@ -12,7 +12,6 @@ namespace prueba.Controllers
 {
     public class LoginController : Controller
     {
-
         // GET: Login
         [HttpGet]
         public ActionResult Login()
@@ -40,15 +39,12 @@ namespace prueba.Controllers
                 return RedirectToAction("Login", "Login");
 
             }
-
         }
 
         public ActionResult ChangePassword()
         {
             return View();
         }
-
-        
 
     }
 }

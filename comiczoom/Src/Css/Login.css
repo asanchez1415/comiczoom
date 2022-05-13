@@ -1,10 +1,11 @@
 ﻿body {
     background: #F2F2F2;
+    background-image: url(/Src/Img/tri_back.svg);
 }
 
 .cz-formlogin {
     width: 500px;
-    background-color: #ffffff;
+    background-color: #F2F2F2;
     padding: 20px;
     border: solid #919191 1px;
     border-radius: 10px;
