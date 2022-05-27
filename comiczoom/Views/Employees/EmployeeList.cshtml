@@ -1,4 +1,4 @@
-﻿
+﻿@using prueba.Models;
 @{
     ViewBag.Title = "Empleados";
 }
@@ -7,14 +7,16 @@
 <hr class="text-white" />
 
 <div class="container">
-    <div class="row">
+    <form method="post" action="/Employees/EmployeeList" class="row">
         <div class="col-sm-3 mb-4">
             <div class="form-group">
                 <label for="exampleFormControlInput1" class="form-label text-white">RUT</label>
-                <select class="selectpicker" data-live-search="true" data-width="100%">
+                <select class="selectpicker" name="Rut" data-live-search="true" data-width="100%">
                     <option disabled selected>Seleccione un rut</option>
-                    <option>11111111-1</option>
-                    <option>12345678-9</option>
+                    @foreach (string rut in ViewBag.ComboRut)
+                    {
+                        <option>@rut</option>
+                    }
                 </select>
             </div>
         </div>
@@ -22,10 +24,12 @@
         <div class="col-sm-3 mb-4">
             <div class="form-group">
                 <label for="exampleFormControlInput1" class="form-label text-white">NOMBRE</label>
-                <select class="selectpicker" data-live-search="true" data-width="100%">
+                <select class="selectpicker" name="Nombre" data-live-search="true" data-width="100%">
                     <option disabled selected>Seleccione un nombre</option>
-                    <option>Diego</option>
-                    <option>Juan</option>
+                    @foreach (string nombre in ViewBag.ComboNombre)
+                    {
+                        <option>@nombre</option>
+                    }
                 </select>
             </div>
         </div>
@@ -43,10 +47,10 @@
 
         <div class="col-sm-3 d-flex align-items-end mb-4">
             <div class="form-group">
-                <button type="button" class="btn btn-success">Filtrar según parámetros</button>
+                <button type="submit" class="btn btn-success">Filtrar según parámetros</button>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <div class="container table-responsive">
@@ -63,17 +67,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>12345678-9</td>
-                <td>Juan Pérez Rosales</td>
-                <td>Calle 1234, Comuna, Provincia, Región</td>
-                <td>+56982978046</td>
-                <td>Administrador</td>
-                <td><i class="bi bi-pen-fill text-primary"></i></td>
-            </tr>
+            @foreach (Employee Emp in ViewBag.Empleados)
+            {
+                <tr>
+                    <th scope="row">@Emp.Id</th>
+                    <td>@Emp.Rut</td>
+                    <td>@Emp.Nombre @Emp.Apellido @Emp.SegApellido</td>
+                    <td>@Emp.Direccion, @Emp.CMN, @Emp.PRO, @Emp.REG</td>
+                    <td>+@Emp.Telefono</td>
+                    <td>@Emp.TipoEmp</td>
+                    <td><i class="bi bi-pen-fill text-primary"></i></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
-
 

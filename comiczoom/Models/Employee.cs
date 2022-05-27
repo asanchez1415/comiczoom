@@ -30,60 +30,101 @@ namespace prueba.Models
         public string SegApellido { get; set; }
         public string TipoEmp { get; set; }
         public string Telefono { get; set; }
+        public string Direccion { get; set; }
         public Rol IdRol { get; set; }
 
-        string connectionString()
-        {
-            return "Server=localhost\\SQLEXPRESS;Database=comiczoom;Trusted_Connection=True;";
-        }
+        private List<Employee> ListEmpleados { get; set; } = new List<Employee>();
+        private List<string> ListComboRut { get; set; } = new List<string>();
+        private List<string> ListComboNombre { get; set; } = new List<string>();
 
-        public Employee ListEmployees()
+        // Obtener lista de empleados
+        public List<Employee> ListarEmpleados(string pRut, string pNombre)
         {
-            Employee emp = new Employee();
-            using (SqlConnection connect = new SqlConnection(connectionString()))
+            ListEmpleados = new List<Employee>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT EM.id, EM.rut, EM.nombre, EM.segNombre, EM.apellido, 
+                EM.segApellido, REG.nombre region, PRO.nombre provincia, CMN.nombre comuna, EM.telefono,
+                EM.direccion, TE.nombre tipoEmp, SUC.nombre sucursal
+                FROM EMPLEADO as EM
+                INNER JOIN REGION as REG ON EM.idREG = REG.id
+                INNER JOIN PROVINCIA as PRO ON EM.idPRO = PRO.id
+                INNER JOIN COMUNA as CMN ON EM.idCMN = CMN.id
+                INNER JOIN TIPO_EMPLEADO as TE ON EM.idTE = TE.id
+                INNER JOIN SUCURSAL as SUC ON EM.idSUC = SUC.id
+                WHERE EM.rut like '%{pRut}%' AND
+                EM.nombre like '%{pNombre}%' COLLATE Latin1_general_CI_AI
+                ORDER BY EM.id Asc;", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
             {
-                string query = "SELECT EM.id, EM.rut, EM.nombre, EM.segNombre, EM.apellido, EM.segApellido," + 
-                "REG.nombre region, PRO.nombre provincia, CMN.nombre comuna, EM.telefono," +
-                "TE.nombre tipoEmp, SUC.nombre sucursal" +
-                "FROM EMPLEADO as EM" +
-                "INNER JOIN REGION as REG ON EM.idREG = REG.id" +
-                "INNER JOIN PROVINCIA as PRO ON EM.idPRO = PRO.id" +
-                "INNER JOIN COMUNA as CMN ON EM.idCMN = CMN.id" +
-                "INNER JOIN TIPO_EMPLEADO as TE ON EM.idTE = TE.id" +
-                "INNER JOIN SUCURSAL as SUC ON EM.idSUC = SUC.id";
-                SqlCommand cmd = new SqlCommand(query, connect);
-
-                cmd.CommandType = CommandType.Text;
-                connect.Open();
-
-                using (SqlDataReader dr = cmd.ExecuteReader())
+                var registro = new Employee()
                 {
-                    while (dr.Read())
-                    {
-                        emp = new Employee
-                        {
-                            Id = (int)dr["id"],
-                            SUC = dr["sucursal"].ToString(),
-                            Rut = dr["rut"].ToString(),
-                            Nombre = dr["nombre"].ToString(),
-                            SegNombre = dr["segNombre"].ToString(),
-                            Apellido = dr["apellido"].ToString(),
-                            SegApellido = dr["segApellido"].ToString(),
-                            REG = dr["region"].ToString(),
-                            PRO = dr["provincia"].ToString(),
-                            CMN = dr["comuna"].ToString(),
-                            Telefono = dr["telefono"].ToString(),
-                            TipoEmp = dr["tipoEmp"].ToString()
-                        };
-                    }
-                }
-                connect.Close();
-
-                return emp;
+                    Id = (int)registros["id"],
+                    SUC = registros["sucursal"].ToString(),
+                    Rut = registros["rut"].ToString(),
+                    Nombre = registros["nombre"].ToString(),
+                    SegNombre = registros["segNombre"].ToString(),
+                    Apellido = registros["apellido"].ToString(),
+                    SegApellido = registros["segApellido"].ToString(),
+                    REG = registros["region"].ToString(),
+                    PRO = registros["provincia"].ToString(),
+                    CMN = registros["comuna"].ToString(),
+                    Telefono = registros["telefono"].ToString(),
+                    Direccion = registros["direccion"].ToString(),
+                    TipoEmp = registros["tipoEmp"].ToString()
+                };
+                ListEmpleados.Add(registro);
             }
+            connection.Close();
 
+            return ListEmpleados;
         }
 
+        public List<string> ComboRut()
+        {
+            ListComboRut = new List<string>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
 
+            SqlCommand querySel = new SqlCommand($@"SELECT EM.rut FROM EMPLEADO as EM
+                ORDER BY EM.rut Asc;", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                ListComboRut.Add(registros["rut"].ToString());
+            }
+            connection.Close();
+
+            return ListComboRut;
+        }
+
+        public List<string> ComboNombre()
+        {
+            ListComboNombre = new List<string>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT EM.nombre FROM EMPLEADO as EM
+                ORDER BY EM.nombre Asc;", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                ListComboNombre.Add(registros["nombre"].ToString());
+            }
+            connection.Close();
+
+            return ListComboNombre;
+        }
     }
 }
