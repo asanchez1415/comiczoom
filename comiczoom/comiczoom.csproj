@@ -127,15 +127,22 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ComicsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Branches.cs" />
+    <Compile Include="Models\Clients.cs" />
+    <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Provincia.cs" />
+    <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\TipoEmpleado.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Permissions\PermissionsRol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -201,6 +208,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Src\Css\bootstrap-select.min.css" />
+    <Content Include="Src\Css\Home.css" />
+    <Content Include="Src\Css\Lists.css" />
     <Content Include="Src\Css\Login.css" />
     <Content Include="Src\Css\NoAccess.css" />
     <Content Include="Src\Img\background.svg" />
@@ -208,6 +217,9 @@
     <Content Include="Src\Img\logo.svg" />
     <Content Include="Src\Img\meteor.svg" />
     <Content Include="Src\Img\tri_back.svg" />
+    <Content Include="Src\Js\Resources\ShowPassword.js" />
+    <Content Include="Src\Js\Resources\ValRut.js" />
+    <Content Include="Src\Js\Validations\EmployeeList.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -223,6 +235,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\NoAccess.cshtml" />
     <Content Include="Views\Employees\EmployeeList.cshtml" />
+    <Content Include="Views\Comics\ComicsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

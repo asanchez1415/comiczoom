@@ -69,6 +69,7 @@ segNombre varchar(30),
 apellido varchar(30) not null,
 segApellido varchar(30) not null,
 telefono varchar(20) not null,
+correo varchar(100) not null,
 contrasenia varchar(50),
 direccion varchar(70) not null,
 constraint FK_EMPLEADO_REGION foreign key (idREG) references REGION(id),
@@ -150,7 +151,7 @@ CREATE TABLE DETALLE_TIRAJE
 );
 ---------------------
 
--- TABLA RECEPCIÓN TIRAJE --
+-- TABLA RECEPCION TIRAJE --
 CREATE TABLE RECEPCION_TIRAJE
 (
   id int not null identity(1,1) primary key,
@@ -161,13 +162,13 @@ CREATE TABLE RECEPCION_TIRAJE
 );
 ---------------------
 
--- TABLA DETALLE RECEPCIÓN TIRAJE --
+-- TABLA DETALLE RECEPCION TIRAJE --
 CREATE TABLE DETALLE_RECEPCION_TIRAJE
 (
   id int not null identity(1,1) primary key,
   idRT int not null,
   idCOM int not null,
-  cantidad int not null, -- Validación <0
+  cantidad int not null, -- Validacion <0
   constraint FK_DRT_TIR foreign key (idRT) references RECEPCION_TIRAJE(id), 
   constraint FK_DRT_COM foreign key (idCOM) references COMIC(id)
 );

@@ -444,10 +444,10 @@ VALUES
 (12, 42, 263, 'Sede Temuco', 'Calle, 67343');
 
 
-INSERT INTO EMPLEADO(idREG,	idPRO,	idCMN,	idSUC,	idTE,	rut,	nombre,	segNombre,	apellido,	segApellido,	telefono,	contrasenia,	direccion) 
+INSERT INTO EMPLEADO(idREG,	idPRO,	idCMN,	idSUC,	idTE,	rut, nombre, segNombre,	apellido, segApellido, telefono, correo, contrasenia, direccion) 
 VALUES
-(7, 3, 98, 1, 1, '12123123-2', 'Juan', '', 'Díaz', 'Rosales', '56912341234', '1234', 'Calle, 1234'),
-(7, 3, 99, 1, 2, '18123123-2', 'Diego', 'Pedro', 'Portales', 'Zacarías', '56912341234', '12345', 'Calle, 1234');
+(7, 3, 98, 1, 1, '12123123-2', 'Juan', '', 'Díaz', 'Rosales', '56912341234', 'a@gmail.com','1234', 'Calle 1234'),
+(7, 3, 99, 1, 2, '18123123-2', 'Diego', 'Pedro', 'Portales', 'Zacarías', '56912341234', 'a@gmail.com', '12345', 'Calle 1234');
 
 -- RUBRO --
 INSERT INTO RUBRO(nombre)

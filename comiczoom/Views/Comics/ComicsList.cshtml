@@ -1,0 +1,103 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "ComicsList";
+}
+
+
+<div class="container">
+    <div class="d-flex justify-content-between mt-5">
+        <h2 class="text-white">Lista de empleados</h2>
+        <button class="btn btn-success">CREAR EMPLEADO</button>
+    </div>
+    <hr class="text-white" />
+
+    <form method="post" action="/Employees/EmployeeList" class="row">
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">RUT</label>
+                <select onchange="alertaFiltros()" class="selectpicker" id="rut" name="Rut" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione un rut</option>
+                    @foreach (string rut in ViewBag.ComboRut)
+                    {
+                        <option value="@rut">@rut</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">NOMBRE</label>
+                <select onchange="alertaFiltros()" class="selectpicker" id="nombre" name="Nombre" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione un nombre</option>
+                    @foreach (string nombre in ViewBag.ComboNombre)
+                    {
+                        <option value="@nombre">@nombre</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">CARGO</label>
+                <select class="selectpicker" name="Cargo" data-width="100%">
+                    <option disabled selected>Seleccione un cargo</option>
+                    <option>Administrador</option>
+                    <option>Vendedor</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 d-flex align-items-end mb-4">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Filtrar según parámetros</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">RUT</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">DIRECCIÓN</th>
+                <th scope="col">TELÉFONO</th>
+                <th scope="col">CARGO</th>
+                <th scope="col">EDITAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Employee Emp in ViewBag.Empleados)
+            {
+                <tr>
+                    <th scope="row">@Emp.Id</th>
+                    <td>@Emp.Rut</td>
+                    <td>@Emp.Nombre @Emp.Apellido @Emp.SegApellido</td>
+                    <td>@Emp.Direccion, @Emp.CMN, @Emp.PRO, @Emp.REG</td>
+                    <td>+@Emp.Telefono</td>
+                    <td>@Emp.TipoEmp</td>
+                    <td><i class="bi bi-pen-fill text-primary"></i></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function alertaFiltros() {
+        let selectRut = document.getElementById("rut").value;
+        let selectNombre = document.getElementById("nombre").value;
+
+        console.log(selectRut);
+        console.log(selectNombre);
+
+        if (selectRut != "" && selectNombre != "") {
+            alert("No buscar a la vez por Rut o Nombre, ya que posiblemente no encontrará coincidencias");
+        }
+    }
+</script>
+

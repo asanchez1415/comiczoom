@@ -3,15 +3,22 @@
     ViewBag.Title = "Home";
 }
 
+<link href="~/Src/Css/Home.css" rel="stylesheet" />
+
 <h2 class="text-white">Accesos directos</h2>
 <hr class="text-white" />
 
 @if((int)Session["IdRol"] == 1) {
 <div class="card" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">EMPLEADOS</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="d-flex justify-content-center">
+            <h5 class="card-title">EMPLEADOS</h5>
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="@Url.Action("EmployeeList","Employees")"><i class="bi bi-person-fill cz-emp"></i></a>
+        </div>
+
+        @*<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>*@
     </div>
 </div>
 } 
