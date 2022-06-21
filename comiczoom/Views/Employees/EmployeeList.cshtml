@@ -5,19 +5,12 @@
 
 <link href="~/Src/Css/Lists.css" rel="stylesheet" />
 
-<script src="~/Src/Js/Resources/ValRut.js"></script>
-<script src="~/Src/Js/Validations/EmployeeList.js"></script>
-
 <div class="container">
-    <div class="alert alert-danger @ViewBag.ErrorInsertEmpleado" role="alert">
-        A simple danger alert—check it out!
-    </div>
-
     <div class="d-flex justify-content-between mt-5">
         <h2 class="text-white">Lista de empleados</h2>
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <a href="@Url.Action("CreateEmployee","Employees")" class="btn btn-success d-flex align-items-center" role="button">
             CREAR EMPLEADO
-        </button>
+        </a>
     </div>
     <hr class="text-white" />
 
@@ -95,9 +88,9 @@
                     <td>@Emp.SUC</td>
                     <td>@Emp.TipoEmp</td>
                     <td>
-                        <button class="btn" onclick="showModal('editModal')">
+                        <a href="@Url.Content("/Employees/EditEmployee?id=" + Emp.Id)">
                             <i class="bi bi-pencil-square text-primary h4"></i>
-                        </button>
+                        </a>
                     </td>
                 </tr>
             }
@@ -105,200 +98,4 @@
     </table>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg">
-        <div class="modal-content cz-mcontent">
-            <div class="modal-header cz-mheader">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Crear empleado</h5>
-                <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="/Employees/InsertEmployee" class="container-fluid" id="formulario" onsubmit="return validaForm(this)">
-                    <div class="row">
-                        <div class="col mb-3">
-                            <input type="text" id="inpRut" name="inpRut" class="form-control" placeholder="RUT - (11111111-1) *" aria-label="First name" required>
-                        </div>
 
-                        <div class="col mb-3">
-                            <div class="form-group">
-                                <select class="selectpicker" name="inpSucursal" data-width="100%" required>
-                                    <option value="" selected>Seleccione una sucursal *</option>
-                                    @foreach (Branches suc in ViewBag.ComboSucursal)
-                                    {
-                                        <option value="@suc.IdSUC">@suc.Sucursal</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col mb-3">
-                            <div class="form-group">
-                                <select class="selectpicker" onchange="validaCargo()" id="inpCargo" name="inpCargo" data-width="100%" required>
-                                    <option value="" selected>Seleccione un cargo *</option>
-                                    @foreach (TipoEmpleado te in ViewBag.ComboTE)
-                                    {
-                                        <option value="@te.IdTE">@te.NomTE</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="bg-primary" />
-                    <h5 class="text-primary">Nombre completo</h5>
-                    <hr class="bg-primary" />
-
-
-                    <div class="row">
-                        <div class="col mb-3">
-                            <input type="text" name="inpNombre" class="form-control" placeholder="Nombre *" aria-label="First name" required>
-                        </div>
-
-                        <div class="col mb-3">
-                            <input type="text" name="inpSegNombre" class="form-control" placeholder="Segundo nombre" aria-label="First name">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col mb-3">
-                            <input type="text" name="inpApellido" class="form-control" placeholder="Apellido *" aria-label="First name" required>
-                        </div>
-
-                        <div class="col mb-3">
-                            <input type="text" name="inpSegApellido" class="form-control" placeholder="Segundo apellido *" aria-label="First name" required>
-                        </div>
-                    </div>
-
-                    <hr class="bg-primary" />
-                    <h5 class="text-primary">Dirección</h5>
-                    <hr class="bg-primary" />
-
-
-                    <div class="row">
-                        <div class="col mb-3">
-                            <input type="text" name="inpDireccion" class="form-control" placeholder="Calle y número *" aria-label="First name" required>
-                        </div>
-
-                        <div class="col mb-3">
-                            <div class="form-group">
-                                <select class="selectpicker" name="inpRegion" data-live-search="true" data-width="100%" required>
-                                    <option value="" selected>Seleccione una región *</option>
-                                    @foreach (Region reg in ViewBag.ComboRegion)
-                                    {
-                                        <option value="@reg.IdReg">@reg.NomRegion</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col mb-3">
-                            <div class="form-group">
-                                <select class="selectpicker" name="inpProvincia" data-live-search="true" data-width="100%" required>
-                                    <option value="" selected>Seleccione una provincia *</option>
-                                    @foreach (Provincia prov in ViewBag.ComboProv)
-                                    {
-                                        <option value="@prov.IdProv">@prov.NomProvincia</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col mb-3">
-                            <div class="form-group">
-                                <select class="selectpicker" name="inpComuna" data-live-search="true" data-width="100%" required>
-                                    <option value="" selected>Seleccione una comuna *</option>
-                                    @foreach (Comuna cmn in ViewBag.ComboCmn)
-                                    {
-                                        <option value="@cmn.IdCmn">@cmn.NomComuna</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="bg-primary" />
-                    <h5 class="text-primary">Contactos</h5>
-                    <hr class="bg-primary" />
-
-                    <div class="row">
-                        <div class="col mb-3">
-                            <input type="text" id="inpCelular" name="inpCelular" class="form-control" placeholder="Número de celular - (+56912341234) *" aria-label="Phone" required>
-                        </div>
-
-                        <div class="col mb-3">
-                            <input type="email" name="inpCorreo" class="form-control" placeholder="Correo *" aria-label="email" required>
-                        </div>
-                    </div>
-
-                    <div id="con-pass" class="d-none">
-                        <hr class="bg-primary" />
-                        <h5 class="text-primary">Contraseña - <span class="h6 text-secondary">Solo en caso de ser Administrador o Vendedor</span></h5>
-                        <hr class="bg-primary" />
-
-                        <div class="row">
-                            <div class="col mb-3">
-                                <input type="password" id="fPass" name="inpContrasenia" class="form-control" placeholder="Contraseña" aria-label="Phone">
-                            </div>
-
-                            <div class="col mb-3">
-                                <input type="password" id="sPass" name="inpSegContrasenia" class="form-control" placeholder="Confirmar contraseña" aria-label="Phone">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" onclick="ShowPassword('MostrarContrasenia', 2)" id="MostrarContrasenia">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Mostrar contraseña
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" id="btn-guardar" class="btn btn-success">Guardar</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-@* ----------------- FIN MODAL ----------------- *@
-
-@* Modal para editar *@
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                @ViewBag.Empleados[0].Nombre
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="~/Src/Js/Resources/ShowPassword.js"></script>
-
-<script>
-    function seleccionarPosicion(pPos) {
-        let pos = pPos;
-        alert(pos);
-    }
-</script>

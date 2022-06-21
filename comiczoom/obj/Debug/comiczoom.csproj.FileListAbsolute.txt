@@ -130,6 +130,8 @@ C:\projects\comiczoom\comiczoom\bin\roslyn\vbc.rsp
 C:\projects\comiczoom\comiczoom\bin\roslyn\VBCSCompiler.exe
 C:\projects\comiczoom\comiczoom\bin\roslyn\VBCSCompiler.exe.config
 C:\projects\comiczoom\comiczoom\bin\Antlr3.Runtime.dll
+C:\projects\comiczoom\comiczoom\bin\EntityFramework.dll
+C:\projects\comiczoom\comiczoom\bin\EntityFramework.SqlServer.dll
 C:\projects\comiczoom\comiczoom\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\projects\comiczoom\comiczoom\bin\Microsoft.Web.Infrastructure.dll
 C:\projects\comiczoom\comiczoom\bin\Newtonsoft.Json.dll
@@ -141,6 +143,8 @@ C:\projects\comiczoom\comiczoom\bin\System.Web.WebPages.Deployment.dll
 C:\projects\comiczoom\comiczoom\bin\System.Web.WebPages.dll
 C:\projects\comiczoom\comiczoom\bin\System.Web.WebPages.Razor.dll
 C:\projects\comiczoom\comiczoom\bin\WebGrease.dll
+C:\projects\comiczoom\comiczoom\bin\EntityFramework.xml
+C:\projects\comiczoom\comiczoom\bin\EntityFramework.SqlServer.xml
 C:\projects\comiczoom\comiczoom\bin\System.Web.Helpers.xml
 C:\projects\comiczoom\comiczoom\bin\System.Web.Mvc.xml
 C:\projects\comiczoom\comiczoom\bin\System.Web.Optimization.xml
@@ -156,7 +160,3 @@ C:\projects\comiczoom\comiczoom\obj\Debug\comiczoom.csproj.CoreCompileInputs.cac
 C:\projects\comiczoom\comiczoom\obj\Debug\comiczoom.csproj.CopyComplete
 C:\projects\comiczoom\comiczoom\obj\Debug\prueba.dll
 C:\projects\comiczoom\comiczoom\obj\Debug\prueba.pdb
-C:\projects\comiczoom\comiczoom\bin\EntityFramework.dll
-C:\projects\comiczoom\comiczoom\bin\EntityFramework.SqlServer.dll
-C:\projects\comiczoom\comiczoom\bin\EntityFramework.xml
-C:\projects\comiczoom\comiczoom\bin\EntityFramework.SqlServer.xml

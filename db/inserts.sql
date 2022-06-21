@@ -73,7 +73,7 @@ VALUES
 	('Aysén',15),
 	('General Carrera',15),
 	('Capitán Prat',15),
-	('Última Esperanza',16),
+	('ÿltima Esperanza',16),
 	('Magallanes',16),
 	('Tierra del Fuego',16),
 	('Antártica Chilena',16);
@@ -244,7 +244,7 @@ VALUES
 	('Santa Cruz',29),
 	('La Estrella',30),
 	('Litueche',30),
-	('Marchigüe',30),
+	('Marchigÿe',30),
 	('Navidad',30),
 	('Paredones',30),
 	('Pichilemu',30),
@@ -529,20 +529,20 @@ VALUES
 (1,4,20,7200.0,144000.0),
 (2,3,35,5500.0,192500.0);
 
-INSERT INTO PROVEEDOR(idRUB, idSUC, idREG, idPRO, idCMN, nombre, fechaCreacion, direccion)
+INSERT INTO PROVEEDOR(rut, idRUB, idREG, idPRO, idCMN, nombre, fechaCreacion, direccion, telefono, correo)
 VALUES
-  (2, 1, 7, 26, 125, 'LA PAPELERA S.A.', '2010-03-18', 'Calle 1234'),
-  (3, 1, 7, 25, 121, 'TINTAS CALAMAR', '2012-03-05', 'Calle 1234' ),
-  (1, 1, 7, 27, 133, 'DON IMPRESION LTD.', '2012-05-15', 'Calle 1234'),
-  (1, 2, 8, 30, 165, 'LA IMPRENTA S.A.', '2013-10-04', 'Calle 1234'),
-  (3, 2, 8, 28, 148, 'MUNDO COLOR LTD.', '2014-09-15', 'Calle 1234'),
-  (2, 2, 8, 29, 153, 'CASA DE PAPEL', '2015-11-17', 'Calle 1234'),
-  (3, 3, 6, 18, 65, 'INK HOUSE', '2016-09-16', 'Calle 1234'),
-  (1, 3, 6, 17, 62, 'PLANETA IMPRESIONES', '2017-02-24', 'Calle 1234'),
-  (2, 3, 6, 21, 81, 'PAPELERA ATLANTICA', '2018-06-28', 'Calle 1234'),
-  (2, 4, 12, 41, 254, 'PAPELES DEL BOSQUE S.A.', '2018-11-27', 'Calle 1234'),
-  (1, 4, 12, 41, 253, 'MARCAHISTORIAS LTD', '2019-08-22', 'Calle 1234'),
-  (3, 4, 12, 42, 283, 'EL TINTERO AMIGABLE', '2020-11-16', 'Calle 1234');
+  ('73111111-2', 2, 7, 26, 125, 'LA PAPELERA S.A.', '2010-03-18', 'Calle 1234', '+56912341234', 'info@lapapelera.com'),
+  ('72111111-3', 3, 7, 25, 121, 'TINTAS CALAMAR', '2012-03-05', 'Calle 1234', '+56912341234', 'contacto@tintascal.com' ),
+  ('71111111-4', 1, 7, 27, 133, 'DON IMPRESION LTD.', '2012-05-15', 'Calle 1234', '+56912341234', 'info@gmail.com'),
+  ('76111111-5', 1, 8, 30, 165, 'LA IMPRENTA S.A.', '2013-10-04', 'Calle 1234', '+56912341234', 'contacto@laimprenta.com'),
+  ('78111111-6', 3, 8, 28, 148, 'MUNDO COLOR LTD.', '2014-09-15', 'Calle 1234', '+56912341234', 'contacto@mundocolor.com'),
+  ('70111111-7', 2, 8, 29, 153, 'CASA DE PAPEL', '2015-11-17', 'Calle 1234', '+56912341234', 'ventas@casapapel.com'),
+  ('71111111-8', 3, 6, 18, 65, 'INK HOUSE', '2016-09-16', 'Calle 1234', '+56912341234', 'info@ink.com'),
+  ('72111113-9', 1, 6, 17, 62, 'PLANETA IMPRESIONES', '2017-02-24', 'Calle 1234', '+56912341234', 'ventas@planetaimp.com'),
+  ('78111891-9', 2, 6, 21, 81, 'PAPELERA ATLANTICA', '2018-06-28', 'Calle 1234', '+56912341234', 'info@papatlantica.com'),
+  ('72111111-6', 2, 12, 41, 254, 'PAPELES DEL BOSQUE S.A.', '2018-11-27', 'Calle 1234', '+56912341234', 'contacto@papelesbosque.com'),
+  ('73111111-4', 1, 12, 41, 253, 'MARCAHISTORIAS LTD', '2019-08-22', 'Calle 1234', '+56912341234', 'ventas@marcahistorias.com'),
+  ('72111123/3', 3, 12, 42, 283, 'EL TINTERO AMIGABLE', '2020-11-16', 'Calle 1234', '+56912341234', 'ventas@tinteroamigable.com');
 
 INSERT INTO STOCK_COMIC(idSUC, idCOM, cantidad, fecha, hora, tipoTransaccion)
 VALUES

@@ -22,6 +22,4 @@
             sPass.type = "password";
         }
     }
-
-    
 }

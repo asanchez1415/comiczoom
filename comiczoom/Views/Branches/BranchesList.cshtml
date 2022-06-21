@@ -1,0 +1,49 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Lista de sucursales";
+}
+
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-between mt-5">
+        <h2 class="text-white">Lista de sucursales</h2>
+        <a href="@Url.Action("CreateBranch","Branches")" class="btn btn-success d-flex align-items-center" role="button">
+            CREAR SUCURSALES
+        </a>
+    </div>
+
+    <hr class="text-white" />
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">DIRECCIÓN</th>
+                <th scope="col">EDITAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Branches Bra in ViewBag.ListBranch)
+            {
+                <tr>
+                    <th scope="row">@Bra.IdSUC</th>
+                    <td>@Bra.Sucursal</td>
+                    <td>@Bra.Direccion, @Bra.CMN, @Bra.PRO, @Bra.REG</td>
+                    <td>
+                        <a href="@Url.Content("/Branches/EditBranch?id=" + Bra.IdSUC)">
+                            <i class="bi bi-pencil-square text-primary h4"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+

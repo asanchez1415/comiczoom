@@ -9,19 +9,32 @@
 <hr class="text-white" />
 
 @if((int)Session["IdRol"] == 1) {
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <div class="d-flex justify-content-center">
-            <h5 class="card-title">EMPLEADOS</h5>
-        </div>
-        <div class="d-flex justify-content-center">
-            <a href="@Url.Action("EmployeeList","Employees")"><i class="bi bi-person-fill cz-emp"></i></a>
-        </div>
+<div class="container">
+    <div class="row">
+        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("EmployeeList","Employees")">
+            <div class="card-body cz-cardmenu__body">
+                <div class="d-flex justify-content-center">
+                    <h5 class="card-title">EMPLEADOS</h5>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <i class="bi bi-person-fill cz-emp"></i>
+                </div>
+            </div>
+        </a>
 
-        @*<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>*@
+        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("ProviderList", "Providers")">
+            <div class="card-body cz-cardmenu__body">
+                <div class="d-flex justify-content-center">
+                    <h5 class="card-title">PROVEEDORES</h5>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <i class="bi bi-person-fill cz-emp"></i>
+                </div>
+            </div>
+        </a>
     </div>
 </div>
-} 
+}
 else 
 {
 <div class="card" style="width: 18rem;">
