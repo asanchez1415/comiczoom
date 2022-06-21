@@ -23,18 +23,19 @@ namespace prueba.Models
         public int idCMN { get; set; }
         public string CMN { get; set; }
         //
+        public int IdRol { get; set; }
+        public string TipoEmp { get; set; }
+        //
         public string Rut { get; set; }
         public string Nombre { get; set; }
         public string SegNombre { get; set; }
         public string Apellido { get; set; }
         public string SegApellido { get; set; }
-        public string TipoEmp { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }
         public string Direccion { get; set; }
-        public int IdRol { get; set; }
         //
-        public string Contrasenia { get; set; } 
+        public string Contrasenia { get; set; }
 
         private List<Employee> ListEmpleados { get; set; } = new List<Employee>();
         private List<string> ListComboRut { get; set; } = new List<string>();
@@ -95,7 +96,7 @@ namespace prueba.Models
             SqlDataReader registros = null;
             connection.Open();
 
-            SqlCommand querySel = new SqlCommand($@"SELECT EM.rut FROM EMPLEADO as EM
+            SqlCommand querySel = new SqlCommand(@"SELECT EM.rut FROM EMPLEADO as EM
                 ORDER BY EM.rut Asc;", connection.connectDb);
 
             registros = querySel.ExecuteReader();
@@ -123,6 +124,63 @@ namespace prueba.Models
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
             queryInsert.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        // Obtener un empleado
+        public List<Employee> ObtenerEmpleado(string pId)
+        {
+            int id = Convert.ToInt32(pId);
+
+            ListEmpleados = new List<Employee>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT * FROM EMPLEADO as EM WHERE EM.id = {id};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new Employee()
+                {
+                    Id = (int)registros["id"],
+                    IdSUC = Convert.ToInt32(registros["idsuc"]),
+                    Rut = registros["rut"].ToString(),
+                    Nombre = registros["nombre"].ToString(),
+                    SegNombre = registros["segNombre"].ToString(),
+                    Apellido = registros["apellido"].ToString(),
+                    SegApellido = registros["segApellido"].ToString(),
+                    idREG = Convert.ToInt32(registros["idREG"]),
+                    idPRO = Convert.ToInt32(registros["idPRO"]),
+                    idCMN = Convert.ToInt32(registros["idCMN"]),
+                    Telefono = registros["telefono"].ToString(),
+                    Direccion = registros["direccion"].ToString(),
+                    IdRol = Convert.ToInt32(registros["idTE"]),
+                    Correo = registros["correo"].ToString()
+                };
+                ListEmpleados.Add(registro);
+            }
+            connection.Close();
+
+            return ListEmpleados;
+        }
+
+        public void ActualizarEmpleado(Employee pEmp)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"UPDATE EMPLEADO SET idREG = {pEmp.idREG}, idPRO = {pEmp.idPRO}, idCMN = {pEmp.idCMN}, 
+			idSUC = {pEmp.IdSUC}, nombre = '{pEmp.Nombre}', segNombre = '{pEmp.SegNombre}', 
+			apellido = '{pEmp.Apellido}', segApellido = '{pEmp.SegApellido}', 
+			telefono = '{pEmp.Telefono}', correo = '{pEmp.Correo}', direccion = '{pEmp.Direccion}'
+			WHERE id = {pEmp.Id};";
+
+            SqlCommand queryUpdate = new SqlCommand(cad, connection.connectDb);
+            queryUpdate.ExecuteNonQuery();
 
             connection.Close();
         }

@@ -1,3 +1,16 @@
-﻿.cz-emp {
-    font-size:50px;
+﻿.cz-cardmenu {
+    text-decoration: none;
+    color: white;
+    background-color: #006E7F;
 }
+
+.cz-cardmenu__body {
+    padding: 5px 5px 0px 5px;
+}
+
+.cz-emp {
+    font-size: 50px;
+    color: white;
+}
+
+

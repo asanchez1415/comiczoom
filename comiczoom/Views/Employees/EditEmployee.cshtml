@@ -1,0 +1,198 @@
+﻿@using prueba.Models
+@{
+    ViewBag.Title = "Editar empleado";
+    Employee res = new Employee();
+    Employee emp = res.ObtenerEmpleado(ViewBag.Empleado)[0];
+}
+
+<link href="~/Src/Css/Edits.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("EmployeeList", "Employees")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">EDITANDO A&nbsp;</b>&nbsp; @emp.Id - @emp.Nombre</h3>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<form method="post" action="/Employees/UpdateEmployee" class="container-fluid" id="formulario" onsubmit="return validaUpdate();">
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@emp.Id" type="text" name="inpId" class="form-control d-none">
+
+            <input value="@emp.Rut" type="text" id="inpRut" name="inpRut" class="form-control inp-disabled" placeholder="RUT - (11111111-1) *" disabled>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpSucursal" id="inpSucursal" data-width="100%" data-hide-disabled="false" required>
+                    <option value="" selected>Seleccione una sucursal *</option>
+                    @foreach (Branches suc in ViewBag.ComboSucursal)
+                    {
+                        if (emp.IdSUC == suc.IdSUC)
+                        {
+                            <option value="@suc.IdSUC" selected>@suc.Sucursal</option>
+                        }
+                        else
+                        {
+                            <option value="@suc.IdSUC">@suc.Sucursal</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker inp-disabled" id="inpCargo" name="inpCargo" data-width="100%" required disabled>
+                    <option value="" selected>Seleccione un cargo *</option>
+                    @foreach (TipoEmpleado te in ViewBag.ComboTE)
+                    {
+                        if (emp.IdRol == te.IdTE)
+                        {
+                            <option value="@te.IdTE" selected>@te.NomTE</option>
+                        }
+                        else
+                        {
+                            <option value="@te.IdTE">@te.NomTE</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-white">Nombre completo</h5>
+    <hr class="bg-white" />
+
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@emp.Nombre" type="text"id="inpNombre"  name="inpNombre" class="form-control" placeholder="Nombre *" required >
+        </div>
+
+        <div class="col mb-3">
+            <input value="@emp.SegNombre" type="text" name="inpSegNombre" class="form-control" placeholder="Segundo nombre" >
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@emp.Apellido" type="text" name="inpApellido" class="form-control" placeholder="Apellido *" required >
+        </div>
+
+        <div class="col mb-3">
+            <input value="@emp.SegApellido" type="text" name="inpSegApellido" class="form-control" placeholder="Segundo apellido *" required >
+        </div>
+    </div>
+
+    <h5 class="text-white">Dirección</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@emp.Direccion" type="text" name="inpDireccion" class="form-control" placeholder="Calle y número *" required >
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpRegion" data-live-search="true" data-width="100%" required >
+                    <option value="" selected>Seleccione una región *</option>
+                    @foreach (Region reg in ViewBag.ComboRegion)
+                    {
+                        if (emp.idREG == reg.IdReg)
+                        {
+                            <option value="@reg.IdReg" selected>@reg.NomRegion</option>
+                        }
+                        else
+                        {
+                            <option value="@reg.IdReg">@reg.NomRegion</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpProvincia" data-live-search="true" data-width="100%" required >
+                    <option value="" selected>Seleccione una provincia *</option>
+                    @foreach (Provincia prov in ViewBag.ComboProv)
+                    {
+                        if (emp.idPRO == prov.IdProv)
+                        {
+                            <option value="@prov.IdProv" selected>@prov.NomProvincia</option>
+                        }
+                        else
+                        {
+                            <option value="@prov.IdProv">@prov.NomProvincia</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpComuna" data-live-search="true" data-width="100%" required >
+                    <option value="" selected>Seleccione una comuna *</option>
+                    @foreach (Comuna cmn in ViewBag.ComboCmn)
+                    {
+                        if (emp.idCMN == cmn.IdCmn)
+                        {
+                            <option value="@cmn.IdCmn" selected>@cmn.NomComuna</option>
+                        }
+                        else
+                        {
+                            <option value="@cmn.IdCmn">@cmn.NomComuna</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-white">Contactos</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@emp.Telefono" type="text" id="inpCelular" name="inpCelular" class="form-control" placeholder="Número de celular - (+56912341234) *" required >
+        </div>
+
+        <div class="col mb-3">
+            <input value="@emp.Correo" type="email" name="inpCorreo" class="form-control" placeholder="Correo *" aria-label="email" required >
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function validaUpdate() {
+        let val = confirm("¿Estás seguro de guardar?");
+
+        return val;
+    }
+</script>
+
+
+

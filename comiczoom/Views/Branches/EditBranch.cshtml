@@ -1,0 +1,114 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Editar Sucursal";
+    Branches res = new Branches();
+    Branches bra = res.ObtenerSucursal(ViewBag.IdSucursal)[0];
+}
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("BranchesList", "Branches")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">EDITANDO A&nbsp;</b>&nbsp; @bra.IdSUC - @bra.Sucursal</h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<form method="post" action="/Branches/UpdateBranch" class="container-fluid" id="formulario" @*onsubmit="return validaForm(this)"*@>
+    <h5 class="text-white">Datos generales</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <input value="@bra.Sucursal" type="text" name="inpNombre" class="form-control" placeholder="Nombre sucursal *" required>
+        </div>
+    </div>
+
+    <h5 class="text-white">Dirección</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@bra.IdSUC" type="text" name="inpId" class="form-control d-none">
+
+            <input value="@bra.Direccion" type="text" name="inpDireccion" class="form-control" placeholder="Calle y número *" aria-label="First name" required>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpRegion" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una región *</option>
+                    @foreach (Region reg in ViewBag.ComboRegion)
+                    {
+                        if (bra.idREG == reg.IdReg)
+                        {
+                            <option value="@reg.IdReg" selected>@reg.NomRegion</option>
+                        }
+                        else
+                        {
+                            <option value="@reg.IdReg">@reg.NomRegion</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpProvincia" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una provincia *</option>
+                    @foreach (Provincia prov in ViewBag.ComboProv)
+                    {
+                        if (bra.idPRO == prov.IdProv)
+                        {
+                            <option value="@prov.IdProv" selected>@prov.NomProvincia</option>
+                        }
+                        else
+                        {
+                            <option value="@prov.IdProv">@prov.NomProvincia</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpComuna" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una comuna *</option>
+                    @foreach (Comuna cmn in ViewBag.ComboCmn)
+                    {
+                        if (bra.idCMN == cmn.IdCmn)
+                        {
+                            <option value="@cmn.IdCmn" selected>@cmn.NomComuna</option>
+                        }
+                        else
+                        {
+                            <option value="@cmn.IdCmn">@cmn.NomComuna</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>

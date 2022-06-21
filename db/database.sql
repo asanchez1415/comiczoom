@@ -174,7 +174,6 @@ CREATE TABLE DETALLE_RECEPCION_TIRAJE
 );
 ---------------------
 
-  
 -- TABLA CLIENTE --
 CREATE TABLE CLIENTE
 (
@@ -215,16 +214,17 @@ CREATE TABLE VENTA
 CREATE TABLE PROVEEDOR
   (
   id int not null identity(1,1) primary key,
+  rut varchar(12) not null,
   idRUB int not null,
-  idSUC int not null,
   idREG int not null,
   idPRO int not null,
   idCMN int not null,
   nombre varchar(30) not null,
   fechaCreacion date not null,
   direccion varchar(30),
+  telefono varchar(20) not null,
+  correo varchar(100) not null,
   constraint FK_PROVEEDOR_RUBRO foreign key (idRUB) references RUBRO(id),
-  constraint FK_PROVEEDOR_SUCURSAL foreign key (idSUC) references SUCURSAL(id),
   constraint FK_PROVEEDOR_REGION foreign key (idREG) references REGION(id),
   constraint FK_PROVEEDOR_PROVINCIA foreign key (idPRO) references PROVINCIA(id),
   constraint FK_PROVEEDOR_COMUNA foreign key (idCMN) references COMUNA(id)
