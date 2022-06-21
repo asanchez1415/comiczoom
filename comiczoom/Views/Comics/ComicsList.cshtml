@@ -1,25 +1,35 @@
 ﻿@using prueba.Models;
 @{
-    ViewBag.Title = "ComicsList";
+    ViewBag.Title = "Comics";
 }
 
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+<script src="~/Src/Js/Resources/ValRut.js"></script>
+<script src="~/Src/Js/Validations/EmployeeList.js"></script>
 
 <div class="container">
+    <div class="alert alert-danger @ViewBag.ErrorInsertComic" role="alert">
+        A simple danger alert—check it out!
+    </div>
+
     <div class="d-flex justify-content-between mt-5">
-        <h2 class="text-white">Lista de empleados</h2>
-        <button class="btn btn-success">CREAR EMPLEADO</button>
+        <h2 class="text-white">Lista de comics</h2>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            CREAR COMIC
+        </button>
     </div>
     <hr class="text-white" />
 
-    <form method="post" action="/Employees/EmployeeList" class="row">
+    <form method="post" action="/Comics/ComicsList" class="row">
         <div class="col-sm-3 mb-4">
             <div class="form-group">
-                <label for="exampleFormControlInput1" class="form-label text-white">RUT</label>
-                <select onchange="alertaFiltros()" class="selectpicker" id="rut" name="Rut" data-live-search="true" data-width="100%">
-                    <option value="" selected>Seleccione un rut</option>
-                    @foreach (string rut in ViewBag.ComboRut)
+                <label for="exampleFormControlInput1" class="form-label text-white">CATEGORIA</label>
+                <select onchange="alertaFiltros()" class="selectpicker" id="categoria" name="Categoria" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione una categoria</option>
+                    @foreach (string categoria in ViewBag.ComboCategoria)
                     {
-                        <option value="@rut">@rut</option>
+                        <option value="@categoria">@categoria</option>
                     }
                 </select>
             </div>
@@ -27,24 +37,13 @@
 
         <div class="col-sm-3 mb-4">
             <div class="form-group">
-                <label for="exampleFormControlInput1" class="form-label text-white">NOMBRE</label>
-                <select onchange="alertaFiltros()" class="selectpicker" id="nombre" name="Nombre" data-live-search="true" data-width="100%">
-                    <option value="" selected>Seleccione un nombre</option>
-                    @foreach (string nombre in ViewBag.ComboNombre)
+                <label for="exampleFormControlInput1" class="form-label text-white">ESTADO</label>
+                <select class="selectpicker" id="estado" name="Estado" data-width="100%">
+                    <option value="" selected>Seleccione un estado</option>
+                    @foreach (string estado in ViewBag.ComboEstado)
                     {
-                        <option value="@nombre">@nombre</option>
+                        <option value="@estado">@estado</option>
                     }
-                </select>
-            </div>
-        </div>
-
-        <div class="col-sm-3 mb-4">
-            <div class="form-group">
-                <label for="exampleFormControlInput1" class="form-label text-white">CARGO</label>
-                <select class="selectpicker" name="Cargo" data-width="100%">
-                    <option disabled selected>Seleccione un cargo</option>
-                    <option>Administrador</option>
-                    <option>Vendedor</option>
                 </select>
             </div>
         </div>
@@ -62,42 +61,34 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">RUT</th>
                 <th scope="col">NOMBRE</th>
-                <th scope="col">DIRECCIÓN</th>
-                <th scope="col">TELÉFONO</th>
-                <th scope="col">CARGO</th>
-                <th scope="col">EDITAR</th>
+                <th scope="col">VOLUMEN</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">CATEGORIA</th>
+                <th scope="col">FECHA DE CREACION</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (Employee Emp in ViewBag.Empleados)
+            @foreach (Comic Com in ViewBag.Comics)
             {
                 <tr>
-                    <th scope="row">@Emp.Id</th>
-                    <td>@Emp.Rut</td>
-                    <td>@Emp.Nombre @Emp.Apellido @Emp.SegApellido</td>
-                    <td>@Emp.Direccion, @Emp.CMN, @Emp.PRO, @Emp.REG</td>
-                    <td>+@Emp.Telefono</td>
-                    <td>@Emp.TipoEmp</td>
-                    <td><i class="bi bi-pen-fill text-primary"></i></td>
+                    <th scope="row">@Com.Id</th>
+                    <td>@Com.Nombre</td>
+                    <td>@Com.Volumen</td>
+                    <td>@Com.Estado</td>
+                    <td>@Com.Isbn</td>
+                    <td>@Com.Categoria</td>
+                    <td>@Com.fechaCreacion.Date</td>
+                    <td>
+                        <button class="btn" onclick="showModal('editModal')">
+                            <i class="bi bi-pencil-square text-primary h4"></i>
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 
-<script>
-    function alertaFiltros() {
-        let selectRut = document.getElementById("rut").value;
-        let selectNombre = document.getElementById("nombre").value;
-
-        console.log(selectRut);
-        console.log(selectNombre);
-
-        if (selectRut != "" && selectNombre != "") {
-            alert("No buscar a la vez por Rut o Nombre, ya que posiblemente no encontrará coincidencias");
-        }
-    }
-</script>
 
