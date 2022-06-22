@@ -16,3 +16,5 @@ string connectionString()
 si es necesario, personalizar según tu equipo.
 
 5. Ejecutar :)
+
+*Borrar .vs y carpeta obj dentro del proyecto*      
