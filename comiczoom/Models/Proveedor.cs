@@ -166,5 +166,33 @@ namespace prueba.Models
 
             connection.Close();
         }
+
+        private List<Proveedor> ListComboPro { get; set; } = new List<Proveedor>();
+        public List<Proveedor> ComboPro()
+        {
+            ListComboPro = new List<Proveedor>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT id, nombre FROM PROVEEDOR;",
+                connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new Proveedor()
+                {
+                    Id = (int)registros["id"],
+                    Nombre = registros["nombre"].ToString(),
+                };
+
+                ListComboPro.Add(registro);
+            }
+            connection.Close();
+
+            return ListComboPro;
+        }
     }
 }
