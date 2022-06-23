@@ -18,7 +18,7 @@ namespace prueba.Controllers
         {
             string _categoria = formCollection["Categoria"];
             string _estado = formCollection["Estado"];
-           
+            
 
             ViewBag.Comics = com.ListarComics(_estado, _categoria);
             ViewBag.ComboCategoria = com.ComboCategoria();

@@ -31,9 +31,28 @@ namespace prueba.Models
             SqlDataReader registros = null;
             connection.Open();
 
+            string numEstado = pEstado;
+            if(!(pEstado == null))
+            {
+ 
+                if (pEstado.Equals("En Desarrollo"))
+                {
+                    numEstado = "0";
+                }
+                else if (pEstado.Equals("En Venta"))
+                {
+                    numEstado = "1";
+                }
+                else
+                {
+                    numEstado = "2";
+                }
+            }
+            
+
             SqlCommand querySel = new SqlCommand($@"SELECT COM.id, COM.nombre, COM.volumen, COM.estado, COM.isbn, COM.categoria, COM.fechacreacion
                 FROM COMIC as COM
-                WHERE COM.estado like '%{pEstado}%' AND
+                WHERE COM.estado like '%{numEstado}%' AND
                 COM.categoria like '%{pCategoria}%'
                 ORDER BY COM.id Asc;", connection.connectDb);
             registros = querySel.ExecuteReader();
