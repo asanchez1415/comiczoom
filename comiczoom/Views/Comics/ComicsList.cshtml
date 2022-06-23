@@ -5,8 +5,6 @@
 
 <link href="~/Src/Css/Lists.css" rel="stylesheet" />
 
-<script src="~/Src/Js/Resources/ValRut.js"></script>
-<script src="~/Src/Js/Validations/EmployeeList.js"></script>
 
 <div class="container">
     <div class="alert alert-danger @ViewBag.ErrorInsertComic" role="alert">
@@ -15,9 +13,9 @@
 
     <div class="d-flex justify-content-between mt-5">
         <h2 class="text-white">Lista de comics</h2>
-        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <a href="@Url.Action("CreateComic","Comics")" class="btn btn-success d-flex align-items-center" role="button">
             CREAR COMIC
-        </button>
+        </a>
     </div>
     <hr class="text-white" />
 

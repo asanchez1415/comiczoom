@@ -26,5 +26,50 @@ namespace prueba.Controllers
             ViewBag.ErrorInsertComic = "d-none";
             return View();
         }
+
+        [Permissions.PermissionsRol(Rol.Administrador)]
+        public ActionResult CreateComic()
+        {
+            ViewBag.NombreUsuario = Session["Nombres"];
+
+            // Combobox
+            ViewBag.ComboCategoria = com.ComboCategoria();
+            ViewBag.ComboEstado = com.ComboEstado();
+
+            return View();
+        }
+
+        [Permissions.PermissionsRol(Rol.Administrador)]
+        public ActionResult InsertComic(FormCollection formCollection)
+        {
+            int numEstado;
+            if (formCollection["inpEstado"].Equals("En Desarrollo"))
+            {
+                numEstado = 0;
+            }
+            else if (formCollection["inpEstado"].Equals("En Venta"))
+            {
+                numEstado = 1;
+            }
+            else
+            {
+                numEstado = 2;
+            }
+
+            var comic = new Comic()
+            {
+                Nombre = formCollection["inpNombre"],
+                Volumen = Convert.ToInt32(formCollection["inpVolumen"]),
+                Estado = formCollection["inpEstado"],
+                intEstado = numEstado,
+                Isbn = formCollection["inpIsbn"],
+                Categoria = formCollection["inpCategoria"],
+                fechaCreacion = DateTime.Now.Date
+            };
+
+            com.InsertarComic(comic);
+
+            return RedirectToAction("ComicsList", "Comics");
+        }
     }
 }

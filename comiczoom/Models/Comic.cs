@@ -149,7 +149,7 @@ namespace prueba.Models
             connection.Open();
 
             string cad = $@"INSERT INTO COMIC(nombre, volumen, estado, isbn, categoria, fechaCreacion) VALUES
-            ({pCom.Nombre}, {pCom.Volumen}, {pCom.Estado}, {pCom.Isbn}, {pCom.Categoria}, {pCom.fechaCreacion})";
+            ('{pCom.Nombre}', {pCom.Volumen}, {pCom.intEstado}, '{pCom.Isbn}', '{pCom.Categoria}', '{pCom.fechaCreacion.ToString("yyyy-MM-dd")}')";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
             queryInsert.ExecuteNonQuery();
