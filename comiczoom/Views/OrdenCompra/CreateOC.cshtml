@@ -1,0 +1,142 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Crear orden de compra";
+}
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("OCList", "OrdenCompra")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-white">CREAR ORDEN DE COMPRA</b></h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<form method="post" action="/OrdenCompra/InsertOc" class="container-fluid" id="formulario" @*onsubmit="return validaForm(this)"*@>
+    <h5 class="text-white">Datos generales</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <h5 class="text-white">Proveedor</h5>
+            <hr class="bg-white" />
+            <div class="form-group">
+                <select class="selectpicker" name="inpProv" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione un proveedor *</option>
+                    @foreach (Proveedor p in ViewBag.ComboProv)
+                    {
+                        <option value="@p.Id">@p.Nombre</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-4">
+            <h5 class="text-white">Sucursal</h5>
+            <hr class="bg-white" />
+            <div class="form-group">
+                <select class="selectpicker" name="inpSuc" data-width="100%" required>
+                    <option value="" selected>Seleccione una sucursal *</option>
+                    @foreach (Branches br in ViewBag.ComboSuc)
+                    {
+                        <option value="@br.IdSUC">@br.Sucursal</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <input type="hidden" id="contador" name="contador" value="1" />
+    </div>
+
+    <div class="container" id="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <h5 class="text-white">Insumo</h5>
+            </div>
+            <div class="col-md-3">
+                <h5 class="text-white">Cantidad</h5>
+            </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <hr class="bg-white" />
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center" id="fila">
+            <div class="col-md-4 mb-4" id="colizq">
+                <div class="form-group" id="formgroup">
+                    <select class="form-select" name="1" required>
+                        @foreach (Branches br in ViewBag.ComboSuc)
+                        {
+                            <option value="@br.IdSUC">@br.Sucursal</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4" id="colder">
+                <input type="text" name="cant1" id="cant1" class="form-control" placeholder="Cantidad *" aria-label="First name" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-3">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <button type="button" class="btn btn-warning w-100" onclick="cloneSec()"><b>+</b></button>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+
+<script>
+    var contador = 2;
+    function cloneSec() {
+
+        let div = `<div class="row d-flex justify-content-center" id="fila">
+                    <div class="col-md-4 mb-4" id="colizq">
+                        <div class="form-group" id="formgroup1">
+                            <select class="form-select" name="${contador}" id="ins${contador}" required>
+                                @foreach (Branches br in ViewBag.ComboSuc)
+                                 {
+                                    <option value="@br.IdSUC">@br.Sucursal</option>
+                                 }
+                            </select>
+                        </div>
+                    </div>
+                   <div class="col-md-3 mb-4" id="colder">
+                        <input type="text" name="cant${contador}" id="cant${contador}" class="form-control" placeholder="Cantidad *"required>
+                    </div>
+                    </div>`;
+
+        let container = document.getElementById('container').innerHTML += div;
+
+        let cont = document.getElementById("contador").value = contador;
+
+        console.log(contador);
+        contador++;
+    }
+</script>
+

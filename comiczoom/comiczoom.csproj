@@ -145,6 +145,7 @@
     <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\OrdenesCompra\DetalleOC.cs" />
     <Compile Include="Models\OrdenesCompra\OrdenesCompra.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Provincia.cs" />
@@ -254,6 +255,7 @@
     <Content Include="Views\Branches\CreateBranch.cshtml" />
     <Content Include="Views\Branches\EditBranch.cshtml" />
     <Content Include="Views\OrdenCompra\OCList.cshtml" />
+    <Content Include="Views\OrdenCompra\CreateOC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
