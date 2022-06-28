@@ -48,8 +48,8 @@ namespace prueba.Controllers.OC
         {
             int contador = Convert.ToInt32(formCollection["contador"]);
 
-            string _prov = formCollection["inpProv"];
-            string _suc = formCollection["inpSuc"];
+            int _suc = Convert.ToInt32(formCollection["inpSuc"]);
+            int _prov = Convert.ToInt32(formCollection["inpProv"]);
 
             List<string> insumo = new List<string>();
             List<string> cantidad = new List<string>();
@@ -61,6 +61,9 @@ namespace prueba.Controllers.OC
                 insumo.Add(ins);
                 cantidad.Add(cant);
             }
+
+            //
+            oc.InsertarOC(_suc, _prov);
 
             return View();
         }

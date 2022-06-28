@@ -68,13 +68,13 @@ namespace prueba.Models.OrdenesCompra
             return ListOC;
         }
 
-        public void InsertarOC(OrdenesCompra oc)
+        public void InsertarOC(int pIdSuc, int pIdProv)
         {
             ConnectionDB connection = new ConnectionDB();
             connection.Open();
 
             string cad = $@"INSERT INTO ORDEN_COMPRA (idSUC, idPRV, estado, fechaHora)
-                         VALUES ({oc.IdSUC}, {oc.IdProv}, 0, {DateTime.Now})";
+                         VALUES ({pIdSuc}, {pIdProv}, 0, {DateTime.Now})";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
             queryInsert.ExecuteNonQuery();

@@ -66,6 +66,7 @@ namespace prueba.Models
 
             connection.Close();
         }
+
         public List<Insumos> ObtenerInsumo(string pId)
         {
             int id = Convert.ToInt32(pId);
