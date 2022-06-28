@@ -1,0 +1,85 @@
+﻿@using prueba.Models
+@{
+    ViewBag.Title = "Editar Insumo";
+    Insumos res = new Insumos();
+    Insumos ins = res.ObtenerInsumo(ViewBag.ListIns)[0];
+}
+
+<link href="~/Src/Css/Edits.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("SuppliesList", "Supplies")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-6 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">EDITANDO INSUMO&nbsp;</b>&nbsp; @ins.Id - @ins.Nombre</h3>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<form method="post" action="/Supplies/UpdateSupply" class="container-fluid" id="formulario" onsubmit="return validaUpdate();">
+    <h5 class="text-white">Datos</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <input value="@ins.Id" type="text" name="inpId" class="form-control d-none">
+        <div class="col mb-3">
+            <h5 class="text-white">Rubro</h5>
+            <div class="form-group">
+                <select class="selectpicker" name="inpIdRUB" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione un rubro *</option>
+                    @foreach (Rubros rub in ViewBag.ComboRub)
+                    {
+                        if (ins.IdRUB == rub.IdRUB)
+                        {
+                            <option value="@rub.IdRUB" selected>@rub.Rubro</option>
+                        }
+                        else
+                        {
+                            <option value="@rub.IdRUB">@rub.Rubro</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <h5 class="text-white">Nombre</h5>
+            <input value="@ins.Nombre" type="text" id="inpNombre" name="inpNombre" class="form-control" placeholder="Nombre *" required>
+        </div>
+
+
+        <div class="row">
+            <div class="col mb-3">
+                <h5 class="text-white">Descripción</h5>
+                <hr class="bg-white" />
+                <textarea type="text" id="inpDescripcion" name="inpDescripcion" class="form-control" placeholder="Descripción *" required>@ins.Descripcion</textarea>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    function validaUpdate() {
+        let val = confirm("¿Estás seguro de guardar?");
+
+        return val;
+    }
+</script>

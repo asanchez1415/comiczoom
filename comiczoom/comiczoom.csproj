@@ -135,6 +135,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
+    <Compile Include="Controllers\SuppliesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -144,6 +145,7 @@
     <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Insumos.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Region.cs" />
@@ -251,6 +253,9 @@
     <Content Include="Views\Branches\BranchesList.cshtml" />
     <Content Include="Views\Branches\CreateBranch.cshtml" />
     <Content Include="Views\Branches\EditBranch.cshtml" />
+    <Content Include="Views\Supplies\SuppliesList.cshtml" />
+    <Content Include="Views\Supplies\CreateSupplies.cshtml" />
+    <Content Include="Views\Supplies\EditSupply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

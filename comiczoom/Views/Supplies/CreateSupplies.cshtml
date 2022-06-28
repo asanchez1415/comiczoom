@@ -1,0 +1,70 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Insertar Insumos";
+}
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("SuppliesList", "Supplies")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-white">INSERTAR INSUMO</b></h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<form method="post" action="/Supplies/InsertSupplies" class="container-fluid" id="formulario" @*onsubmit="return validaForm(this)"*@>
+    <h5 class="text-white">Datos</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+
+        <div class="col mb-3">
+            <h5 class="text-white">Nombre</h5>
+            <hr class="bg-white" />
+            <input type="text" name="inpNombre" class="form-control" placeholder="Nombre insumo *" required>
+        </div>
+
+        <div class="col mb-3">
+            <h5 class="text-white">Rubro</h5>
+            <hr class="bg-white" />
+            <div class="form-group">
+                <select class="selectpicker" name="inpIdRUB" data-width="100%" required>
+                    <option value="" selected>Seleccione un rubro *</option>
+                    @foreach (Rubros rub in ViewBag.ComboRub)
+                    {
+                        <option value="@rub.IdRUB">@rub.Rubro</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-white">Descripción  </h5>
+    <hr class="bg-white" />
+    <div class="row">
+        <div class="mb-3">
+            <textarea class="form-control" name="inpDescripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+

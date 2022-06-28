@@ -1,0 +1,74 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Insumos";
+}
+
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-between mt-5">
+        <h2 class="text-white">Lista de insumos</h2>
+        <a href="@Url.Action("CreateSupplies","Supplies")" class="btn btn-success d-flex align-items-center" role="button">
+            INSERTAR INSUMOS
+        </a>
+    </div>
+
+    <hr class="text-white" />
+
+    <form method="post" action="/Supplies/SuppliesList" class="row">
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">RUBRO</label>
+                <select class="selectpicker" id="rubro" name="rubro" data-width="100%">
+                    <option value="" selected>Seleccione un rubro</option>
+                    @foreach (Rubros Rub in ViewBag.ComboRub)
+                    {
+                        <option value="@Rub.IdRUB">@Rub.Rubro</option>
+}
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 d-flex align-items-end mb-4">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Filtrar según parámetros</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">RUBRO</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">DESCRIPCIÓN</th>
+                <th scope="col">EDITAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Insumos ins in ViewBag.ListIns)
+            {
+                <tr>
+                    <th scope="row">@ins.Id</th>
+                    <td>@ins.RUB</td>
+                    <td>@ins.Nombre</td>
+                    <td>@ins.Descripcion</td>
+                    
+                    <td>
+                        <a href="@Url.Content("/Supplies/EditSupply?id=" + ins.Id)">
+                            <i class="bi bi-pencil-square text-primary h4"></i>
+                        </a>
+                    </td>
+            </tr>
+            }
+             
+        </tbody>
+    </table>
+</div>
+
