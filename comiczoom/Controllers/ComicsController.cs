@@ -16,14 +16,13 @@ namespace prueba.Controllers
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult ComicsList(FormCollection formCollection)
         {
+            ViewBag.NombreUsuario = Session["Nombres"];
+
             string _categoria = formCollection["Categoria"];
             string _estado = formCollection["Estado"];
             
-
             ViewBag.Comics = com.ListarComics(_estado, _categoria);
             ViewBag.ComboCategoria = com.ComboCategoria();
-            ViewBag.ComboEstado = com.ComboEstado();
-            ViewBag.ErrorInsertComic = "d-none";
             return View();
         }
 
@@ -34,7 +33,6 @@ namespace prueba.Controllers
 
             // Combobox
             ViewBag.ComboCategoria = com.ComboCategoria();
-            ViewBag.ComboEstado = com.ComboEstado();
 
             return View();
         }
@@ -42,6 +40,7 @@ namespace prueba.Controllers
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult InsertComic(FormCollection formCollection)
         {
+
             int numEstado;
             if (formCollection["inpEstado"].Equals("En Desarrollo"))
             {
@@ -83,7 +82,6 @@ namespace prueba.Controllers
 
             // Combobox
             ViewBag.ComboCategoria = com.ComboCategoria();
-            ViewBag.ComboEstado = com.ComboEstado();
 
             return View();
         }

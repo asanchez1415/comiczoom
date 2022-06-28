@@ -20,10 +20,8 @@ namespace prueba.Models
 
         private List<Comic> ListComics { get; set; } = new List<Comic>();
         private List<string> ListComboCategoria { get; set; } = new List<string>();
-        private List<string> ListComboEstado { get; set; } = new List<string>();
 
         //Obtener Lista de Comics
-
         public List<Comic> ListarComics(string pEstado, string pCategoria)
         {
             ListComics = new List<Comic>();
@@ -31,30 +29,31 @@ namespace prueba.Models
             SqlDataReader registros = null;
             connection.Open();
 
-            string numEstado = pEstado;
-            if(!(pEstado == null))
+            string numEstado;
+            if (pEstado == "En Desarrollo")
             {
- 
-                if (pEstado.Equals("En Desarrollo"))
-                {
-                    numEstado = "0";
-                }
-                else if (pEstado.Equals("En Venta"))
-                {
-                    numEstado = "1";
-                }
-                else
-                {
-                    numEstado = "2";
-                }
+                numEstado = "0";
+            }
+            else if (pEstado == "En Venta")
+            {
+                numEstado = "1";
+            }
+            else if (pEstado == "Descontinuado")
+            {
+                numEstado = "2";
+            }
+            else
+            {
+                numEstado = null;
             }
             
-
             SqlCommand querySel = new SqlCommand($@"SELECT COM.id, COM.nombre, COM.volumen, COM.estado, COM.isbn, COM.categoria, COM.fechacreacion
                 FROM COMIC as COM
                 WHERE COM.estado like '%{numEstado}%' AND
                 COM.categoria like '%{pCategoria}%'
+                COLLATE Latin1_general_CI_AI
                 ORDER BY COM.id Asc;", connection.connectDb);
+
             registros = querySel.ExecuteReader();
 
             while (registros.Read())
@@ -85,43 +84,12 @@ namespace prueba.Models
                 };
 
                 ListComics.Add(registro);
-             }
+            }
             connection.Close();
 
             return ListComics;
         }
-        public List<string> ComboEstado()
-        {
-            ListComboEstado = new List<string>();
 
-            ConnectionDB connection = new ConnectionDB();
-            SqlDataReader registros = null;
-            connection.Open();
-
-            SqlCommand querySel = new SqlCommand($@"SELECT DISTINCT COM.estado FROM COMIC as COM
-                ORDER BY COM.estado Asc;", connection.connectDb);
-
-            registros = querySel.ExecuteReader();
-
-            while (registros.Read())
-             {
-                if ((int)registros["estado"] == 0)
-                {
-                    ListComboEstado.Add("En Desarrollo");
-                }
-                else if ((int)registros["estado"] == 1)
-                {
-                    ListComboEstado.Add("En Venta");
-                }
-                else
-                {
-                    ListComboEstado.Add("Descontinuado");
-                }
-             }
-            connection.Close();
-
-            return ListComboEstado;
-        }
         public List<string> ComboCategoria()
         {
             ListComboCategoria = new List<string>();

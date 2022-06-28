@@ -1,16 +1,17 @@
 ﻿@using prueba.Models;
 @{
     ViewBag.Title = "Comics";
+
+    List<string> listaEstados = new List<string>();
+    listaEstados.Add("En Desarrollo");
+    listaEstados.Add("En Venta");
+    listaEstados.Add("Descontinuado");
 }
 
 <link href="~/Src/Css/Lists.css" rel="stylesheet" />
 
 
 <div class="container">
-    <div class="alert alert-danger @ViewBag.ErrorInsertComic" role="alert">
-        A simple danger alert—check it out!
-    </div>
-
     <div class="d-flex justify-content-between mt-5">
         <h2 class="text-white">Lista de comics</h2>
         <a href="@Url.Action("CreateComic","Comics")" class="btn btn-success d-flex align-items-center" role="button">
@@ -38,7 +39,7 @@
                 <label for="exampleFormControlInput1" class="form-label text-white">ESTADO</label>
                 <select class="selectpicker" id="estado" name="Estado" data-width="100%">
                     <option value="" selected>Seleccione un estado</option>
-                    @foreach (string estado in ViewBag.ComboEstado)
+                    @foreach (string estado in listaEstados)
                     {
                         <option value="@estado">@estado</option>
                     }
@@ -65,6 +66,7 @@
                 <th scope="col">ISBN</th>
                 <th scope="col">CATEGORIA</th>
                 <th scope="col">FECHA DE CREACION</th>
+                <th scope="col">EDITAR</th>
             </tr>
         </thead>
         <tbody>

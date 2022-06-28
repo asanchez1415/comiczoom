@@ -1,6 +1,11 @@
 ﻿@using prueba.Models;
 @{
     ViewBag.Title = "CreateComic";
+
+    List<string> listaEstados = new List<string>();
+    listaEstados.Add("En Desarrollo");
+    listaEstados.Add("En Venta");
+    listaEstados.Add("Descontinuado");
 }
 
 
@@ -60,7 +65,7 @@
             <div class="form-group">
                 <select class="selectpicker" name="inpEstado" data-width="100%" required>
                     <option value="" selected>Seleccione un estado *</option>
-                    @foreach (string estado in ViewBag.ComboEstado)
+                    @foreach (string estado in listaEstados)
                     {
                         <option value="@estado">@estado</option>
                     }

@@ -3,6 +3,11 @@
     ViewBag.Title = "Editar comic";
     Comic res = new Comic();
     Comic com = res.ObtenerComic(ViewBag.Comics)[0];
+
+    List<string> listaEstados = new List<string>();
+    listaEstados.Add("En Desarrollo");
+    listaEstados.Add("En Venta");
+    listaEstados.Add("Descontinuado");
 }
 
 <link href="~/Src/Css/Edits.css" rel="stylesheet" />
@@ -15,7 +20,7 @@
             </a>
         </div>
 
-        <div class="col-md-4 d-flex justify-content-end">
+        <div class="col-md-9 d-flex justify-content-end">
             <h3 class="text-white"><b class="text-primary">EDITANDO A&nbsp;</b>&nbsp; @com.Id - @com.Nombre</h3>
         </div>
     </div>
@@ -71,7 +76,7 @@
             <div class="form-group">
                 <select class="selectpicker" name="inpEstado" data-width="100%" required>
                     <option value="" selected>Seleccione un estado *</option>
-                    @foreach (string estado in ViewBag.ComboEstado)
+                    @foreach (string estado in listaEstados)
                     {
                         if (estado == com.Estado)
                         {
