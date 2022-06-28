@@ -42,6 +42,21 @@ namespace prueba.Controllers
         }
 
         [Permissions.PermissionsRol(Rol.Administrador)]
+        public ActionResult CreateEmployee()
+        {
+            ViewBag.NombreUsuario = Session["Nombres"];
+
+            // Combobox
+            ViewBag.ComboSucursal = com.ComboSucursal();
+            ViewBag.ComboRegion = reg.ComboReg();
+            ViewBag.ComboProv = prov.ComboProv();
+            ViewBag.ComboCmn = cmn.ComboCmn();
+            ViewBag.ComboTE = te.ComboTE();
+
+            return View();
+        }
+
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult InsertEmployee(FormCollection formCollection)
         {
             var empleado = new Employee()
@@ -108,21 +123,6 @@ namespace prueba.Controllers
             emp.ActualizarEmpleado(empleado);
 
             Response.Redirect("/Employees/EditEmployee?id=" + empleado.Id);
-        }
-
-        [Permissions.PermissionsRol(Rol.Administrador)]
-        public ActionResult CreateEmployee()
-        {
-            ViewBag.NombreUsuario = Session["Nombres"];
-
-            // Combobox
-            ViewBag.ComboSucursal = com.ComboSucursal();
-            ViewBag.ComboRegion = reg.ComboReg();
-            ViewBag.ComboProv = prov.ComboProv();
-            ViewBag.ComboCmn = cmn.ComboCmn();
-            ViewBag.ComboTE = te.ComboTE();
-
-            return View();
         }
     }
 }

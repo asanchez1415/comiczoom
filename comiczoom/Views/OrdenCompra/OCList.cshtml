@@ -1,0 +1,144 @@
+﻿@using prueba.Models;
+@using prueba.Models.OrdenesCompra;
+@{
+    ViewBag.Title = "Ordenes de compra";
+}
+
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-between mt-5">
+        <h2 class="text-white">Lista ordenes de compra</h2>
+        <a href="@Url.Action("CreateOc","OrdenCompra")" class="btn btn-success d-flex align-items-center" role="button">
+            CREAR ORDEN DE COMPRA
+        </a>
+    </div>
+    <hr class="text-white" />
+
+    <form method="post" action="/OrdenCompra/OCList" class="row">
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">PROVEEDOR</label>
+                <select onchange="alertaFiltros()" class="selectpicker" id="rut" name="Proveedor" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione un proveedor</option>
+                    @foreach (Proveedor pro in ViewBag.ComboProv)
+                    {
+                        <option value="@pro.Id">@pro.Nombre</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">SUCURSAL</label>
+                <select onchange="alertaFiltros()" class="selectpicker" id="rut" name="Sucursal" data-width="100%">
+                    <option value="" selected>Seleccione una sucursal</option>
+                    @foreach (Branches br in ViewBag.ComboSuc)
+                    {
+                        <option value="@br.IdSUC">@br.Sucursal</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-2 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">FECHA</label>
+                <input type="date" class="form-control" name="Fecha" value="" />
+            </div>
+        </div>
+
+        <div class="col-sm-2 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">ESTADO</label>
+                <select onchange="alertaFiltros()" class="selectpicker" id="Estado" name="Estado" data-width="100%">
+                    <option value="" selected>Seleccione un estado</option>
+                    <option value="0" >Sin recepciones</option>
+                    <option value="1" >En recepción</option>
+                    <option value="2" >Recepcionado</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col d-flex align-items-end mb-4">
+            <div class="d-grid gap-2 w-100">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">PROVEEDOR</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">HORA</th>
+                <th scope="col">SUCURSAL</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">PRECIO TOTAL</th>
+                <th colspan="2">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (OrdenesCompra Oc in ViewBag.OCS)
+            {
+
+                string[] eEstado = new string[3];
+
+                if (Oc.NumEstado == "0")
+                {
+                    eEstado[0] = "Sin recepciones";
+                    eEstado[1] = "text-danger";
+                }
+                else if (Oc.NumEstado == "1")
+                {
+                    eEstado[0] = "En recepción";
+                    eEstado[1] = "text-primary";
+                }
+                else
+                {
+                    eEstado[0] = "Recepcionado";
+                    eEstado[1] = "text-success";
+                }
+
+                <tr>
+                    <th scope="row">@Oc.Id</th>
+                    <td>@Oc.Proveedor</td>
+                    <td>@Oc.FechaHora.ToString("dd/MM/yyyy")</td>
+                    <td>@Oc.FechaHora.ToString("HH:mm")</td>
+                    <td>@Oc.Sucursal</td>
+                    <td><b class="@eEstado[1]">@eEstado[0]</b></td>
+                    <td>@Oc.PrecioTotalOC</td>
+                    <td>
+                        @if (Oc.NumEstado == "0")
+                        {
+                            <a href="@Url.Content("/Employees/EditEmployee?id=" + Oc.Id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar">
+                                <i class="bi bi-x-circle-fill text-danger h4"></i>
+                            </a>
+                        }
+                    </td>
+                    <td>
+                        @if (Oc.NumEstado != "2")
+                        {
+                            <a href="@Url.Content("/Employees/EditEmployee?id=" + Oc.Id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Recepcionar">
+                                <i class="bi bi-basket-fill text-primary h4"></i>
+                            </a>
+                        }
+                        else if (Oc.NumEstado == "2")
+                        {
+                            <a href="@Url.Content("/Employees/EditEmployee?id=" + Oc.Id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver recepciones">
+                                <i class="bi bi-eye-fill text-success h4"></i>
+                            </a>
+                        }
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

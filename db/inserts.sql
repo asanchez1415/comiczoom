@@ -518,11 +518,11 @@ VALUES
 (2, 1, 25),
 (3, 1, 25);
 
-INSERT INTO VENTA(idSUC,idCLI,idEMP,fecha,hora)
+INSERT INTO VENTA(idSUC,idCLI,idEMP,fechaHora)
 VALUES
-  (1,1,1,'2021-05-13','11:30'),
-  (1,2,1,'2021-02-22','05:30'),
-  (1,2,2,'2021-03-27','10:00');
+  (1,1,1,'20210513 11:30:02 AM'),
+  (1,2,1,'20210222 05:30:02 PM'),
+  (1,2,2,'20210327 10:00:02 AM');
 
 INSERT INTO DETALLE_VENTA(idVEN,idCOM,cantidad,precioUnit,precioTotal)
 VALUES
@@ -589,10 +589,10 @@ VALUES
   (4, 3, 63, '2022-05-06', '16:45', 0),
   (4, 4, 55, '2022-05-13', '12:30', 0);
 
-INSERT INTO ORDEN_COMPRA(idSUC, idPRV, estado, fecha, hora)
+INSERT INTO ORDEN_COMPRA(idSUC, idPRV, estado, fechaHora)
 VALUES
-  (1, 2, 2, '2022-03-24', '12:30'),
-  (1, 3, 1, '2022-04-06', '14:00');
+  (1, 2, 2, '20220324 12:30:09 PM'),
+  (1, 3, 1, '20220406 14:00:20 PM');
 ---------------------------------------------------------------------------
 INSERT INTO DETALLE_OC(idINS, idOC, cantidad, precioUnit, precioTotal)
 VALUES
