@@ -202,8 +202,7 @@ CREATE TABLE VENTA
   idSUC int not null,
   idCLI int not null,
   idEMP int not null,
-  fecha date not null,
-  hora date not null,
+  fechaHora datetime not null,
   constraint FK_VENTA_SUCURSAL foreign key (idSUC) references SUCURSAL(id),
   constraint FK_VENTA_CLIENTE foreign key (idCLI) references CLIENTE(id),
   constraint FK_VENTA_EMPLEADO foreign key (idEMP) references EMPLEADO(id)
@@ -279,8 +278,7 @@ CREATE TABLE ORDEN_COMPRA
   idSUC int not null,
   idPRV int not null,
   estado int not null,
-  fecha date not null,
-  hora time not null,
+  fechaHora datetime not null,
   constraint FK_ORDEN_COMPRA_SUCURSAL foreign key (idSUC) references SUCURSAL(id),
   constraint FK_ORDEN_COMPRA_PROVEEDOR foreign key (idPRV) references PROVEEDOR(id)
   )

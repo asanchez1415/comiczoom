@@ -1,0 +1,92 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "CreateComic";
+
+    List<string> listaEstados = new List<string>();
+    listaEstados.Add("En Desarrollo");
+    listaEstados.Add("En Venta");
+    listaEstados.Add("Descontinuado");
+}
+
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("ComicsList", "Comics")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-white">CREAR COMIC</b></h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white"/>
+<br />
+
+<form method="post" action="/Comics/InsertComic" class="container-fluid" id="formulario" onsubmit="return validaForm(this)">
+    <h5 class="text-white">Datos del comic</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" id="inpNombre" name="inpNombre" class="form-control" placeholder="Nombre *" aria-label="First name" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpCategoria" data-width="100%" required>
+                    <option value="" selected>Seleccione una categoria *</option>
+                    @foreach (string categoria in ViewBag.ComboCategoria)
+                    {
+                        <option value="@categoria">@categoria</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <input type="text" id="inpVolumen" name="inpVolumen" class="form-control" placeholder="Volumen *" aria-label="First name" required>
+        </div>
+        
+    </div>
+
+
+    <h5 class="text-white">Datos de producción</h5>
+    <hr class="bg-white" />
+
+  
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpEstado" data-width="100%" required>
+                    <option value="" selected>Seleccione un estado *</option>
+                    @foreach (string estado in listaEstados)
+                    {
+                        <option value="@estado">@estado</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+            <div class="col mb-3">
+                <input type="text" name="inpIsbn" class="form-control" placeholder="ISBN" aria-label="First name">
+            </div>
+        </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
