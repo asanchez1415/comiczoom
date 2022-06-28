@@ -71,5 +71,55 @@ namespace prueba.Controllers
 
             return RedirectToAction("ComicsList", "Comics");
         }
+
+        [Permissions.PermissionsRol(Rol.Administrador)]
+        public ActionResult EditComic(FormCollection formCollection)
+        {
+            ViewBag.NombreUsuario = Session["Nombres"];
+
+            string id = Request.QueryString["id"].ToString();
+
+            ViewBag.Comics = id;
+
+            // Combobox
+            ViewBag.ComboCategoria = com.ComboCategoria();
+            ViewBag.ComboEstado = com.ComboEstado();
+
+            return View();
+        }
+
+        [Permissions.PermissionsRol(Rol.Administrador)]
+        public void UpdateComic(FormCollection formCollection)
+        {
+            int numEstado;
+            if (formCollection["inpEstado"].Equals("En Desarrollo"))
+            {
+                numEstado = 0;
+            }
+            else if (formCollection["inpEstado"].Equals("En Venta"))
+            {
+                numEstado = 1;
+            }
+            else
+            {
+                numEstado = 2;
+            }
+
+            var comic = new Comic()
+            {
+                Id = Convert.ToInt32(formCollection["inpId"]),
+                Nombre = formCollection["inpNombre"],
+                Volumen = Convert.ToInt32(formCollection["inpVolumen"]),
+                Estado = formCollection["inpEstado"],
+                intEstado = numEstado,
+                Isbn = formCollection["inpIsbn"],
+                Categoria = formCollection["inpCategoria"],
+                fechaCreacion = DateTime.Now.Date
+            };
+
+            com.ActualizarComic(comic);
+
+            Response.Redirect("/Comics/EditComic?id=" + comic.Id);
+        }
     }
 }

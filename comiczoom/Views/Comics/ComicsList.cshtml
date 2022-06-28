@@ -79,9 +79,9 @@
                     <td>@Com.Categoria</td>
                     <td>@Com.fechaCreacion.ToString("dd-MM-yyyy")</td>
                     <td>
-                        <button class="btn" onclick="showModal('editModal')">
+                        <a href="@Url.Content("/Comics/EditComic?id=" + Com.Id)">
                             <i class="bi bi-pencil-square text-primary h4"></i>
-                        </button>
+                        </a>
                     </td>
                 </tr>
             }

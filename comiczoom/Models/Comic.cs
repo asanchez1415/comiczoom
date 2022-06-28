@@ -156,5 +156,67 @@ namespace prueba.Models
 
             connection.Close();
         }
+
+        public List<Comic> ObtenerComic(string pId)
+        {
+            int id = Convert.ToInt32(pId);
+
+            ListComics = new List<Comic>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT * FROM COMIC as COM WHERE COM.id = {id};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                string tipoEstado;
+                if ((int)registros["estado"] == 0)
+                {
+                    tipoEstado = "En Desarrollo";
+                }
+                else if ((int)registros["estado"] == 1)
+                {
+                    tipoEstado = "En Venta";
+                }
+                else
+                {
+                    tipoEstado = "Descontinuado";
+                }
+
+                var registro = new Comic()
+                {
+                    Id = (int)registros["id"],
+                    Nombre = registros["nombre"].ToString(),
+                    Volumen = (int)registros["volumen"],
+                    intEstado = (int)registros["estado"],
+                    Estado = tipoEstado,
+                    Isbn = registros["isbn"].ToString(),
+                    Categoria = registros["categoria"].ToString(),
+                    fechaCreacion = (DateTime)registros["fechaCreacion"]
+
+                };
+                ListComics.Add(registro);
+            }
+            connection.Close();
+
+            return ListComics;
+        }
+
+        public void ActualizarComic(Comic pCom)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"UPDATE COMIC SET nombre = '{pCom.Nombre}', volumen = {pCom.Volumen}, estado = {pCom.intEstado}, isbn = '{pCom.Isbn}',
+            categoria = '{pCom.Categoria}' WHERE id = {pCom.Id};";
+
+            SqlCommand queryUpdate = new SqlCommand(cad, connection.connectDb);
+            queryUpdate.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
 }

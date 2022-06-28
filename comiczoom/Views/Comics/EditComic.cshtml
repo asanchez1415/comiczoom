@@ -1,0 +1,114 @@
+﻿@using prueba.Models
+@{
+    ViewBag.Title = "Editar comic";
+    Comic res = new Comic();
+    Comic com = res.ObtenerComic(ViewBag.Comics)[0];
+}
+
+<link href="~/Src/Css/Edits.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("ComicsList", "Comics")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">EDITANDO A&nbsp;</b>&nbsp; @com.Id - @com.Nombre</h3>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<form method="post" action="/Comics/UpdateComic" class="container-fluid" id="formulario" onsubmit="return validaUpdate()">
+    <h5 class="text-white">Datos del comic</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@com.Id" type="text" name="inpId" class="form-control d-none">
+
+            <input value="@com.Nombre" type="text" id="inpNombre" name="inpNombre" class="form-control" placeholder="Nombre *" aria-label="First name" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpCategoria" data-width="100%" required>
+                    <option value="" selected>Seleccione una categoria *</option>
+                    @foreach (string categoria in ViewBag.ComboCategoria)
+                    {
+                        if (categoria == com.Categoria)
+                        {
+                            <option value="@categoria" selected>@categoria</option>
+                        }
+                        else
+                        {
+                            <option value="@categoria">@categoria</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <input value="@com.Volumen" type="text" id="inpVolumen" name="inpVolumen" class="form-control" placeholder="Volumen *" aria-label="First name" required>
+        </div>
+
+    </div>
+
+
+    <h5 class="text-white">Datos de producción</h5>
+    <hr class="bg-white" />
+
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpEstado" data-width="100%" required>
+                    <option value="" selected>Seleccione un estado *</option>
+                    @foreach (string estado in ViewBag.ComboEstado)
+                    {
+                        if (estado == com.Estado)
+                        {
+                            <option value="@estado" selected>@estado</option>
+                        }
+                        else
+                        {
+                            <option value="@estado">@estado</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <input value="@com.Isbn" type="text" name="inpIsbn" class="form-control" placeholder="ISBN" aria-label="First name">
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function validaUpdate() {
+        let val = confirm("¿Estás seguro de guardar?");
+
+        return val;
+    }
+</script>
+
+
+
