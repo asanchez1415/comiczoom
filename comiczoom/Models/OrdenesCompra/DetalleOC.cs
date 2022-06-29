@@ -15,20 +15,16 @@ namespace prueba.Models.OrdenesCompra
         public decimal PrecioUnit{ get; set; }
         public decimal PrecioTotal { get; set; }
 
-        public void InsertarDetallesPorOC(int pContador, int pIdOC, string pIdINS, int pCantidad)
+        public void InsertarDetallesPorOC(int pIdOC, string pIdINS, int pCantidad, decimal pPrecioU)
         {
             ConnectionDB connection = new ConnectionDB();
             connection.Open();
 
-            Insumos ins = new Insumos();
-            Insumos insumo = ins.ObtenerInsumo(pIdINS)[0];
-
             string cad = $@"INSERT INTO DETALLE_OC (idOC, idINS,cantidad, precioUnit, precioTotal)
-                        VALUES ({pIdOC}, {pIdINS}, 10, 5000, 50000);";
+                        VALUES ({pIdOC}, {pIdINS}, {pCantidad}, {pPrecioU}, {pCantidad * pPrecioU});";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
             queryInsert.ExecuteNonQuery();
-
 
             connection.Close();
         }

@@ -68,16 +68,35 @@ namespace prueba.Models.OrdenesCompra
             return ListOC;
         }
 
-        public void InsertarOC(int pIdSuc, int pIdProv)
+        public int InsertarOC(int pIdSuc, int pIdProv)
         {
             ConnectionDB connection = new ConnectionDB();
             connection.Open();
 
             string cad = $@"INSERT INTO ORDEN_COMPRA (idSUC, idPRV, estado, fechaHora)
-                         VALUES ({pIdSuc}, {pIdProv}, 0, {DateTime.Now})";
+                         VALUES ({pIdSuc}, {pIdProv}, 0, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:dd")}')
+                         SELECT @@IDENTITY AS id;";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
-            queryInsert.ExecuteNonQuery();
+            int idIngresado = Convert.ToInt32(queryInsert.ExecuteScalar());
+
+            connection.Close();
+            return idIngresado;
+        }
+
+        public void EliminarOC(int pIdOC)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad1 = $@"DELETE FROM ORDEN_COMPRA WHERE id = {pIdOC}";
+            string cad2 = $@"DELETE FROM DETALLE_OC WHERE idOC = {pIdOC}";
+
+            SqlCommand queryDelete1 = new SqlCommand(cad1, connection.connectDb);
+            SqlCommand queryDelete2 = new SqlCommand(cad2, connection.connectDb);
+
+            queryDelete2.ExecuteNonQuery();
+            queryDelete1.ExecuteNonQuery();
 
             connection.Close();
         }

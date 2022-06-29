@@ -18,7 +18,7 @@ namespace prueba.Models
         public string Descripcion { get; set; }
         //
         private List<Insumos> ListInsumos { get; set; } = new List<Insumos>();
-        private List<string> ListComboNombre { get; set; } = new List<string>();
+        private List<Insumos> ListComboInsumos { get; set; } = new List<Insumos>();
 
         public List<Insumos> ListarInsumos(string pRubroId)
         {
@@ -107,6 +107,34 @@ namespace prueba.Models
             queryUpdate.ExecuteNonQuery();
 
             connection.Close();
+        }
+
+        /////////////////////////////////////////////
+        public List<Insumos> ComboIns()
+        {
+            ListComboInsumos = new List<Insumos>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT id, nombre FROM INSUMO;",
+                connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new Insumos()
+                {
+                    Id = (int)registros["id"],
+                    Nombre = registros["nombre"].ToString(),
+                };
+
+                ListComboInsumos.Add(registro);
+            }
+            connection.Close();
+
+            return ListComboInsumos;
         }
     }
 }

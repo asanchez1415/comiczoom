@@ -13,6 +13,8 @@ namespace prueba.Controllers.OC
         OrdenesCompra oc = new OrdenesCompra();
         Proveedor prov = new Proveedor();
         Branches suc = new Branches();
+        Insumos ins = new Insumos();
+        DetalleOC deoc = new DetalleOC();
 
         // GET: OrdenCompra
         [Permissions.PermissionsRol(Rol.Administrador)]
@@ -40,6 +42,7 @@ namespace prueba.Controllers.OC
             // Combos
             ViewBag.ComboProv = prov.ComboPro();
             ViewBag.ComboSuc = suc.ComboSucursal();
+            ViewBag.ComboInsumos = ins.ComboIns();
 
             return View();
         }
@@ -52,20 +55,37 @@ namespace prueba.Controllers.OC
             int _prov = Convert.ToInt32(formCollection["inpProv"]);
 
             List<string> insumo = new List<string>();
-            List<string> cantidad = new List<string>();
+            List<int> cantidad = new List<int>();
+            List<decimal> precio = new List<decimal>();
 
             for (int i = 1; i <= contador; i++)
             {
-                string ins = formCollection[i];
-                string cant = formCollection[$"cant{i}"];
+                string ins = formCollection[$"ins{i}"];
+                int cant = Convert.ToInt32(formCollection[$"cant{i}"]);
+                decimal pre = Convert.ToDecimal(formCollection[$"pre{i}"]);
                 insumo.Add(ins);
                 cantidad.Add(cant);
+                precio.Add(pre);
             }
 
             //
-            oc.InsertarOC(_suc, _prov);
+            int idInsertado = oc.InsertarOC(_suc, _prov);
 
-            return View();
+            for (int i = 0; i < contador; i++)
+            {
+                deoc.InsertarDetallesPorOC(idInsertado, insumo[i], cantidad[i], precio[i]);
+            }
+
+            return RedirectToAction("OCList", "OrdenCompra");
         }
+
+        public ActionResult DeleteOC()
+        {
+            int id = Convert.ToInt32(Request.QueryString["id"]);
+            oc.EliminarOC(id);
+
+            return RedirectToAction("OCList", "OrdenCompra");
+        }
+
     }
 }

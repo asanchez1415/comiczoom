@@ -81,9 +81,10 @@
             <div class="col-md-4 mb-4" id="colizq">
                 <div class="form-group" id="formgroup">
                     <select class="form-select" name="ins1" required>
-                        @foreach (Branches br in ViewBag.ComboSuc)
+                        <option value="" selected>Seleccione un insumo *</option>
+                        @foreach (Insumos ins in ViewBag.ComboInsumos)
                         {
-                            <option value="@br.IdSUC">@br.Sucursal</option>
+                            <option value="@ins.Id">@ins.Nombre</option>
                         }
                     </select>
                 </div>
@@ -127,9 +128,10 @@
                     <div class="col-md-4 mb-4" id="colizq">
                         <div class="form-group" id="formgroup1">
                             <select class="form-select" name="ins${contador}" id="ins${contador}" required>
-                                @foreach (Branches br in ViewBag.ComboSuc)
+                                <option value="" selected>Seleccione un insumo *</option>
+                                @foreach (Insumos ins in ViewBag.ComboInsumos)
                                  {
-                                    <option value="@br.IdSUC">@br.Sucursal</option>
+                                     <option value="@ins.Id">@ins.Nombre</option>
                                  }
                             </select>
                         </div>

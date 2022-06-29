@@ -30,7 +30,6 @@ namespace prueba.Models
         public string Correo { get; set; }
 
         private List<Proveedor> ListProveedores { get; set; } = new List<Proveedor>();
-        private List<string> ListComboNombre { get; set; } = new List<string>();
 
         public List<Proveedor> ListarProveedores(string pRubro, string pNombre)
         {
@@ -75,27 +74,6 @@ namespace prueba.Models
 
             connection.Close();
             return ListProveedores;
-        }
-
-        public List<string> ComboNombre()
-        {
-            ListComboNombre = new List<string>();
-            ConnectionDB connection = new ConnectionDB();
-            SqlDataReader registros = null;
-            connection.Open();
-
-            SqlCommand querySel = new SqlCommand(@"SELECT P.nombre FROM PROVEEDOR as P
-                ORDER BY P.nombre Asc;", connection.connectDb);
-
-            registros = querySel.ExecuteReader();
-
-            while (registros.Read())
-            {
-                ListComboNombre.Add(registros["nombre"].ToString());
-            }
-            connection.Close();
-
-            return ListComboNombre;
         }
 
         public void InsertarProveedor(Proveedor pPro)

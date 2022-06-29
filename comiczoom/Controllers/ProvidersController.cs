@@ -31,7 +31,7 @@ namespace prueba.Controllers
             
             // Combobox
             ViewBag.ComboRub = rub.ComboRubro();
-            ViewBag.ComboNombre = pro.ComboNombre();
+            ViewBag.ComboNombre = pro.ComboPro();
 
             return View();
         }
