@@ -1,0 +1,170 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Editar Clientes";
+    Clients res = new Clients();
+    Clients cli = res.ObtenerClientes(ViewBag.Clientes)[0];
+}
+
+<link href="~/Src/Css/Edits.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("ClientsList", "Clients")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">EDITANDO A&nbsp;</b>&nbsp; @cli.Id - @cli.Nombre</h3>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<form method="post" action="/Clients/UpdateClient" class="container-fluid" id="formulario" onsubmit="return validaUpdate();">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <input value="@cli.Id" type="text" name="inpId" class="form-control d-none">
+
+            <input value="@cli.Rut" type="text" id="inpRut" name="inpRut" class="form-control inp-disabled" placeholder="RUT - (11111111-1) *" disabled>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpTipo" data-width="100%" required>
+                    <option value="" selected>Seleccione tipo de cliente *</option>
+                    @if (cli.Tipo == "0")
+                    {
+                        <option value="0" selected>Particular</option>
+                        <option value="1">Empresa</option>
+                    }
+                    else
+                    {
+                        <option value="0">Particular</option>
+                        <option value="1"selected>Empresa</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <h5 class="text-white">Nombre completo</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@cli.Nombre" type="text" id="inpNombre" name="inpNombre" class="form-control" placeholder="Nombre *" required>
+        </div>
+
+        <div class="col mb-3">
+            <input value="@cli.SegNombre" type="text" name="inpSegNombre" class="form-control" placeholder="Segundo nombre">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@cli.Apellido" type="text" name="inpApellido" class="form-control" placeholder="Apellido *" required>
+        </div>
+
+        <div class="col mb-3">
+            <input value="@cli.SegApellido" type="text" name="inpSegApellido" class="form-control" placeholder="Segundo apellido *" required>
+        </div>
+    </div>
+
+    <h5 class="text-white">Dirección</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@cli.Direccion" type="text" name="inpDireccion" class="form-control" placeholder="Calle y número *" required>
+        </div>
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpRegion" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una región *</option>
+                    @foreach (Region reg in ViewBag.ComboRegion)
+                    {
+                        if (cli.idREG == reg.IdReg)
+                        {
+                            <option value="@reg.IdReg" selected>@reg.NomRegion</option>
+                        }
+                        else
+                        {
+                            <option value="@reg.IdReg">@reg.NomRegion</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpProvincia" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una provincia *</option>
+                    @foreach (Provincia prov in ViewBag.ComboProv)
+                    {
+                        if (cli.idPRO == prov.IdProv)
+                        {
+                            <option value="@prov.IdProv" selected>@prov.NomProvincia</option>
+                        }
+                        else
+                        {
+                            <option value="@prov.IdProv">@prov.NomProvincia</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpComuna" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una comuna *</option>
+                    @foreach (Comuna cmn in ViewBag.ComboCmn)
+                    {
+                        if (cli.idCMN == cmn.IdCmn)
+                        {
+                            <option value="@cmn.IdCmn" selected>@cmn.NomComuna</option>
+                        }
+                        else
+                        {
+                            <option value="@cmn.IdCmn">@cmn.NomComuna</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-white">Contactos</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input value="@cli.Telefono" type="text" id="inpCelular" name="inpCelular" class="form-control" placeholder="Número de celular - (+56912341234) *" required>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function validaUpdate() {
+        let val = confirm("¿Estás seguro de guardar?");
+
+        return val;
+    }
+</script>

@@ -8,7 +8,7 @@ namespace prueba.Models
 {
     public class ConnectionDB
     {
-        string Cad = "Data Source=DESKTOP-7ND8I4M\\SQLEXPRESS; Initial Catalog=comiczoom; Integrated Security=True";
+        string Cad = "Data Source=DESKTOP-ML8DPAT\\SQLEXPRESS; Initial Catalog=comiczoom; Integrated Security=True";
 
         public SqlConnection connectDb = new SqlConnection();
 

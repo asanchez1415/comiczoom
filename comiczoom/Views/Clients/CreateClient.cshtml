@@ -1,0 +1,133 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "CreateClient";
+}
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("ClientsList", "Clients")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-white">CREAR CLIENTE</b></h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<form method="post" action="/Clients/InsertClient" class="container-fluid" id="formulario" onsubmit="return validaForm(this)">
+    <h5 class="text-white">Datos generales</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" id="inpRut" name="inpRut" class="form-control" placeholder="RUT - (11111111-1) *" aria-label="First name" required>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpTipo" data-width="100%" required>
+                    <option value="" selected>Seleccione tipo de cliente *</option>
+                    <option value="0">Particular</option>
+                    <option value="1">Empresa</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-white">Nombre completo</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" name="inpNombre" class="form-control" placeholder="Nombre *" aria-label="First name" required>
+        </div>
+
+        <div class="col mb-3">
+            <input type="text" name="inpSegNombre" class="form-control" placeholder="Segundo nombre" aria-label="First name">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" name="inpApellido" class="form-control" placeholder="Apellido *" aria-label="First name" required>
+        </div>
+
+        <div class="col mb-3">
+            <input type="text" name="inpSegApellido" class="form-control" placeholder="Segundo apellido *" aria-label="First name" required>
+        </div>
+    </div>
+
+    <h5 class="text-white">Dirección</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" name="inpDireccion" class="form-control" placeholder="Calle y número *" aria-label="First name" required>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpRegion" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una región *</option>
+                    @foreach (Region reg in ViewBag.ComboRegion)
+                    {
+                        <option value="@reg.IdReg">@reg.NomRegion</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpProvincia" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una provincia *</option>
+                    @foreach (Provincia prov in ViewBag.ComboProv)
+                    {
+                        <option value="@prov.IdProv">@prov.NomProvincia</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpComuna" data-live-search="true" data-width="100%" required>
+                    <option value="" selected>Seleccione una comuna *</option>
+                    @foreach (Comuna cmn in ViewBag.ComboCmn)
+                    {
+                        <option value="@cmn.IdCmn">@cmn.NomComuna</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="text-white">Contacto</h5>
+    <hr class="bg-white" />
+
+    <div class="row">
+        <div class="col mb-3">
+            <input type="text" id="inpCelular" name="inpCelular" class="form-control" placeholder="Número de celular - (+56912341234) *" aria-label="Phone" required>
+        </div>
+    </div>
+
+    <div class="row">
+
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>

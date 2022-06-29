@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\ComicsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -263,6 +264,9 @@
     <Content Include="Views\Supplies\SuppliesList.cshtml" />
     <Content Include="Views\Supplies\CreateSupplies.cshtml" />
     <Content Include="Views\Supplies\EditSupply.cshtml" />
+    <Content Include="Views\Clients\ClientsList.cshtml" />
+    <Content Include="Views\Clients\CreateClient.cshtml" />
+    <Content Include="Views\Clients\EditClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
