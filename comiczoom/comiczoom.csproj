@@ -264,10 +264,10 @@
     <Content Include="Views\Supplies\SuppliesList.cshtml" />
     <Content Include="Views\Supplies\CreateSupplies.cshtml" />
     <Content Include="Views\Supplies\EditSupply.cshtml" />
+    <Content Include="Views\RecepcionOC\Reception.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\RecepcionOC\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

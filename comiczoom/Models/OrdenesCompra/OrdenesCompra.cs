@@ -100,5 +100,37 @@ namespace prueba.Models.OrdenesCompra
 
             connection.Close();
         }
+
+        public List<OrdenesCompra> ObtenerOC(int pId)
+        {
+            int id = Convert.ToInt32(pId);
+
+            ListOC = new List<OrdenesCompra>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT OC.id id, SUC.nombre sucursal, PROVE.nombre proveedor
+                                  FROM ORDEN_COMPRA OC 
+                                  INNER JOIN SUCURSAL as SUC ON OC.idSUC = SUC.id
+                                  INNER JOIN PROVEEDOR as PROVE ON OC.idPRV = PROVE.id
+                                  WHERE OC.id = {id};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new OrdenesCompra()
+                {
+                    Id = (int)registros["id"],
+                    Sucursal = registros["sucursal"].ToString(),
+                    Proveedor = registros["proveedor"].ToString(),
+                };
+                ListOC.Add(registro);
+            }
+            connection.Close();
+
+            return ListOC;
+        }
     }
 }

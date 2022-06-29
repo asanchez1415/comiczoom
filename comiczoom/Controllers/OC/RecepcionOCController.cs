@@ -9,13 +9,14 @@ namespace prueba.Controllers.OC
     public class RecepcionOCController : Controller
     {
         // GET: RecepcionOC
-        public ActionResult FirstReception()
-        {
-            return View();
-        }
-
         public ActionResult Reception()
         {
+            int id = Convert.ToInt32(Request.QueryString["id"]);
+            int estado = Convert.ToInt32(Request.QueryString["est"]);
+
+            ViewBag.idoc = id;
+            ViewBag.estado = estado;
+
             return View();
         }
     }

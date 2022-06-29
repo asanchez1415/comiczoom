@@ -10,10 +10,13 @@ namespace prueba.Models.OrdenesCompra
     {
         public int Id { get; set; }
         public int IdIns { get; set; }
+        public string NombreIns { get; set; }
         public int IdOC { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnit{ get; set; }
         public decimal PrecioTotal { get; set; }
+
+        private List<DetalleOC> ListDetalleOC { get; set; } = new List<DetalleOC>();
 
         public void InsertarDetallesPorOC(int pIdOC, string pIdINS, int pCantidad, decimal pPrecioU)
         {
@@ -27,6 +30,43 @@ namespace prueba.Models.OrdenesCompra
             queryInsert.ExecuteNonQuery();
 
             connection.Close();
+        }
+
+        public List<DetalleOC> ObtenerDetalleOC(int pId)
+        {
+            int id = Convert.ToInt32(pId);
+
+            ListDetalleOC = new List<DetalleOC>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT DEOC.id id, DEOC.idOC, INS.id idINS, 
+                                    INS.nombre insumo, DEOC.cantidad, DEOC.precioUnit, DEOC.precioTotal
+                                    FROM DETALLE_OC DEOC
+                                    INNER JOIN INSUMO as INS ON DEOC.idINS = INS.id
+                                    WHERE DEOC.idOC = {id};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new DetalleOC()
+                {
+                    Id = (int)registros["id"],
+                    IdOC = (int)registros["idOC"],
+                    IdIns = (int)registros["idINS"],
+                    NombreIns = registros["insumo"].ToString(),
+                    Cantidad = (int)registros["cantidad"],
+                    PrecioUnit = Convert.ToDecimal(registros["precioUnit"]),
+                    PrecioTotal = Convert.ToDecimal(registros["precioTotal"]),
+                };
+
+                ListDetalleOC.Add(registro);
+            }
+            connection.Close();
+
+            return ListDetalleOC;
         }
     }
 }

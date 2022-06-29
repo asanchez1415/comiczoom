@@ -124,13 +124,13 @@
                     <td>
                         @if (Oc.NumEstado != "2")
                         {
-                            <a href="@Url.Content("/Employees/EditEmployee?id=" + Oc.Id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Recepcionar">
+                            <a href="@Url.Content("/RecepcionOC/Reception?id=" + Oc.Id + "&est=" + Oc.NumEstado)" data-bs-toggle="tooltip" data-bs-placement="top" title="Recepcionar">
                                 <i class="bi bi-basket-fill text-primary h4"></i>
                             </a>
                         }
                         else if (Oc.NumEstado == "2")
                         {
-                            <a href="@Url.Content("/Employees/EditEmployee?id=" + Oc.Id)" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver recepciones">
+                            <a href="@Url.Content("/RecepcionOC/Reception?id=" + Oc.Id + "&est=" + Oc.NumEstado)" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver recepciones">
                                 <i class="bi bi-eye-fill text-success h4"></i>
                             </a>
                         }

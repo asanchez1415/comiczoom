@@ -1,0 +1,117 @@
+﻿@using prueba.Models.OrdenesCompra;
+@{
+    ViewBag.Title = "Recepción";
+    OrdenesCompra res = new OrdenesCompra();
+    DetalleOC res2 = new DetalleOC();
+
+    OrdenesCompra oc = res.ObtenerOC(ViewBag.idoc)[0];
+    List<DetalleOC> deoc = res2.ObtenerDetalleOC(ViewBag.idoc);
+
+    decimal total;
+}
+
+<link href="~/Src/Css/Edits.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("OCList", "OrdenCompra")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-8 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">RECEPCIONANDO OC&nbsp;</b>&nbsp; @oc.Id</h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 mb-3">
+            <h5 class="text-white">Proveedor</h5>
+            <hr class="bg-white" />
+            <input value="@oc.Proveedor" type="text" class="form-control inp-disabled" disabled>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <h5 class="text-white">Sucursal</h5>
+            <hr class="bg-white" />
+            <input value="@oc.Sucursal" type="text" class="form-control inp-disabled" disabled>
+        </div>
+    </div>
+</div>
+
+
+
+<form action="/" class="container-fluid mt-4" method="post">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10 d-flex justify-content-center">
+            <h5 class="text-white">DETALLE</h5>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <hr class="bg-white"/>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <table class="table table-borderless table-light">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">INSUMO</th>
+                        <th scope="col">CANTIDAD</th>
+                        <th scope="col">PRECIO C/U</th>
+                        <th scope="col">PRECIO TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DetalleOC d in deoc)
+                    {
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>@d.NombreIns</td>
+                            <td>@d.Cantidad</td>
+                            <td>@d.PrecioUnit</td>
+                            <td>@d.PrecioTotal</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-2">
+            <table class="table table-borderless table-light">
+                <thead>
+                    <tr>
+                        <th scope="col">aa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (DetalleOC d in deoc)
+                    {
+                        <tr>
+                            <th scope="row">
+                                <input value="10" type="text" class="form-control">
+                            </th>
+                           
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
