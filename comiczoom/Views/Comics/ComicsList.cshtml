@@ -66,26 +66,33 @@
                 <th scope="col">ISBN</th>
                 <th scope="col">CATEGORIA</th>
                 <th scope="col">FECHA DE CREACION</th>
+                <th scope="col">EQUIPO</th>
                 <th scope="col">EDITAR</th>
             </tr>
         </thead>
         <tbody>
             @foreach (Comic Com in ViewBag.Comics)
             {
-                <tr>
-                    <th scope="row">@Com.Id</th>
-                    <td>@Com.Nombre</td>
-                    <td>@Com.Volumen</td>
-                    <td>@Com.Estado</td>
-                    <td>@Com.Isbn</td>
-                    <td>@Com.Categoria</td>
-                    <td>@Com.fechaCreacion.ToString("dd-MM-yyyy")</td>
-                    <td>
-                        <a href="@Url.Content("/Comics/EditComic?id=" + Com.Id)">
-                            <i class="bi bi-pencil-square text-primary h4"></i>
-                        </a>
-                    </td>
-                </tr>
+            <tr>
+                <th scope="row">@Com.Id</th>
+                <td>@Com.Nombre</td>
+                <td>@Com.Volumen</td>
+                <td>@Com.Estado</td>
+                <td>@Com.Isbn</td>
+                <td>@Com.Categoria</td>
+                <td>@Com.fechaCreacion.ToString("dd-MM-yyyy")</td>
+                <td class="text-center">
+                    <a href="@Url.Content("/EquipoComic/EquipoComicList?id=" + Com.Id)">
+                        <i class="bi bi-people text-primary h4"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="@Url.Content("/Comics/EditComic?id=" + Com.Id)">
+                        <i class="bi bi-pencil-square text-primary h4"></i>
+                    </a>
+                </td>
+
+            </tr>
             }
         </tbody>
     </table>

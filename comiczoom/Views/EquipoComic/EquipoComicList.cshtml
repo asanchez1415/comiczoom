@@ -1,0 +1,53 @@
+﻿@using prueba.Models;
+@using prueba.Models.EquipoComic;
+@{
+    ViewBag.Title = "ListaEmpleados";
+    
+}
+
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("ComicsList", "Comics")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5">
+            <h2 class="text-white">Lista de comics</h2>
+            <a href="@Url.Action("AddEmpleado","EquipoComic")" class="btn btn-success d-flex align-items-center" role="button">
+                AÑADIR EMPLEADO
+            </a>
+        </div>
+        <hr class="text-white" />
+    </div>
+</div>
+
+<div>
+    <div class="container table-responsive">
+        <table class="table table-light table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">RUT</th>
+                    <th scope="col">NOMBRE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Employee emp in ViewBag.ListaEmpleados)
+                {
+                    <tr>
+                        <th scope="row">@emp.Id</th>
+                        <td>@emp.Rut</td>
+                        <td>@emp.Nombre</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
