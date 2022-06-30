@@ -8,6 +8,7 @@
     List<DetalleOC> deoc = res2.ObtenerDetalleOC(ViewBag.idoc);
 
     DRecepcionOC res3 = new DRecepcionOC();
+    RecepcionOC res4 = new RecepcionOC();
 
     string vis;
     if (ViewBag.estado == 0 || ViewBag.estado == 1)
@@ -17,6 +18,16 @@
     else
     {
         vis = "d-none";
+    }
+
+    string ves;
+    if (ViewBag.estado == 0)
+    {
+        ves = "d-none";
+    }
+    else
+    {
+        ves = "";
     }
 }
 
@@ -54,8 +65,6 @@
         </div>
     </div>
 </div>
-
-
 
 <form action="/RecepcionOC/InsertReception" class="container-fluid mt-4" method="post">
     <div class="row d-flex justify-content-center">
@@ -146,22 +155,56 @@
     </div>
 </form>
 
-<script>
-    let contador = @deoc.Count;
-    @*for (var i = 1; i <= contador; i++) {
-        let inp = document.getElementById(i);
-        inp.setAttribute("name", `canrec${i}`);
-    }*@
+<br />
 
-    //function validarCantidades() {
-    //    for (var i = 1; i <= contador; i++) {
-    //        docu
-    //        if () {
+<div class="container mt-5 @ves">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10 d-flex justify-content-center">
+            <h4 class="text-white"><b>RECEPCIONES</b></h4>
+        </div>
 
-    //        }
-    //    }
-    //}
-</script>
+        <div class="col-md-10">
+            <hr class="bg-white" />
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+        @foreach (RecepcionOC r in res4.ObtenerRecepcionesPorOC(deoc[0].IdOC))
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(r.Id)" aria-expanded="true" aria-controls="collapse@(r.Id)">
+                        <b>@($"RECEPCIÓN { r.Id}")</b>@($"- {r.Fecha.ToString("dd/MM/yyyy")} {r.Hora}")
+                    </button>
+                </h2>
+                <div id="collapse@(r.Id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-primary table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">NOMBRE INSUMO</th>
+                                    <th scope="col">CANTIDAD RECEPCIONADA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DRecepcionOC d in res3.ObtenerDetallePorRO(r.Id))
+                                {
+                                    <tr>
+                                        <th scope="row">@d.Contador</th>
+                                        <td>@d.NombreIns</td>
+                                        <td>@d.Cantidad</td>
+                                    </tr>
+                                }
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
 
 
 

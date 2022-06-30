@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using prueba.Models;
 using prueba.Models.OrdenesCompra;
 
 namespace prueba.Controllers.OC
 {
+    [Authorize]
     public class RecepcionOCController : Controller
     {
         OrdenesCompra oc = new OrdenesCompra();
@@ -14,6 +16,7 @@ namespace prueba.Controllers.OC
         DRecepcionOC dreoc = new DRecepcionOC();
 
         // GET: RecepcionOC
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult Reception()
         {
             int id = Convert.ToInt32(Request.QueryString["id"]);
@@ -25,7 +28,8 @@ namespace prueba.Controllers.OC
             return View();
         }
 
-        public ActionResult InsertReception(FormCollection formCollection)
+        [Permissions.PermissionsRol(Rol.Administrador)]
+        public void InsertReception(FormCollection formCollection)
         {
             int idOC = Convert.ToInt32(formCollection["idoc"]);
             int idreoc = reoc.InsertarCabeceraRec(idOC);
@@ -57,8 +61,7 @@ namespace prueba.Controllers.OC
 
             oc.ActualizarEstado(idOC, estado);
 
-            //Response.Redirect("/Employees/EditEmployee?id=");
-            return RedirectToAction("OCList", "OrdenCompra");
+            Response.Redirect("/RecepcionOC/Reception?id=" + idOC + "&est=" + estado);
 
         }
     }

@@ -8,9 +8,11 @@ namespace prueba.Models.OrdenesCompra
 {
     public class RecepcionOC
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int IdOC { get; set; }
-
+        public DateTime Fecha { get; set; }
+        public string Hora { get; set; }
+ 
         public int InsertarCabeceraRec(int pIdOC)
         {
             ConnectionDB connection = new ConnectionDB();
@@ -25,7 +27,37 @@ namespace prueba.Models.OrdenesCompra
 
             connection.Close();
             return idIngresado;
-        } 
+        }
+
+        public List<RecepcionOC> ObtenerRecepcionesPorOC(int pIdOC)
+        {
+            List<RecepcionOC> ListRecs = new List<RecepcionOC>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            string cad = $@"SELECT *
+                        FROM RECEPCION_OC
+                        WHERE idOC = {pIdOC};";
+
+            SqlCommand querySel = new SqlCommand(cad, connection.connectDb);
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new RecepcionOC()
+                {
+                    Id = (int)registros["id"],
+                    IdOC = (int)registros["idOC"],
+                    Fecha = Convert.ToDateTime(registros["fecha"]),
+                    Hora = registros["hora"].ToString(),
+                };
+                ListRecs.Add(registro);
+            }
+            connection.Close();
+
+            return ListRecs;
+        }
 
     }
 }

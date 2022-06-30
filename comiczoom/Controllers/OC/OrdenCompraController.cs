@@ -8,6 +8,7 @@ using prueba.Models.OrdenesCompra;
 
 namespace prueba.Controllers.OC
 {
+    [Authorize]
     public class OrdenCompraController : Controller
     {
         OrdenesCompra oc = new OrdenesCompra();
@@ -35,6 +36,7 @@ namespace prueba.Controllers.OC
             return View();
         }
 
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult CreateOC()
         {
             ViewBag.NombreUsuario = Session["Nombres"];
@@ -47,6 +49,7 @@ namespace prueba.Controllers.OC
             return View();
         }
 
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult InsertOc(FormCollection formCollection)
         {
             int contador = Convert.ToInt32(formCollection["contador"]);
@@ -79,6 +82,7 @@ namespace prueba.Controllers.OC
             return RedirectToAction("OCList", "OrdenCompra");
         }
 
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult DeleteOC()
         {
             int id = Convert.ToInt32(Request.QueryString["id"]);
