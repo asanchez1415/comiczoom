@@ -15,6 +15,8 @@ namespace prueba.Models.OrdenesCompra
         public int Cantidad { get; set; }
         public decimal PrecioUnit{ get; set; }
         public decimal PrecioTotal { get; set; }
+        //
+        public int Count { get; set; }
 
         private List<DetalleOC> ListDetalleOC { get; set; } = new List<DetalleOC>();
 
@@ -49,10 +51,12 @@ namespace prueba.Models.OrdenesCompra
 
             registros = querySel.ExecuteReader();
 
+            int count = 1;
             while (registros.Read())
             {
                 var registro = new DetalleOC()
                 {
+                    Count = count,
                     Id = (int)registros["id"],
                     IdOC = (int)registros["idOC"],
                     IdIns = (int)registros["idINS"],
@@ -63,6 +67,7 @@ namespace prueba.Models.OrdenesCompra
                 };
 
                 ListDetalleOC.Add(registro);
+                count++;
             }
             connection.Close();
 

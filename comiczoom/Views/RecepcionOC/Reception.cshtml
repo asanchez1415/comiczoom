@@ -7,7 +7,17 @@
     OrdenesCompra oc = res.ObtenerOC(ViewBag.idoc)[0];
     List<DetalleOC> deoc = res2.ObtenerDetalleOC(ViewBag.idoc);
 
-    decimal total;
+    DRecepcionOC res3 = new DRecepcionOC();
+
+    string vis;
+    if (ViewBag.estado == 0 || ViewBag.estado == 1)
+    {
+        vis = "";
+    }
+    else
+    {
+        vis = "d-none";
+    }
 }
 
 <link href="~/Src/Css/Edits.css" rel="stylesheet" />
@@ -47,69 +57,111 @@
 
 
 
-<form action="/" class="container-fluid mt-4" method="post">
+<form action="/RecepcionOC/InsertReception" class="container-fluid mt-4" method="post">
     <div class="row d-flex justify-content-center">
         <div class="col-md-10 d-flex justify-content-center">
-            <h5 class="text-white">DETALLE</h5>
+            <h4 class="text-white"><b>DETALLE</b></h4>
         </div>
     </div>
     <div class="row d-flex justify-content-center">
         <div class="col-md-10">
-            <hr class="bg-white"/>
+            <hr class="bg-white" />
         </div>
     </div>
 
     <div class="row d-flex justify-content-center">
-        <div class="col-md-8">
-            <table class="table table-borderless table-light">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">INSUMO</th>
-                        <th scope="col">CANTIDAD</th>
-                        <th scope="col">PRECIO C/U</th>
-                        <th scope="col">PRECIO TOTAL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (DetalleOC d in deoc)
-                    {
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>@d.NombreIns</td>
-                            <td>@d.Cantidad</td>
-                            <td>@d.PrecioUnit</td>
-                            <td>@d.PrecioTotal</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="col-md-1">
+            <h5 class="text-white">ID</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-3">
+            <h5 class="text-white">NOMBRE</h5>
+            <hr class="bg-white" />
         </div>
 
         <div class="col-md-2">
-            <table class="table table-borderless table-light">
-                <thead>
-                    <tr>
-                        <th scope="col">aa</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (DetalleOC d in deoc)
-                    {
-                        <tr>
-                            <th scope="row">
-                                <input value="10" type="text" class="form-control">
-                            </th>
-                           
-                        </tr>
-                    }
-                </tbody>
-            </table>
-            
+            <h5 class="text-white">CANTIDAD TOTAL</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2">
+            <h5 class="text-white">PRECIO C/U</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2">
+            <h5 class="text-white">PRECIO TOTAL</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2 @vis">
+            <h5 class="text-white">A RECEPCIONAR</h5>
+            <hr class="bg-white" />
         </div>
     </div>
 
+    <input value="@deoc[0].IdOC" name="idoc" type="text" class="form-control d-none" >
+    <input value="@deoc.Count" name="contador" type="text" class="form-control d-none" >
+    @foreach (DetalleOC d in deoc)
+    {
+        <div class="row d-flex justify-content-center mb-3">
+            <div class="col-md-1">
+                <input value="@d.Count" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-3">
+                <input value="@d.NombreIns" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2">
+                <input value="@d.Cantidad" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2">
+                <input value="@d.PrecioUnit" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2">
+                <input value="@d.PrecioTotal" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2 @vis">
+                <input value="@d.IdIns" name="@("idins" + d.Count)" type="text" class="form-control d-none" >
+                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("cantoriginal" + d.Count)" type="text" class="form-control d-none" >
+
+                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("canrec" + d.Count)" type="text" class="form-control ">
+            </div>
+        </div>
+    }
+
+    <br />
+
+    <div class="row d-flex justify-content-center @vis">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
 </form>
+
+<script>
+    let contador = @deoc.Count;
+    @*for (var i = 1; i <= contador; i++) {
+        let inp = document.getElementById(i);
+        inp.setAttribute("name", `canrec${i}`);
+    }*@
+
+    //function validarCantidades() {
+    //    for (var i = 1; i <= contador; i++) {
+    //        docu
+    //        if () {
+
+    //        }
+    //    }
+    //}
+</script>
 
 
 

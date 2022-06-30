@@ -149,7 +149,9 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\OrdenesCompra\DetalleOC.cs" />
     <Compile Include="Models\OrdenesCompra\OrdenesCompra.cs" />
+    <Compile Include="Models\OrdenesCompra\DRecepcionOC.cs" />
     <Compile Include="Models\Insumos.cs" />
+    <Compile Include="Models\OrdenesCompra\RecepcionOC.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Region.cs" />

@@ -132,5 +132,19 @@ namespace prueba.Models.OrdenesCompra
 
             return ListOC;
         }
+
+        public void ActualizarEstado(int pId, int pEstado)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"UPDATE ORDEN_COMPRA SET estado = {pEstado}
+                         WHERE id = {pId}";
+
+            SqlCommand queryUpdate = new SqlCommand(cad, connection.connectDb);
+            queryUpdate.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
 }
