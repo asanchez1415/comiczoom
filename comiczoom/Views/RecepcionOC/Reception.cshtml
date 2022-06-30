@@ -1,0 +1,212 @@
+﻿@using prueba.Models.OrdenesCompra;
+@{
+    ViewBag.Title = "Recepción";
+    OrdenesCompra res = new OrdenesCompra();
+    DetalleOC res2 = new DetalleOC();
+
+    OrdenesCompra oc = res.ObtenerOC(ViewBag.idoc)[0];
+    List<DetalleOC> deoc = res2.ObtenerDetalleOC(ViewBag.idoc);
+
+    DRecepcionOC res3 = new DRecepcionOC();
+    RecepcionOC res4 = new RecepcionOC();
+
+    string vis;
+    if (ViewBag.estado == 0 || ViewBag.estado == 1)
+    {
+        vis = "";
+    }
+    else
+    {
+        vis = "d-none";
+    }
+
+    string ves;
+    if (ViewBag.estado == 0)
+    {
+        ves = "d-none";
+    }
+    else
+    {
+        ves = "";
+    }
+}
+
+<link href="~/Src/Css/Edits.css" rel="stylesheet" />
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between">
+        <div class="col-md-3">
+            <a href="@Url.Action("OCList", "OrdenCompra")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-8 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-primary">RECEPCIONANDO OC&nbsp;</b>&nbsp; @oc.Id</h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4 mb-3">
+            <h5 class="text-white">Proveedor</h5>
+            <hr class="bg-white" />
+            <input value="@oc.Proveedor" type="text" class="form-control inp-disabled" disabled>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <h5 class="text-white">Sucursal</h5>
+            <hr class="bg-white" />
+            <input value="@oc.Sucursal" type="text" class="form-control inp-disabled" disabled>
+        </div>
+    </div>
+</div>
+
+<form action="/RecepcionOC/InsertReception" class="container-fluid mt-4" method="post">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10 d-flex justify-content-center">
+            <h4 class="text-white"><b>DETALLE</b></h4>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10">
+            <hr class="bg-white" />
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-1">
+            <h5 class="text-white">ID</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-3">
+            <h5 class="text-white">NOMBRE</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2">
+            <h5 class="text-white">CANTIDAD TOTAL</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2">
+            <h5 class="text-white">PRECIO C/U</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2">
+            <h5 class="text-white">PRECIO TOTAL</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-2 @vis">
+            <h5 class="text-white">A RECEPCIONAR</h5>
+            <hr class="bg-white" />
+        </div>
+    </div>
+
+    <input value="@deoc[0].IdOC" name="idoc" type="text" class="form-control d-none" >
+    <input value="@deoc.Count" name="contador" type="text" class="form-control d-none" >
+    @foreach (DetalleOC d in deoc)
+    {
+        <div class="row d-flex justify-content-center mb-3">
+            <div class="col-md-1">
+                <input value="@d.Count" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-3">
+                <input value="@d.NombreIns" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2">
+                <input value="@d.Cantidad" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2">
+                <input value="@d.PrecioUnit" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2">
+                <input value="@d.PrecioTotal" type="text" class="form-control inp-disabled" disabled>
+            </div>
+
+            <div class="col-md-2 @vis">
+                <input value="@d.IdIns" name="@("idins" + d.Count)" type="text" class="form-control d-none" >
+                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("cantoriginal" + d.Count)" type="text" class="form-control d-none" >
+
+                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("canrec" + d.Count)" type="text" class="form-control ">
+            </div>
+        </div>
+    }
+
+    <br />
+
+    <div class="row d-flex justify-content-center @vis">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+
+<div class="container mt-5 @ves">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10 d-flex justify-content-center">
+            <h4 class="text-white"><b>RECEPCIONES</b></h4>
+        </div>
+
+        <div class="col-md-10">
+            <hr class="bg-white" />
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+        @foreach (RecepcionOC r in res4.ObtenerRecepcionesPorOC(deoc[0].IdOC))
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@(r.Id)" aria-expanded="true" aria-controls="collapse@(r.Id)">
+                        <b>@($"RECEPCIÓN { r.Id}")</b>@($"- {r.Fecha.ToString("dd/MM/yyyy")} {r.Hora}")
+                    </button>
+                </h2>
+                <div id="collapse@(r.Id)" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <table class="table table-primary table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">NOMBRE INSUMO</th>
+                                    <th scope="col">CANTIDAD RECEPCIONADA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DRecepcionOC d in res3.ObtenerDetallePorRO(r.Id))
+                                {
+                                    <tr>
+                                        <th scope="row">@d.Contador</th>
+                                        <td>@d.NombreIns</td>
+                                        <td>@d.Cantidad</td>
+                                    </tr>
+                                }
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+
+
+
+

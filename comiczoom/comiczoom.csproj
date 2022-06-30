@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OC\OrdenCompraController.cs" />
+    <Compile Include="Controllers\OC\RecepcionOCController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
     <Compile Include="Controllers\SuppliesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -149,7 +150,9 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\OrdenesCompra\DetalleOC.cs" />
     <Compile Include="Models\OrdenesCompra\OrdenesCompra.cs" />
+    <Compile Include="Models\OrdenesCompra\DRecepcionOC.cs" />
     <Compile Include="Models\Insumos.cs" />
+    <Compile Include="Models\OrdenesCompra\RecepcionOC.cs" />
     <Compile Include="Models\Proveedor.cs" />
     <Compile Include="Models\Provincia.cs" />
     <Compile Include="Models\Region.cs" />
@@ -267,6 +270,7 @@
     <Content Include="Views\Clients\ClientsList.cshtml" />
     <Content Include="Views\Clients\CreateClient.cshtml" />
     <Content Include="Views\Clients\EditClient.cshtml" />
+    <Content Include="Views\RecepcionOC\Reception.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,9 +21,9 @@
                 <label for="exampleFormControlInput1" class="form-label text-white">NOMBRE</label>
                 <select class="selectpicker" id="nombre" name="nombre" data-live-search="true" data-width="100%">
                     <option value="" selected>Seleccione un nombre</option>
-                    @foreach (var Nom in ViewBag.ComboNombre)
+                    @foreach (Proveedor prove in ViewBag.ComboNombre)
                     {
-                        <option value="@Nom">@Nom</option>
+                        <option value="@prove.Nombre">@prove.Nombre</option>
                     }
                 </select>
             </div>

@@ -68,16 +68,81 @@ namespace prueba.Models.OrdenesCompra
             return ListOC;
         }
 
-        public void InsertarOC(OrdenesCompra oc)
+        public int InsertarOC(int pIdSuc, int pIdProv)
         {
             ConnectionDB connection = new ConnectionDB();
             connection.Open();
 
             string cad = $@"INSERT INTO ORDEN_COMPRA (idSUC, idPRV, estado, fechaHora)
-                         VALUES ({oc.IdSUC}, {oc.IdProv}, 0, {DateTime.Now})";
+                         VALUES ({pIdSuc}, {pIdProv}, 0, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:dd")}')
+                         SELECT @@IDENTITY AS id;";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
-            queryInsert.ExecuteNonQuery();
+            int idIngresado = Convert.ToInt32(queryInsert.ExecuteScalar());
+
+            connection.Close();
+            return idIngresado;
+        }
+
+        public void EliminarOC(int pIdOC)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad1 = $@"DELETE FROM ORDEN_COMPRA WHERE id = {pIdOC}";
+            string cad2 = $@"DELETE FROM DETALLE_OC WHERE idOC = {pIdOC}";
+
+            SqlCommand queryDelete1 = new SqlCommand(cad1, connection.connectDb);
+            SqlCommand queryDelete2 = new SqlCommand(cad2, connection.connectDb);
+
+            queryDelete2.ExecuteNonQuery();
+            queryDelete1.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public List<OrdenesCompra> ObtenerOC(int pId)
+        {
+            int id = Convert.ToInt32(pId);
+
+            ListOC = new List<OrdenesCompra>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT OC.id id, SUC.nombre sucursal, PROVE.nombre proveedor
+                                  FROM ORDEN_COMPRA OC 
+                                  INNER JOIN SUCURSAL as SUC ON OC.idSUC = SUC.id
+                                  INNER JOIN PROVEEDOR as PROVE ON OC.idPRV = PROVE.id
+                                  WHERE OC.id = {id};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new OrdenesCompra()
+                {
+                    Id = (int)registros["id"],
+                    Sucursal = registros["sucursal"].ToString(),
+                    Proveedor = registros["proveedor"].ToString(),
+                };
+                ListOC.Add(registro);
+            }
+            connection.Close();
+
+            return ListOC;
+        }
+
+        public void ActualizarEstado(int pId, int pEstado)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"UPDATE ORDEN_COMPRA SET estado = {pEstado}
+                         WHERE id = {pId}";
+
+            SqlCommand queryUpdate = new SqlCommand(cad, connection.connectDb);
+            queryUpdate.ExecuteNonQuery();
 
             connection.Close();
         }

@@ -11,7 +11,7 @@
             </a>
         </div>
 
-        <div class="col-md-4 d-flex justify-content-end">
+        <div class="col-md-8 d-flex justify-content-end">
             <h3 class="text-white"><b class="text-white">CREAR ORDEN DE COMPRA</b></h3>
         </div>
     </div>
@@ -61,14 +61,18 @@
             <div class="col-md-4">
                 <h5 class="text-white">Insumo</h5>
             </div>
+
             <div class="col-md-3">
                 <h5 class="text-white">Cantidad</h5>
             </div>
 
+            <div class="col-md-3">
+                <h5 class="text-white">Precio C/U</h5>
+            </div>
         </div>
 
         <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <hr class="bg-white" />
             </div>
         </div>
@@ -76,23 +80,28 @@
         <div class="row d-flex justify-content-center" id="fila">
             <div class="col-md-4 mb-4" id="colizq">
                 <div class="form-group" id="formgroup">
-                    <select class="form-select" name="1" required>
-                        @foreach (Branches br in ViewBag.ComboSuc)
+                    <select class="form-select" name="ins1" required>
+                        <option value="" selected>Seleccione un insumo *</option>
+                        @foreach (Insumos ins in ViewBag.ComboInsumos)
                         {
-                            <option value="@br.IdSUC">@br.Sucursal</option>
+                            <option value="@ins.Id">@ins.Nombre</option>
                         }
                     </select>
                 </div>
             </div>
-            <div class="col-md-3 mb-4" id="colder">
+            <div class="col-md-3 mb-4" id="colmed">
                 <input type="text" name="cant1" id="cant1" class="form-control" placeholder="Cantidad *" aria-label="First name" required>
+            </div>
+
+            <div class="col-md-3 mb-4" id="colder">
+                <input type="text" name="pre1" id="pre1" class="form-control" placeholder="Ingrese precio del insumo *" required>
             </div>
         </div>
     </div>
 
     <div class="container mb-3">
         <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
+            <div class="col-md-10">
                 <button type="button" class="btn btn-warning w-100" onclick="cloneSec()"><b>+</b></button>
             </div>
         </div>
@@ -118,16 +127,21 @@
         let div = `<div class="row d-flex justify-content-center" id="fila">
                     <div class="col-md-4 mb-4" id="colizq">
                         <div class="form-group" id="formgroup1">
-                            <select class="form-select" name="${contador}" id="ins${contador}" required>
-                                @foreach (Branches br in ViewBag.ComboSuc)
+                            <select class="form-select" name="ins${contador}" id="ins${contador}" required>
+                                <option value="" selected>Seleccione un insumo *</option>
+                                @foreach (Insumos ins in ViewBag.ComboInsumos)
                                  {
-                                    <option value="@br.IdSUC">@br.Sucursal</option>
+                                     <option value="@ins.Id">@ins.Nombre</option>
                                  }
                             </select>
                         </div>
                     </div>
                    <div class="col-md-3 mb-4" id="colder">
                         <input type="text" name="cant${contador}" id="cant${contador}" class="form-control" placeholder="Cantidad *"required>
+                    </div>
+
+                    <div class="col-md-3 mb-4" id="colder">
+                        <input type="text" name="pre${contador}" id="pre${contador}" class="form-control" placeholder="Ingrese precio del insumo *" required>
                     </div>
                     </div>`;
 

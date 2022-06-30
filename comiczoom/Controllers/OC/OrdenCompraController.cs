@@ -8,11 +8,14 @@ using prueba.Models.OrdenesCompra;
 
 namespace prueba.Controllers.OC
 {
+    [Authorize]
     public class OrdenCompraController : Controller
     {
         OrdenesCompra oc = new OrdenesCompra();
         Proveedor prov = new Proveedor();
         Branches suc = new Branches();
+        Insumos ins = new Insumos();
+        DetalleOC deoc = new DetalleOC();
 
         // GET: OrdenCompra
         [Permissions.PermissionsRol(Rol.Administrador)]
@@ -33,6 +36,7 @@ namespace prueba.Controllers.OC
             return View();
         }
 
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult CreateOC()
         {
             ViewBag.NombreUsuario = Session["Nombres"];
@@ -40,29 +44,52 @@ namespace prueba.Controllers.OC
             // Combos
             ViewBag.ComboProv = prov.ComboPro();
             ViewBag.ComboSuc = suc.ComboSucursal();
+            ViewBag.ComboInsumos = ins.ComboIns();
 
             return View();
         }
 
+        [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult InsertOc(FormCollection formCollection)
         {
             int contador = Convert.ToInt32(formCollection["contador"]);
 
-            string _prov = formCollection["inpProv"];
-            string _suc = formCollection["inpSuc"];
+            int _suc = Convert.ToInt32(formCollection["inpSuc"]);
+            int _prov = Convert.ToInt32(formCollection["inpProv"]);
 
             List<string> insumo = new List<string>();
-            List<string> cantidad = new List<string>();
+            List<int> cantidad = new List<int>();
+            List<decimal> precio = new List<decimal>();
 
             for (int i = 1; i <= contador; i++)
             {
-                string ins = formCollection[i];
-                string cant = formCollection[$"cant{i}"];
+                string ins = formCollection[$"ins{i}"];
+                int cant = Convert.ToInt32(formCollection[$"cant{i}"]);
+                decimal pre = Convert.ToDecimal(formCollection[$"pre{i}"]);
                 insumo.Add(ins);
                 cantidad.Add(cant);
+                precio.Add(pre);
             }
 
-            return View();
+            //
+            int idInsertado = oc.InsertarOC(_suc, _prov);
+
+            for (int i = 0; i < contador; i++)
+            {
+                deoc.InsertarDetallesPorOC(idInsertado, insumo[i], cantidad[i], precio[i]);
+            }
+
+            return RedirectToAction("OCList", "OrdenCompra");
         }
+
+        [Permissions.PermissionsRol(Rol.Administrador)]
+        public ActionResult DeleteOC()
+        {
+            int id = Convert.ToInt32(Request.QueryString["id"]);
+            oc.EliminarOC(id);
+
+            return RedirectToAction("OCList", "OrdenCompra");
+        }
+
     }
 }
