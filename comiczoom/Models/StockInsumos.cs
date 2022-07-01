@@ -92,5 +92,20 @@ namespace prueba.Models
             return stock;
 
         }
+
+        public void SumarInsumo(int pIdSUC, int pIdINS, int pCantidad)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"INSERT INTO STOCK_INSUMO (idSUC, idINS, cantidad, fecha, hora, tipoTransaccion)
+                VALUES ({pIdSUC}, {pIdINS}, {pCantidad}, '{DateTime.Now.ToString("yyyy-MM-dd")}', 
+                '{DateTime.Now.ToString("HH:mm:ss")}', 0);";
+
+            SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
+            queryInsert.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
 }

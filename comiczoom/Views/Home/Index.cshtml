@@ -11,13 +11,18 @@
 @if((int)Session["IdRol"] == 1) {
 <div class="container">
     <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+            <i class="bi bi-person-fill cz-emp me-3"></i>
+            <h4 class="text-white">PERSONAS</h4>
+        </div>
+        <hr class="bg-white" />
+    </div>
+
+    <div class="row">
         <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("EmployeeList","Employees")">
             <div class="card-body cz-cardmenu__body">
                 <div class="d-flex justify-content-center">
                     <h5 class="card-title">EMPLEADOS</h5>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
                 </div>
             </div>
         </a>
@@ -27,9 +32,6 @@
                 <div class="d-flex justify-content-center">
                     <h5 class="card-title">PROVEEDORES</h5>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
-                </div>
             </div>
         </a>
 
@@ -38,71 +40,34 @@
                 <div class="d-flex justify-content-center">
                     <h5 class="card-title">CLIENTES</h5>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
-                </div>
             </div>
         </a>
 
     </div>
 
-    <hr class="bg-white" /> 
+    <div class="row mt-3">
+        <div class="col-md-6 d-flex align-items-center">
+            <i class="bi bi-book cz-emp me-3"></i>
+            <h4 class="text-white">CÓMICS</h4>
+        </div>
+        <hr class="bg-white" />
+    </div>
 
     <div class="row">
-        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("OCList", "OrdenCompra")">
-            <div class="card-body cz-cardmenu__body">
-                <div class="d-flex justify-content-center">
-                    <h5 class="card-title">ORDEN DE COMPRA</h5>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
-                </div>
-            </div>
-        </a>
+
 
         <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("ComicsList", "Comics")">
             <div class="card-body cz-cardmenu__body">
                 <div class="d-flex justify-content-center">
                     <h5 class="card-title">CATALOGO DE COMICS</h5>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
-                </div>
             </div>
         </a>
 
-        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("SuppliesList", "Supplies")">
-            <div class="card-body cz-cardmenu__body">
-                <div class="d-flex justify-content-center">
-                    <h5 class="card-title">INSUMOS</h5>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
-                </div>
-            </div>
-        </a>
-
-    </div>
-
-    <div class="row">
         <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("TirajeList", "Tiraje")">
             <div class="card-body cz-cardmenu__body">
                 <div class="d-flex justify-content-center">
                     <h5 class="card-title">TIRAJE</h5>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
-                </div>
-            </div>
-        </a>
-
-        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("StockSuppList", "StockSupplies")">
-            <div class="card-body cz-cardmenu__body">
-                <div class="d-flex justify-content-center">
-                    <h5 class="card-title">STOCK INSUMOS</h5>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
                 </div>
             </div>
         </a>
@@ -112,12 +77,52 @@
                 <div class="d-flex justify-content-center">
                     <h5 class="card-title">STOCK CÓMICS</h5>
                 </div>
+            </div>
+        </a>
+
+        
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6 d-flex align-items-center">
+            <i class="bi bi-box-seam cz-emp me-3"></i>
+            <h4 class="text-white">INSUMOS</h4>
+        </div>
+        <hr class="bg-white" />
+    </div>
+
+    <div class="row">
+        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("SuppliesList", "Supplies")">
+            <div class="card-body cz-cardmenu__body">
                 <div class="d-flex justify-content-center">
-                    <i class="bi bi-person-fill cz-emp"></i>
+                    <h5 class="card-title">INSUMOS</h5>
                 </div>
             </div>
         </a>
 
+        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("OCList", "OrdenCompra")">
+            <div class="card-body cz-cardmenu__body">
+                <div class="d-flex justify-content-center">
+                    <h5 class="card-title">ORDEN DE COMPRA</h5>
+                </div>
+            </div>
+        </a>
+
+        <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("StockSuppList", "StockSupplies")">
+            <div class="card-body cz-cardmenu__body">
+                <div class="d-flex justify-content-center">
+                    <h5 class="card-title">STOCK INSUMOS</h5>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-6 d-flex align-items-center">
+            <i class="bi bi-receipt cz-emp me-3"></i>
+            <h4 class="text-white">VENTA</h4>
+        </div>
+        <hr class="bg-white" />
     </div>
 
     <div class="row">
@@ -127,8 +132,21 @@
                     <div class="d-flex justify-content-center">
                         <h5 class="card-title">VENTA</h5>
                     </div>
+                </div>
+            </a>
+
+            <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("CreateVentaPorMayor","Venta")">
+                <div class="card-body cz-cardmenu__body">
                     <div class="d-flex justify-content-center">
-                        <i class="bi bi-person-fill cz-emp"></i>
+                        <h5 class="card-title">VENTA POR MAYOR</h5>
+                    </div>
+                </div>
+            </a>
+
+            <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("CreateVenta","Venta")">
+                <div class="card-body cz-cardmenu__body">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="card-title">VENTA POR MENOR</h5>
                     </div>
                 </div>
             </a>
@@ -138,11 +156,49 @@
 }
 else 
 {
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">VENTA</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+<div class="container" >
+    <div class="row mt-3">
+        <div class="col-md-6 d-flex align-items-center">
+            <i class="bi bi-receipt cz-emp me-3"></i>
+            <h4 class="text-white">VENTA</h4>
+        </div>
+        <hr class="bg-white" />
+    </div>
+
+    <div class="row">
+        <div class="row">
+            <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("ListaVentas", "Venta")">
+                <div class="card-body cz-cardmenu__body">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="card-title">VENTA</h5>
+                    </div>
+                </div>
+            </a>
+
+            <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("CreateVentaPorMayor","Venta")">
+                <div class="card-body cz-cardmenu__body">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="card-title">VENTA POR MAYOR</h5>
+                    </div>
+                </div>
+            </a>
+
+            <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("CreateVenta","Venta")">
+                <div class="card-body cz-cardmenu__body">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="card-title">VENTA POR MENOR</h5>
+                    </div>
+                </div>
+            </a>
+
+            <a class="card cz-cardmenu mt-4 me-3" style="width: 18rem;" href="@Url.Action("ClientsList", "Clients")">
+                <div class="card-body cz-cardmenu__body">
+                    <div class="d-flex justify-content-center">
+                        <h5 class="card-title">CLIENTES</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 }

@@ -10,21 +10,6 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
-    @*<div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-        </div>*@
-
     <nav class="navbar navbar-expand-lg navbar-dark cz-navbar mb-4">
         <div class="container">
             @* Ícono de comiczoom *@
@@ -97,6 +82,10 @@
         </div>
     </nav>
 
+    @* -------------------------------------------------------------------------------------------- *@
+
+
+    
     <div class="container body-content cz-backimage cz-footer">
         @RenderBody()
         <hr class="mt-5 text-white" />

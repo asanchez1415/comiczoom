@@ -110,7 +110,7 @@ namespace prueba.Models.OrdenesCompra
             SqlDataReader registros = null;
             connection.Open();
 
-            SqlCommand querySel = new SqlCommand($@"SELECT OC.id id, SUC.nombre sucursal, PROVE.nombre proveedor
+            SqlCommand querySel = new SqlCommand($@"SELECT OC.id id, SUC.id idSUC, SUC.nombre sucursal, PROVE.nombre proveedor
                                   FROM ORDEN_COMPRA OC 
                                   INNER JOIN SUCURSAL as SUC ON OC.idSUC = SUC.id
                                   INNER JOIN PROVEEDOR as PROVE ON OC.idPRV = PROVE.id
@@ -123,6 +123,7 @@ namespace prueba.Models.OrdenesCompra
                 var registro = new OrdenesCompra()
                 {
                     Id = (int)registros["id"],
+                    IdSUC = (int)registros["idSUC"],
                     Sucursal = registros["sucursal"].ToString(),
                     Proveedor = registros["proveedor"].ToString(),
                 };

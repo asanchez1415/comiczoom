@@ -110,8 +110,9 @@
         </div>
     </div>
 
-    <input value="@deoc[0].IdOC" name="idoc" type="text" class="form-control d-none" >
-    <input value="@deoc.Count" name="contador" type="text" class="form-control d-none" >
+    <input value="@deoc[0].IdOC" name="idoc" type="text" class="form-control d-none">
+    <input value="@deoc.Count" name="contador" type="text" class="form-control d-none">
+    <input value="@oc.IdSUC" name="idsuc" type="text" class="form-control d-none">
     @foreach (DetalleOC d in deoc)
     {
         <div class="row d-flex justify-content-center mb-3">
@@ -136,8 +137,8 @@
             </div>
 
             <div class="col-md-2 @vis">
-                <input value="@d.IdIns" name="@("idins" + d.Count)" type="text" class="form-control d-none" >
-                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("cantoriginal" + d.Count)" type="text" class="form-control d-none" >
+                <input value="@d.IdIns" name="@("idins" + d.Count)" type="text" class="form-control d-none">
+                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("cantoriginal" + d.Count)" type="text" class="form-control d-none">
 
                 <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("canrec" + d.Count)" type="text" class="form-control ">
             </div>

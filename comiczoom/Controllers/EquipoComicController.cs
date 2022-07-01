@@ -43,6 +43,8 @@ namespace prueba.Controllers
 
         public ActionResult AddEmpleadoEC()
         {
+            ViewBag.NombreUsuario = Session["Nombres"];
+
             ViewBag.ComboTE = te.ComboTE();
             ViewBag.Empleados = emp.ListarEmpleados(null, null, null);
             ViewBag.idec = Convert.ToInt32(Request.QueryString["idec"]);

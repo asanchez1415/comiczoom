@@ -14,6 +14,7 @@ namespace prueba.Controllers.OC
         OrdenesCompra oc = new OrdenesCompra();
         RecepcionOC reoc = new RecepcionOC();
         DRecepcionOC dreoc = new DRecepcionOC();
+        StockInsumos si = new StockInsumos();
 
         // GET: RecepcionOC
         [Permissions.PermissionsRol(Rol.Administrador)]
@@ -32,6 +33,7 @@ namespace prueba.Controllers.OC
         public void InsertReception(FormCollection formCollection)
         {
             int idOC = Convert.ToInt32(formCollection["idoc"]);
+            int idSUC = Convert.ToInt32(formCollection["idsuc"]);
             int idreoc = reoc.InsertarCabeceraRec(idOC);
 
             int contador = Convert.ToInt32(formCollection["contador"]);
@@ -45,6 +47,7 @@ namespace prueba.Controllers.OC
                 int canOr = Convert.ToInt32(formCollection[$"cantoriginal{i}"]);
 
                 dreoc.InsertarUnDetalleDeRO(ins, idreoc, can);
+                si.SumarInsumo(idSUC,ins,can);
 
                 int res = canOr - can;
                 v += res;
@@ -60,8 +63,7 @@ namespace prueba.Controllers.OC
             }
 
             oc.ActualizarEstado(idOC, estado);
-            //Actualizar stock
-
+       
             Response.Redirect("/RecepcionOC/Reception?id=" + idOC + "&est=" + estado);
         }
     }
