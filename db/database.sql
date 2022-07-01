@@ -119,6 +119,7 @@ CREATE TABLE EMPLEADO_EQUIPO_COMIC
   id int not null identity(1,1) primary key,
   idEMP int not null,
   idEC int not null,
+  roleq varchar(30) not null,
   fechaCreacion date not null,
   constraint FK_EEC_EMPLEADO  foreign key (idEMP) references EMPLEADO(id),
   constraint FK_EEC_EQUIPO_COMIC foreign key (idEC) references EQUIPO_COMIC(id)

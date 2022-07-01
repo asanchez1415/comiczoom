@@ -1,0 +1,74 @@
+﻿@using prueba.Models;
+@{
+    //Antiguo intento
+}
+
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("ComicsList", "Comics")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-4 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-white">AÑADIR EMPLEADO</b></h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white"/>
+<br />
+
+<form method="post" action="/EquipoComic/InsertEmpleadoEC" class="container-fluid" id="formulario">
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="text-white">EMPLEADO</h5>
+            <hr class="bg-white" />
+        </div>
+
+        <div class="col-md-6">
+            <h5 class="text-white">ROL</h5>
+            <hr class="bg-white" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpEmp" data-width="100%" required>
+                    <option value="" selected>Seleccione un cargo *</option>
+                    @foreach (Employee e in ViewBag.Empleados)
+                    {
+                        <option value="@e.Id">@e.Nombre @e.Apellido @e.SegApellido</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="form-group">
+                <select class="selectpicker" name="inpCargo" data-width="100%" required>
+                    <option value="" selected>Seleccione un cargo *</option>
+                    @foreach (TipoEmpleado te in ViewBag.ComboTE)
+                    {
+                        <option value="@te.NomTE">@te.NomTE</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <input type="text" value="@ViewBag.idec" name="idEC" class="form-control d-none">
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+

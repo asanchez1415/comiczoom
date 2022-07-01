@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using prueba.Models;
+using prueba.Models.EquipoComic;
 
 namespace prueba.Controllers
 {
@@ -12,6 +13,7 @@ namespace prueba.Controllers
     public class ComicsController : Controller
     {
         Comic com = new Comic();
+        EquipoComic EC = new EquipoComic();
         // GET: Comics
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult ComicsList(FormCollection formCollection)
@@ -66,7 +68,9 @@ namespace prueba.Controllers
                 fechaCreacion = DateTime.Now.Date
             };
 
-            com.InsertarComic(comic);
+            int idInsertado = com.InsertarComic(comic);
+
+            EC.InsertarEquipoComic(idInsertado);
 
             return RedirectToAction("ComicsList", "Comics");
         }

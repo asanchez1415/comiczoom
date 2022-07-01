@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\EquipoComicController.cs" />
     <Compile Include="Controllers\ComicsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -152,6 +153,8 @@
     <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EquipoComic\EmpleadoEquipoComic.cs" />
+    <Compile Include="Models\EquipoComic\EquipoComic.cs" />
     <Compile Include="Models\OrdenesCompra\DetalleOC.cs" />
     <Compile Include="Models\OrdenesCompra\OrdenesCompra.cs" />
     <Compile Include="Models\OrdenesCompra\DRecepcionOC.cs" />
@@ -286,6 +289,8 @@
     <Content Include="Views\RecepcionTiraje\Reception.cshtml" />
     <Content Include="Views\StockSupplies\StockSuppList.cshtml" />
     <Content Include="Views\StockComics\StockComList.cshtml" />
+    <Content Include="Views\EquipoComic\EquipoComicList.cshtml" />
+    <Content Include="Views\EquipoComic\AddEmpleadoEC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
