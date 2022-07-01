@@ -1,0 +1,77 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "StockSuppList";
+    StockInsumos stockIns = new StockInsumos();
+}
+
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+<div class="container">
+
+    <div class="d-flex justify-content-between mt-5">
+        <h2 class="text-white">Stock insumos</h2>
+    </div>
+    <hr class="text-white" />
+
+    <form method="post" action="/StockSupplies/StockSuppList" class="row">
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">INSUMO</label>
+                <select onchange="alertaFiltros()" class="selectpicker" name="Insumos" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione Insumo</option>
+                    @foreach (Insumos ins in ViewBag.ComboIns)
+                    {
+                        <option value="@ins.Nombre">@ins.Nombre</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1" class="form-label text-white">SUCURSAL</label>
+                    <select onchange="alertaFiltros()" class="selectpicker" name="Sucursal" data-live-search="true" data-width="100%">
+                        <option value="" selected>Seleccione Sucursal</option>
+                        @foreach (Branches bra in ViewBag.ComboSuc)
+                        {
+                            <option value="@bra.Sucursal">@bra.Sucursal</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 d-flex align-items-end mb-4">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Filtrar según parámetros</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">NOMBRE INSUMO</th>
+                <th scope="col">NOMBRE SUCURSAL</th>
+                <th scope="col">STOCK</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (StockInsumos SI in ViewBag.ListSI)
+            {
+                <tr>
+                    <th scope="row">@SI.Contador</th>
+                    <td>@SI.NombreInsumo</td>
+                    <td>@SI.NombreSucursal</td>
+                    <td>@stockIns.CalcularStock(SI.idINS, SI.idSUC)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
