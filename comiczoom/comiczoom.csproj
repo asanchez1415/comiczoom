@@ -150,6 +150,7 @@
     <Compile Include="Models\Comic.cs" />
     <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
+    <Compile Include="Models\DetalleVenta.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\OrdenesCompra\DetalleOC.cs" />
     <Compile Include="Models\OrdenesCompra\OrdenesCompra.cs" />
@@ -282,10 +283,12 @@
     <Content Include="Views\Tiraje\TirajeList.cshtml" />
     <Content Include="Views\Tiraje\CreateTiraje.cshtml" />
     <Content Include="Views\RecepcionTiraje\Reception.cshtml" />
+    <Content Include="Views\Venta\ListaVentas.cshtml" />
+    <Content Include="Views\Venta\CreateVenta.cshtml" />
+    <Content Include="Views\Venta\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Venta\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
