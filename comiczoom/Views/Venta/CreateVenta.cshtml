@@ -1,0 +1,138 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Crear tiraje";
+}
+
+<div class="container mt-4">
+    <div class="row d-flex justify-content-between align-items-center">
+        <div class="col-md-3">
+            <a href="@Url.Action("TirajeList", "Tiraje")" class="btn btn-lg btn-secondary">
+                <i class="bi bi-arrow-return-left"></i> Volver
+            </a>
+        </div>
+
+        <div class="col-md-8 d-flex justify-content-end">
+            <h3 class="text-white"><b class="text-white">CREAR TIRAJE</b></h3>
+        </div>
+    </div>
+</div>
+
+<hr class="bg-white" />
+<br />
+
+<form method="post" action="/Tiraje/InsertTiraje" class="container-fluid" id="formulario">
+    <h5 class="text-white">Datos generales</h5>
+    <hr class="bg-white" />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 mb-4">
+            <h5 class="text-white">Cliente</h5>
+            <hr class="bg-white" />
+            <div class="form-group">
+                <select class="selectpicker" name="inpCLI" data-width="100%" required>
+                    <option value="" selected>Seleccione un cliente *</option>
+                    @foreach (Clients c in ViewBag.ListClientes)
+                    {
+                        <option value="@c.Id">@c.Nombre @c.Apellido @c.SegApellido</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <input type="hidden" id="contador" name="contador" value="1" />
+        <input type="hidden" name="idEMP" value="@ViewBag.IdEMP" />
+        <input type="hidden" name="idSUC" value="@ViewBag.IdSUC" />
+    </div>
+
+    <div class="container" id="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-4">
+                <h5 class="text-white">Cómic</h5>
+            </div>
+
+            <div class="col-md-3">
+                <h5 class="text-white">Cantidad</h5>
+            </div>
+
+            <div class="col-md-3">
+                <h5 class="text-white">Costo C/U</h5>
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <hr class="bg-white" />
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center" id="fila">
+            <div class="col-md-4 mb-4" id="colizq">
+                <div class="form-group" id="formgroup">
+                    <select class="form-select" name="com1" required>
+                        <option value="" selected>Seleccione un cómic *</option>
+                        @foreach (Comic c in ViewBag.ComboComics)
+                        {
+                            <option value="@c.Id">@c.Nombre</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3 mb-4" id="colmed">
+                <input type="text" name="cant1" id="cant1" class="form-control" placeholder="Cantidad *" aria-label="First name" required>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container mb-3">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <button type="button" class="btn btn-warning w-100" onclick="cloneSec()"><b>+</b></button>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="d-grid gap-2">
+                <button type="submit" id="btn-guardar" class="btn btn-lg btn-success"><i class="bi bi-save-fill"></i> GUARDAR</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<br />
+
+<script>
+    var contador = 2;
+    function cloneSec() {
+
+        let div = `<div class="row d-flex justify-content-center" id="fila">
+                    <div class="col-md-4 mb-4" id="colizq">
+                        <div class="form-group" id="formgroup1">
+                            <select class="form-select" name="com${contador}" id="com${contador}" required>
+                                <option value="" selected>Seleccione un cómic *</option>
+                                @foreach (Comic c in ViewBag.ComboComics)
+                                {
+                                    <option value="@c.Id">@c.Nombre - </option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                   <div class="col-md-3 mb-4" id="colder">
+                        <input type="text" name="cant${contador}" id="cant${contador}" class="form-control" placeholder="Cantidad *"required>
+                    </div>
+                    </div>`;
+
+        let container = document.getElementById('container').innerHTML += div;
+
+        let cont = document.getElementById("contador").value = contador;
+
+        console.log(contador);
+        contador++;
+    }
+</script>
+

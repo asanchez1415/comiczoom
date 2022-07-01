@@ -35,8 +35,6 @@ namespace prueba.Models.Tiraje
 
         public List<DetalleTiraje> ObtenerDetalleTir(int pId)
         {
-            int id = Convert.ToInt32(pId);
-
             ListDetalleTir = new List<DetalleTiraje>();
             ConnectionDB connection = new ConnectionDB();
             SqlDataReader registros = null;

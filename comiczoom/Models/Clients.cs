@@ -30,6 +30,7 @@ namespace prueba.Models
 
         private List<Clients> ListClientes { get; set; } = new List<Clients>();
         private List<string> ListComboRut { get; set; } = new List<string>();
+
         public List<Clients> ListarClientes(string pRut)
         {
             ListClientes = new List<Clients>();
@@ -116,7 +117,7 @@ namespace prueba.Models
 
             connection.Close();
         }
-        // Obtener un empleado
+        // Obtener un cliente
         public List<Clients> ObtenerClientes(string pId)
         {
             int id = Convert.ToInt32(pId);

@@ -30,6 +30,8 @@ namespace prueba.Controllers
                 Session["Em"] = user;
                 Session["IdRol"] = (int)user.IdRol;
                 Session["Nombres"] = user.Nombres;
+                Session["idEMP"] = user.Id;
+                Session["idSUC"] = user.IdSUC;
 
                 return RedirectToAction("Index", "Home");
             }

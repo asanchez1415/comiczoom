@@ -145,6 +145,7 @@
     <Compile Include="Controllers\SuppliesController.cs" />
     <Compile Include="Controllers\Tiraje\RecepcionTirajeController.cs" />
     <Compile Include="Controllers\Tiraje\TirajeController.cs" />
+    <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -154,6 +155,7 @@
     <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\PrecioSucursal.cs" />
+    <Compile Include="Models\DetalleVenta.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EquipoComic\EmpleadoEquipoComic.cs" />
     <Compile Include="Models\EquipoComic\EquipoComic.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Models\Tiraje\RecepcionTir.cs" />
     <Compile Include="Models\Tiraje\Tirajes.cs" />
     <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\Venta.cs" />
     <Compile Include="Permissions\PermissionsRol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -295,6 +298,9 @@
     <Content Include="Views\EquipoComic\AddEmpleadoEC.cshtml" />
     <Content Include="Views\PrecioSucursal\PrecioSucursalList.cshtml" />
     <Content Include="Views\PrecioSucursal\EditPrecioSucursal.cshtml" />
+    <Content Include="Views\Venta\ListaVentas.cshtml" />
+    <Content Include="Views\Venta\CreateVenta.cshtml" />
+    <Content Include="Views\Venta\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

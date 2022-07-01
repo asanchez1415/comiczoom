@@ -1,0 +1,103 @@
+﻿@using prueba.Models;
+@{
+    ViewBag.Title = "Empleados";
+}
+
+<link href="~/Src/Css/Lists.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="d-flex justify-content-between mt-5">
+        <h2 class="text-white">Lista de ventas</h2>
+        <div class="col-md-2">
+            <a href="@Url.Action("CreateVenta","Venta")" class="btn btn-success d-flex align-items-center justify-content-center" role="button">
+                <b>+</b>
+            </a>
+        </div>
+    </div>
+    <hr class="text-white" />
+
+    <form method="post" action="/Venta/ListaVentas" class="row">
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">SUCURSAL</label>
+                <select onchange="alertaFiltros()" class="selectpicker" name="Sucursal" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione una sucursal</option>
+                    @foreach (Branches b in ViewBag.ListSuc)
+                    {
+                        <option value="@b.IdSUC">@b.Sucursal</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">CLIENTE</label>
+                <select class="selectpicker" name="Cliente" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione un cliente</option>
+                    @foreach (Clients c in ViewBag.ListClientes)
+                    {
+                        <option value="@c.Id">@c.Nombre @c.Apellido @c.SegApellido</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-4">
+            <div class="form-group">
+                <label for="exampleFormControlInput1" class="form-label text-white">EMPLEADO</label>
+                <select class="selectpicker" name="Empleado" data-live-search="true" data-width="100%">
+                    <option value="" selected>Seleccione un empleado</option>
+                    @foreach (Employee e in ViewBag.ListEmpleados)
+                    {
+                        <option value="@e.Id">@e.Nombre @e.Apellido @e.SegApellido</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-3 d-flex align-items-end mb-4">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Filtrar según parámetros</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container table-responsive">
+    <table class="table table-light table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">SUCURSAL</th>
+                <th scope="col">CLIENTE</th>
+                <th scope="col">EMPLEADO</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">HORA</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">EDITAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Venta v in ViewBag.ListVentas)
+            {
+                <tr>
+                    <th scope="row">@v.IdVEN</th>
+                    <th>@v.Sucursal</th>
+                    <td>@v.NombreCLI</td>
+                    <td>@v.NombreEMP</td>
+                    <td>@v.FechaHora.ToString("dd/MM/yyyy")</td>
+                    <td>@v.FechaHora.ToString("HH:mm:ss")</td>
+                    <td>$@v.ValorVenta</td>
+                    <td>
+                        <a href="@Url.Content("/Venta/Detalle?id=" + v.IdVEN)">
+                            <i class="bi bi-pencil-square text-primary h4"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
