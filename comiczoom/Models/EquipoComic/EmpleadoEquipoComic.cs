@@ -13,6 +13,12 @@ namespace prueba.Models.EquipoComic
         public int IdEC { get; set; }
         public DateTime fechaCreacion { get; set; }
 
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string SegApellido { get; set; }
+        public string Rol { get; set; }
+        public string Rut { get; set; }
+
         public List<EmpleadoEquipoComic> ListEEC { get; set; } = new List<EmpleadoEquipoComic>();
 
         public List<EmpleadoEquipoComic> ListarEEC(int idEC)
@@ -22,7 +28,10 @@ namespace prueba.Models.EquipoComic
             SqlDataReader registros = null;
             connection.Open();
 
-            SqlCommand querySel = new SqlCommand($@"SELECT EEC.idEMP FROM EMPLEADO_EQUIPO_COMIC as EEC
+            SqlCommand querySel = new SqlCommand($@"SELECT  EEC.id, EEC.idEMP, EEC.idEC, E.nombre, E.apellido, E.segApellido,
+				EEC.roleq, E.rut
+				FROM EMPLEADO_EQUIPO_COMIC as EEC
+				INNER JOIN EMPLEADO AS E ON EEC.idEMP = E.id
                 WHERE EEC.idEC like '%{idEC}%';", connection.connectDb);
 
             registros = querySel.ExecuteReader();
@@ -31,14 +40,20 @@ namespace prueba.Models.EquipoComic
             {
                 var registro = new EmpleadoEquipoComic()
                 {
+                    Id = (int)registros["id"],
+                    IdEC = (int)registros["idEC"],
                     IdEMP = (int)registros["idEMP"],
+                    Nombre = registros["nombre"].ToString(),
+                    Apellido = registros["apellido"].ToString(),
+                    SegApellido = registros["segApellido"].ToString(),
+                    Rut = registros["rut"].ToString(),
+                    Rol = registros["roleq"].ToString(),
                 };
 
                 ListEEC.Add(registro);
             }
 
             connection.Close();
-
             return ListEEC;
         }
 
@@ -54,8 +69,21 @@ namespace prueba.Models.EquipoComic
             queryDelete.ExecuteNonQuery();
 
             connection.Close();
-        }                   
+        }
+
+        public void InsertEmpleadoPorEC(int pIdEMP, int pIdEC, string pRol)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@" INSERT INTO EMPLEADO_EQUIPO_COMIC (idEMP, idEC, roleq, fechaCreacion)
+                         VALUES ({pIdEMP}, {pIdEC}, '{pRol}', '{DateTime.Now.ToString("yyyy-MM-dd")}')";
+
+            SqlCommand queryDelete = new SqlCommand(cad, connection.connectDb);
+
+            queryDelete.ExecuteNonQuery();
+
+            connection.Close();
+        }
     }
-
-
 }

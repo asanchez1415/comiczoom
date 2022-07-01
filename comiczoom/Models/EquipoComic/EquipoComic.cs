@@ -16,7 +16,7 @@ namespace prueba.Models.EquipoComic
 
 
         //Listar EquipoComics
-        public List<EquipoComic> ObtenerEquipoComic(string idCOM)
+        public List<EquipoComic> ObtenerEquipoComic(int idCOM)
         {
             ListEquipoComic = new List<EquipoComic>();
             ConnectionDB connection = new ConnectionDB();
@@ -24,7 +24,7 @@ namespace prueba.Models.EquipoComic
             connection.Open(); 
 
             SqlCommand querySel = new SqlCommand($@"SELECT EC.id FROM EQUIPO_COMIC as EC
-                WHERE EC.idCOM like '%{idCOM}%';", connection.connectDb);
+                WHERE EC.idCOM = {idCOM};", connection.connectDb);
 
             registros = querySel.ExecuteReader();
 
@@ -37,7 +37,6 @@ namespace prueba.Models.EquipoComic
 
                 ListEquipoComic.Add(registro);
             }
-
 
             connection.Close();
 

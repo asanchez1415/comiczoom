@@ -434,7 +434,8 @@ VALUES
 ('Vendedor'),
 ('Dibujante'),
 ('Guionista'),
-('Pintor');
+('Pintor'),
+('Editor');
 
 INSERT INTO SUCURSAL (idREG, idPRO, idCMN, nombre, direccion) 
 VALUES
@@ -479,12 +480,12 @@ VALUES
 (3, '2021-04-23');
 
 -- EMPLEADO_EQUIPO_COMIC --
-INSERT INTO EMPLEADO_EQUIPO_COMIC(idEMP, idEC, fechaCreacion)
+INSERT INTO EMPLEADO_EQUIPO_COMIC(idEMP, idEC, roleq, fechaCreacion)
 VALUES
-(1, 1,'2021-02-03'),
-(2, 1,'2021-04-29'),
-(2, 2,'2021-05-20'),
-(1, 3,'2021-11-25');
+(1, 1, 'Dibujante', '2021-02-03'),
+(2, 1, 'Dibujante', '2021-04-29'),
+(2, 2, 'Editor', '2021-05-20'),
+(1, 3, 'Pintor', '2021-11-25');
 
 -- TIRAJE --
 INSERT INTO TIRAJE(idSUC, estado, fecha, hora) --tiraje recibido: 1, tiraje en proceso: 2, tiraje sin recibir: 0
@@ -592,7 +593,7 @@ VALUES
 INSERT INTO ORDEN_COMPRA(idSUC, idPRV, estado, fechaHora)
 VALUES
   (1, 2, 2, '20220324 12:30:09 PM'),
-  (1, 3, 1, '20220406 14:00:20 PM');
+  (1, 3, 2, '20220406 14:00:20 PM');
 ---------------------------------------------------------------------------
 INSERT INTO DETALLE_OC(idINS, idOC, cantidad, precioUnit, precioTotal)
 VALUES

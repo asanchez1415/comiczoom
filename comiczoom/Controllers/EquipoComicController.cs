@@ -15,47 +15,49 @@ namespace prueba.Controllers
         EquipoComic ec = new EquipoComic();
         EmpleadoEquipoComic eec = new EmpleadoEquipoComic();
         TipoEmpleado te = new TipoEmpleado();
-        List<Employee> empList = new List<Employee>();
+
+        //
+        Employee emp = new Employee();
+
         // GET: Comics
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult EquipoComicList()
         {
             ViewBag.NombreUsuario = Session["Nombres"];
 
-            string id = Request.QueryString["id"].ToString();
-
+            int id = Convert.ToInt32(Request.QueryString["id"].ToString());
             ViewBag.Comic = id;
-            
-            EquipoComic ec2 = ec.ObtenerEquipoComic(ViewBag.Comic)[0];
-            List<EmpleadoEquipoComic> EECList = eec.ListarEEC(ec2.Id);          
-            foreach (EmpleadoEquipoComic eec in EECList)
-            {
-                Employee res = new Employee();
-                Employee emp = res.ObtenerEmpleado(eec.IdEMP.ToString())[0];
-
-                empList.Add(emp);
-            }
-            ViewBag.ListaEmpleados = empList;
 
             return View();
         }
 
-        public ActionResult EliminarEmpleado()
+        public void EliminarEmpleado()
         {
-            int id = Convert.ToInt32(Request.QueryString["id"]);
-            eec.DeleteEmpleado(id);
+            int ideec = Convert.ToInt32(Request.QueryString["id"]);
+            int idec = Convert.ToInt32(Request.QueryString["idec"]);
+            eec.DeleteEmpleado(ideec);
             
             //El redirect vuelve a pedir la id del comic.
-            return RedirectToAction("EquipoComicList", "EquipoComic");
+            Response.Redirect("/EquipoComic/EquipoComicList?id=" + idec);
         }
 
-        public ActionResult AddEmpleadoEC(FormCollection formCollection)
+        public ActionResult AddEmpleadoEC()
         {
-            /*string _cargo = formCollection["cargo"];
-            (Antiguo intento de ideas)
             ViewBag.ComboTE = te.ComboTE();
-            ViewBag.Empleados = emp.ListarEmpleados(null, null, _cargo);*/
+            ViewBag.Empleados = emp.ListarEmpleados(null, null, null);
+            ViewBag.idec = Convert.ToInt32(Request.QueryString["idec"]);
+
             return View();
+        }
+
+        public void InsertEmpleadoEC(FormCollection formCollection)
+        {
+            int _idEMP = Convert.ToInt32(formCollection["inpEmp"]);
+            int _idec = Convert.ToInt32(formCollection["idEC"]);
+            string _rol = formCollection["inpCargo"];
+
+            eec.InsertEmpleadoPorEC(_idEMP, _idec,_rol);
+            Response.Redirect("/EquipoComic/EquipoComicList?id=" + _idec);
         }
     }
 }
