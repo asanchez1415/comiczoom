@@ -7,11 +7,21 @@
 
 <div class="container">
     <div class="d-flex justify-content-between mt-5">
-        <h2 class="text-white">Lista de ventas</h2>
-        <div class="col-md-2">
-            <a href="@Url.Action("CreateVenta","Venta")" class="btn btn-success d-flex align-items-center justify-content-center" role="button">
-                <b>+</b>
-            </a>
+        <div class="col-md-3">
+            <h2 class="text-white">Lista de ventas</h2>
+        </div>
+
+        <div class="col-md-9 d-flex justify-content-end">
+            <div class="col-md-4 me-3">
+                <a href="@Url.Action("CreateVentaPorMayor","Venta")" class="btn btn-success d-flex align-items-center justify-content-center" role="button">
+                    <b>VENTA POR MAYOR</b>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="@Url.Action("CreateVenta","Venta")" class="btn btn-success d-flex align-items-center justify-content-center" role="button">
+                    <b>VENTA POR MENOR</b>
+                </a>
+            </div>
         </div>
     </div>
     <hr class="text-white" />
@@ -75,7 +85,7 @@
                 <th scope="col">FECHA</th>
                 <th scope="col">HORA</th>
                 <th scope="col">PRECIO</th>
-                <th scope="col">EDITAR</th>
+                <th scope="col">DETALLE</th>
             </tr>
         </thead>
         <tbody>
@@ -91,7 +101,7 @@
                     <td>$@v.ValorVenta</td>
                     <td>
                         <a href="@Url.Content("/Venta/Detalle?id=" + v.IdVEN)">
-                            <i class="bi bi-pencil-square text-primary h4"></i>
+                            <i class="bi bi-receipt text-primary h4"></i>
                         </a>
                     </td>
                 </tr>

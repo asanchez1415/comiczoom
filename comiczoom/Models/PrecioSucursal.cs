@@ -59,7 +59,7 @@ namespace prueba.Models
             connection.Open();
 
             string cad = $@"INSERT INTO PRECIO_SUCURSAL(idSUC, idCOM, normal, alMayor, OFERTA) VALUES
-            ('{idSUC}', '{idCOM}', '1000', '1000', '1000');";
+            ('{idSUC}', '{idCOM}', '1000', '500', '750');";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
             queryInsert.ExecuteNonQuery();
@@ -107,6 +107,52 @@ namespace prueba.Models
             queryUpdate.ExecuteNonQuery();
 
             connection.Close();
+        }
+
+        public decimal ObtenerPrecioPorMenor(int pIdSUC, int pIdCOM)
+        {
+            List<decimal> precios = new List<decimal>(); 
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT normal FROM PRECIO_SUCURSAL as PS 
+                        WHERE PS.idSUC = {pIdSUC} AND
+                        PS.idCOM = {pIdCOM};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = (decimal)registros["normal"];
+             
+                precios.Add(registro);
+            }
+
+            return precios[0];
+        }
+
+        public decimal ObtenerPrecioPorMayor(int pIdSUC, int pIdCOM)
+        {
+            List<decimal> precios = new List<decimal>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT alMayor FROM PRECIO_SUCURSAL as PS 
+                        WHERE PS.idSUC = {pIdSUC} AND
+                        PS.idCOM = {pIdCOM};", connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = (decimal)registros["alMayor"];
+
+                precios.Add(registro);
+            }
+
+            return precios[0];
         }
     }
 }

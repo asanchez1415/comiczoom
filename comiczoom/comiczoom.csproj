@@ -301,6 +301,7 @@
     <Content Include="Views\Venta\ListaVentas.cshtml" />
     <Content Include="Views\Venta\CreateVenta.cshtml" />
     <Content Include="Views\Venta\Detalle.cshtml" />
+    <Content Include="Views\Venta\CreateVentaPorMayor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

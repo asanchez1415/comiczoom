@@ -12,10 +12,14 @@ namespace prueba.Controllers
         Venta ven = new Venta();
         DetalleVenta dv = new DetalleVenta();
 
+        PrecioSucursal ps = new PrecioSucursal();
+
         Clients cli = new Clients();
         Employee emp = new Employee();
         Branches br = new Branches();
         Comic comic = new Comic();
+
+        StockComics sc = new StockComics();
 
         // GET: Venta
         public ActionResult ListaVentas(FormCollection formCollection)
@@ -48,7 +52,20 @@ namespace prueba.Controllers
             return View();
         }
 
-        public ActionResult InsertTiraje(FormCollection formCollection)
+        public ActionResult CreateVentaPorMayor()
+        {
+            ViewBag.NombreUsuario = Session["Nombres"];
+
+            ViewBag.IdEMP = Session["idEMP"];
+            ViewBag.IdSUC = Session["idSUC"];
+            // Combos
+            ViewBag.ListClientes = cli.ListarClientes(null);
+            ViewBag.ComboComics = comic.ComboComic();
+
+            return View();
+        }
+        //////////////////////////////////////////////////////////////
+        public ActionResult InsertVentaMenor(FormCollection formCollection)
         {
             int contador = Convert.ToInt32(formCollection["contador"]);
             int idEMP = Convert.ToInt32(formCollection["idEMP"]);
@@ -63,10 +80,34 @@ namespace prueba.Controllers
             {
                 int com = Convert.ToInt32(formCollection[$"com{i}"]);
                 int cant = Convert.ToInt32(formCollection[$"cant{i}"]);
-                decimal cos = Convert.ToDecimal(formCollection[$"costo{i}"]);
+                decimal cos = ps.ObtenerPrecioPorMenor(idSUC, com);
 
                 dv.InsertarDetallePorVenta(idInsertado, com, cant, cos);
+                sc.RestarComics(idSUC, com, cant);
+            }
 
+            return RedirectToAction("ListaVentas", "Venta");
+        }
+        //////////////////////////////////////////////////////////////
+        public ActionResult InsertVentaMayor(FormCollection formCollection)
+        {
+            int contador = Convert.ToInt32(formCollection["contador"]);
+            int idEMP = Convert.ToInt32(formCollection["idEMP"]);
+            int idSUC = Convert.ToInt32(formCollection["idSUC"]);
+
+            int idCli = Convert.ToInt32(formCollection["inpCLI"]);
+
+            int idInsertado = ven.InsertarVenta(idSUC, idCli, idEMP);
+
+
+            for (int i = 1; i <= contador; i++)
+            {
+                int com = Convert.ToInt32(formCollection[$"com{i}"]);
+                int cant = Convert.ToInt32(formCollection[$"cant{i}"]);
+                decimal cos = ps.ObtenerPrecioPorMayor(idSUC, com);
+
+                dv.InsertarDetallePorVenta(idInsertado, com, cant, cos);
+                sc.RestarComics(idSUC, com, cant);
             }
 
             return RedirectToAction("ListaVentas", "Venta");

@@ -80,7 +80,7 @@ namespace prueba.Models
             ConnectionDB connection = new ConnectionDB();
             connection.Open();
 
-            string cad = $@"INSERT INTO VENTA (idSUC, idCLI, idEMP, hora)
+            string cad = $@"INSERT INTO VENTA (idSUC, idCLI, idEMP, fechaHora)
                          VALUES ({pIdSuc}, {pIdCLI}, {pIdEMP},
                          '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')
                          SELECT @@IDENTITY AS id;";

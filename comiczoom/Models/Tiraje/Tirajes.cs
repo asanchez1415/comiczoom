@@ -104,7 +104,7 @@ namespace prueba.Models.Tiraje
             SqlDataReader registros = null;
             connection.Open();
 
-            SqlCommand querySel = new SqlCommand($@"SELECT T.id id, SUC.nombre sucursal
+            SqlCommand querySel = new SqlCommand($@"SELECT T.id id, SUC.id idSUC, SUC.nombre sucursal
                                   FROM TIRAJE T 
                                   INNER JOIN SUCURSAL as SUC ON T.idSUC = SUC.id
                                   WHERE T.id = {pId};", connection.connectDb);
@@ -116,6 +116,7 @@ namespace prueba.Models.Tiraje
                 var registro = new Tirajes()
                 {
                     Id = (int)registros["id"],
+                    IdSUC = (int)registros["idSUC"],
                     Sucursal = registros["sucursal"].ToString(),
                 };
                 ListTirajes.Add(registro);

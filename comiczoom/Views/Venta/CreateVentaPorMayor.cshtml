@@ -1,11 +1,10 @@
 ﻿@using prueba.Models;
 @{
-    ViewBag.Title = "Venta por menor";
-    PrecioSucursal ps = new PrecioSucursal();
+    ViewBag.Title = "Venta por mayor";
 
+    PrecioSucursal ps = new PrecioSucursal();
     StockComics sc = new StockComics();
     int idSUC = Convert.ToInt32(ViewBag.IdSUC);
-
 }
 
 <div class="container mt-4">
@@ -17,7 +16,7 @@
         </div>
 
         <div class="col-md-8 d-flex justify-content-end">
-            <h3 class="text-white"><b class="text-white">CREAR VENTA</b></h3>
+            <h3 class="text-white"><b class="text-white">CREAR VENTA POR MAYOR</b></h3>
         </div>
     </div>
 </div>
@@ -25,7 +24,7 @@
 <hr class="bg-white" />
 <br />
 
-<form method="post" action="/Venta/InsertVentaMenor" class="container-fluid" id="formulario">
+<form method="post" action="/Venta/InsertVentaMayor" class="container-fluid" id="formulario">
     <h5 class="text-white">Datos generales</h5>
     <hr class="bg-white" />
 
@@ -58,7 +57,6 @@
             <div class="col-md-3">
                 <h5 class="text-white">Cantidad</h5>
             </div>
-
         </div>
 
         <div class="row d-flex justify-content-center">
@@ -74,7 +72,7 @@
                         <option value="" selected>Seleccione un cómic *</option>
                         @foreach (Comic c in ViewBag.ComboComics)
                         {
-                            <option value="@c.Id">@c.Nombre -- $@ps.ObtenerPrecioPorMenor(idSUC, c.Id) < STOCK @sc.CalcularStock(c.Id,idSUC) ></option>
+                            <option value="@c.Id">@c.Nombre -- $@ps.ObtenerPrecioPorMayor(idSUC, c.Id) < STOCK @sc.CalcularStock(c.Id,idSUC) ></option>
                         }
                     </select>
                 </div>

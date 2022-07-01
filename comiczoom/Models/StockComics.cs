@@ -87,7 +87,36 @@ namespace prueba.Models
             }
 
             return stock;
+        }
 
+        public void SumarComics(int pIdSUC, int pIdCOM, int pCantidad)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"INSERT INTO STOCK_COMIC (idSUC, idCOM, cantidad, fecha, hora, tipoTransaccion)
+                VALUES ({pIdSUC}, {pIdCOM}, {pCantidad}, '{DateTime.Now.ToString("yyyy-MM-dd")}', 
+                '{DateTime.Now.ToString("HH:mm:ss")}', 0);";
+
+            SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
+            queryInsert.ExecuteNonQuery();
+
+            connection.Close();
+        }
+
+        public void RestarComics(int pIdSUC, int pIdCOM, int pCantidad)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"INSERT INTO STOCK_COMIC (idSUC, idCOM, cantidad, fecha, hora, tipoTransaccion)
+                VALUES ({pIdSUC}, {pIdCOM}, {pCantidad}, '{DateTime.Now.ToString("yyyy-MM-dd")}', 
+                '{DateTime.Now.ToString("HH:mm:ss")}', 1);";
+
+            SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
+            queryInsert.ExecuteNonQuery();
+
+            connection.Close();
         }
     }
 }

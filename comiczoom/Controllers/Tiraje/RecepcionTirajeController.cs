@@ -14,6 +14,7 @@ namespace prueba.Controllers.Tiraje
         Tirajes t = new Tirajes();
         RecepcionTir rt = new RecepcionTir();
         DRecepcionTir drt = new DRecepcionTir();
+        StockComics sc = new StockComics();
 
         // GET: RecepcionTiraje
         [Permissions.PermissionsRol(Rol.Administrador)]
@@ -32,6 +33,7 @@ namespace prueba.Controllers.Tiraje
         public void InsertReception(FormCollection formCollection)
         {
             int idTIR = Convert.ToInt32(formCollection["idtir"]);
+            int idSUC = Convert.ToInt32(formCollection["idSUC"]);
             int idretir = rt.InsertarCabeceraRec(idTIR);
 
             int contador = Convert.ToInt32(formCollection["contador"]);
@@ -45,6 +47,7 @@ namespace prueba.Controllers.Tiraje
                 int canOr = Convert.ToInt32(formCollection[$"cantoriginal{i}"]);
 
                 drt.InsertarUnDetalleDeRTIR(com, idretir, can);
+                sc.SumarComics(idSUC,com,can);
 
                 int res = canOr - can;
                 v += res;
@@ -60,7 +63,7 @@ namespace prueba.Controllers.Tiraje
             }
 
             t.ActualizarEstado(idTIR, estado);
-            //Actualizar stock
+            
 
             Response.Redirect("/RecepcionTiraje/Reception?id=" + idTIR + "&est=" + estado);
         }
