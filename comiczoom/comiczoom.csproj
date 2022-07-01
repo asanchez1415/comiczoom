@@ -138,6 +138,7 @@
     <Compile Include="Controllers\OC\OrdenCompraController.cs" />
     <Compile Include="Controllers\OC\RecepcionOCController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
+    <Compile Include="Controllers\StockComicsController.cs" />
     <Compile Include="Controllers\StockSuppliesController.cs" />
     <Compile Include="Controllers\SuppliesController.cs" />
     <Compile Include="Controllers\Tiraje\RecepcionTirajeController.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Models\Region.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Rubros.cs" />
+    <Compile Include="Models\StockComics.cs" />
     <Compile Include="Models\StockInsumos.cs" />
     <Compile Include="Models\TipoEmpleado.cs" />
     <Compile Include="Models\Tiraje\DetalleTiraje.cs" />
@@ -283,6 +285,7 @@
     <Content Include="Views\Tiraje\CreateTiraje.cshtml" />
     <Content Include="Views\RecepcionTiraje\Reception.cshtml" />
     <Content Include="Views\StockSupplies\StockSuppList.cshtml" />
+    <Content Include="Views\StockComics\StockComList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
