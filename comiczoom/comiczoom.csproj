@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BranchesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\PrecioSucursalController.cs" />
     <Compile Include="Controllers\EquipoComicController.cs" />
     <Compile Include="Controllers\ComicsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Models\Comic.cs" />
     <Compile Include="Models\Comuna.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
+    <Compile Include="Models\PrecioSucursal.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\EquipoComic\EmpleadoEquipoComic.cs" />
     <Compile Include="Models\EquipoComic\EquipoComic.cs" />
@@ -291,6 +293,8 @@
     <Content Include="Views\StockComics\StockComList.cshtml" />
     <Content Include="Views\EquipoComic\EquipoComicList.cshtml" />
     <Content Include="Views\EquipoComic\AddEmpleadoEC.cshtml" />
+    <Content Include="Views\PrecioSucursal\PrecioSucursalList.cshtml" />
+    <Content Include="Views\PrecioSucursal\EditPrecioSucursal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
