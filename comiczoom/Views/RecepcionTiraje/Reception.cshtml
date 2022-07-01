@@ -1,14 +1,14 @@
-﻿@using prueba.Models.OrdenesCompra;
+﻿@using prueba.Models.Tiraje;
 @{
-    ViewBag.Title = "Recepción OC";
-    OrdenesCompra res = new OrdenesCompra();
-    DetalleOC res2 = new DetalleOC();
+    ViewBag.Title = "Recepción tiraje";
+    Tirajes res = new Tirajes();
+    DetalleTiraje res2 = new DetalleTiraje();
 
-    OrdenesCompra oc = res.ObtenerOC(ViewBag.idoc)[0];
-    List<DetalleOC> deoc = res2.ObtenerDetalleOC(ViewBag.idoc);
+    Tirajes tir = res.ObtenerTiraje(ViewBag.idoc)[0];
+    List<DetalleTiraje> detir = res2.ObtenerDetalleTir(ViewBag.idoc);
 
-    DRecepcionOC res3 = new DRecepcionOC();
-    RecepcionOC res4 = new RecepcionOC();
+    DRecepcionTir res3 = new DRecepcionTir();
+    RecepcionTir res4 = new RecepcionTir();
 
     string vis;
     if (ViewBag.estado == 0 || ViewBag.estado == 1)
@@ -36,13 +36,13 @@
 <div class="container mt-4">
     <div class="row d-flex justify-content-between">
         <div class="col-md-3">
-            <a href="@Url.Action("OCList", "OrdenCompra")" class="btn btn-lg btn-secondary">
+            <a href="@Url.Action("TirajeList", "Tiraje")" class="btn btn-lg btn-secondary">
                 <i class="bi bi-arrow-return-left"></i> Volver
             </a>
         </div>
 
         <div class="col-md-8 d-flex justify-content-end">
-            <h3 class="text-white"><b class="text-primary">RECEPCIONANDO OC&nbsp;</b>&nbsp; @oc.Id</h3>
+            <h3 class="text-white"><b class="text-primary">RECEPCIONANDO TIRAJE&nbsp;</b>&nbsp; @tir.Id</h3>
         </div>
     </div>
 </div>
@@ -52,21 +52,16 @@
 
 <div class="container">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-4 mb-3">
-            <h5 class="text-white">Proveedor</h5>
-            <hr class="bg-white" />
-            <input value="@oc.Proveedor" type="text" class="form-control inp-disabled" disabled>
-        </div>
 
         <div class="col-md-4 mb-3">
             <h5 class="text-white">Sucursal</h5>
             <hr class="bg-white" />
-            <input value="@oc.Sucursal" type="text" class="form-control inp-disabled" disabled>
+            <input value="@tir.Sucursal" type="text" class="form-control inp-disabled" disabled>
         </div>
     </div>
 </div>
 
-<form action="/RecepcionOC/InsertReception" class="container-fluid mt-4" method="post">
+<form action="/RecepcionTiraje/InsertReception" class="container-fluid mt-4" method="post">
     <div class="row d-flex justify-content-center">
         <div class="col-md-10 d-flex justify-content-center">
             <h4 class="text-white"><b>DETALLE</b></h4>
@@ -110,9 +105,9 @@
         </div>
     </div>
 
-    <input value="@deoc[0].IdOC" name="idoc" type="text" class="form-control d-none" >
-    <input value="@deoc.Count" name="contador" type="text" class="form-control d-none" >
-    @foreach (DetalleOC d in deoc)
+    <input value="@detir[0].IdTir" name="idtir" type="text" class="form-control d-none">
+    <input value="@detir.Count" name="contador" type="text" class="form-control d-none">
+    @foreach (DetalleTiraje d in detir)
     {
         <div class="row d-flex justify-content-center mb-3">
             <div class="col-md-1">
@@ -120,7 +115,7 @@
             </div>
 
             <div class="col-md-3">
-                <input value="@d.NombreIns" type="text" class="form-control inp-disabled" disabled>
+                <input value="@d.NombreCom" type="text" class="form-control inp-disabled" disabled>
             </div>
 
             <div class="col-md-2">
@@ -136,10 +131,10 @@
             </div>
 
             <div class="col-md-2 @vis">
-                <input value="@d.IdIns" name="@("idins" + d.Count)" type="text" class="form-control d-none" >
-                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("cantoriginal" + d.Count)" type="text" class="form-control d-none" >
+                <input value="@d.IdCom" name="@("idcom" + d.Count)" type="text" class="form-control d-none">
+                <input value="@res3.CantidadARecepcionar(d.IdTir, d.IdCom, d.Cantidad)" name="@("cantoriginal" + d.Count)" type="text" class="form-control d-none">
 
-                <input value="@res3.CantidadARecepcionar(d.IdOC, d.IdIns, d.Cantidad)" name="@("canrec" + d.Count)" type="text" class="form-control ">
+                <input value="@res3.CantidadARecepcionar(d.IdTir, d.IdCom, d.Cantidad)" name="@("canrec" + d.Count)" type="text" class="form-control ">
             </div>
         </div>
     }
@@ -169,7 +164,7 @@
     </div>
 
     <div class="accordion" id="accordionExample">
-        @foreach (RecepcionOC r in res4.ObtenerRecepcionesPorOC(deoc[0].IdOC))
+        @foreach (RecepcionTir r in res4.ObtenerRecepcionesPorTir(detir[0].IdTir))
         {
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
@@ -188,20 +183,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (DRecepcionOC d in res3.ObtenerDetallePorRO(r.Id))
+                                @foreach (DRecepcionTir d in res3.ObtenerDetallePorRT(r.Id))
                                 {
                                     <tr>
                                         <th scope="row">@d.Contador</th>
-                                        <td>@d.NombreIns</td>
+                                        <td>@d.NombreCom</td>
                                         <td>@d.Cantidad</td>
                                     </tr>
                                 }
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         }
     </div>
 </div>

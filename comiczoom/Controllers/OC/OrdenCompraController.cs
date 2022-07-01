@@ -28,7 +28,7 @@ namespace prueba.Controllers.OC
             string _fecha = formCollection["Fecha"];
             string _estado = formCollection["Estado"];
 
-            ViewBag.OCS = oc.ListarProveedores(_prov, _suc, _fecha, _estado);
+            ViewBag.OCS = oc.ListarOCS(_prov, _suc, _fecha, _estado);
             // Combos
             ViewBag.ComboProv = prov.ComboPro();
             ViewBag.ComboSuc = suc.ComboSucursal();

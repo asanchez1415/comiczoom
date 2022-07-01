@@ -25,7 +25,7 @@ namespace prueba.Models.OrdenesCompra
         public decimal PrecioTotalOC { get; set; }
         private List<OrdenesCompra> ListOC { get; set; } = new List<OrdenesCompra>();
 
-        public List<OrdenesCompra> ListarProveedores(string pProveedor, string pSucursal, string pFecha, string pEstado)
+        public List<OrdenesCompra> ListarOCS(string pProveedor, string pSucursal, string pFecha, string pEstado)
         {
             ListOC = new List<OrdenesCompra>();
             ConnectionDB connection = new ConnectionDB();

@@ -17,7 +17,6 @@ namespace prueba.Models.OrdenesCompra
         public decimal PrecioTotal { get; set; }
         //
         public int Count { get; set; }
-
         private List<DetalleOC> ListDetalleOC { get; set; } = new List<DetalleOC>();
 
         public void InsertarDetallesPorOC(int pIdOC, string pIdINS, int pCantidad, decimal pPrecioU)

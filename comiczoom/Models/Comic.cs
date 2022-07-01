@@ -186,5 +186,34 @@ namespace prueba.Models
 
             connection.Close();
         }
+
+        public List<Comic> ComboComic()
+        {
+            List<Comic> ListComboComic = new List<Comic>();
+
+            ListComboComic = new List<Comic>();
+            ConnectionDB connection = new ConnectionDB();
+            SqlDataReader registros = null;
+            connection.Open();
+
+            SqlCommand querySel = new SqlCommand($@"SELECT id, nombre FROM COMIC;",
+                connection.connectDb);
+
+            registros = querySel.ExecuteReader();
+
+            while (registros.Read())
+            {
+                var registro = new Comic()
+                {
+                    Id = (int)registros["id"],
+                    Nombre = registros["nombre"].ToString(),
+                };
+
+                ListComboComic.Add(registro);
+            }
+            connection.Close();
+
+            return ListComboComic;
+        }
     }
 }

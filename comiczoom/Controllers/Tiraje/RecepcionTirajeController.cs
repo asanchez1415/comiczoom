@@ -4,18 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using prueba.Models;
-using prueba.Models.OrdenesCompra;
+using prueba.Models.Tiraje;
 
-namespace prueba.Controllers.OC
+namespace prueba.Controllers.Tiraje
 {
     [Authorize]
-    public class RecepcionOCController : Controller
+    public class RecepcionTirajeController : Controller
     {
-        OrdenesCompra oc = new OrdenesCompra();
-        RecepcionOC reoc = new RecepcionOC();
-        DRecepcionOC dreoc = new DRecepcionOC();
+        Tirajes t = new Tirajes();
+        RecepcionTir rt = new RecepcionTir();
+        DRecepcionTir drt = new DRecepcionTir();
 
-        // GET: RecepcionOC
+        // GET: RecepcionTiraje
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult Reception()
         {
@@ -31,20 +31,20 @@ namespace prueba.Controllers.OC
         [Permissions.PermissionsRol(Rol.Administrador)]
         public void InsertReception(FormCollection formCollection)
         {
-            int idOC = Convert.ToInt32(formCollection["idoc"]);
-            int idreoc = reoc.InsertarCabeceraRec(idOC);
+            int idTIR = Convert.ToInt32(formCollection["idtir"]);
+            int idretir = rt.InsertarCabeceraRec(idTIR);
 
             int contador = Convert.ToInt32(formCollection["contador"]);
-            
+
             int estado = 0;
             int v = 0;
             for (int i = 1; i <= contador; i++)
             {
-                int ins = Convert.ToInt32(formCollection[$"idins{i}"]);
+                int com = Convert.ToInt32(formCollection[$"idcom{i}"]);
                 int can = Convert.ToInt32(formCollection[$"canrec{i}"]);
                 int canOr = Convert.ToInt32(formCollection[$"cantoriginal{i}"]);
 
-                dreoc.InsertarUnDetalleDeRO(ins, idreoc, can);
+                drt.InsertarUnDetalleDeRTIR(com, idretir, can);
 
                 int res = canOr - can;
                 v += res;
@@ -59,10 +59,10 @@ namespace prueba.Controllers.OC
                 estado = 2;
             }
 
-            oc.ActualizarEstado(idOC, estado);
+            t.ActualizarEstado(idTIR, estado);
             //Actualizar stock
 
-            Response.Redirect("/RecepcionOC/Reception?id=" + idOC + "&est=" + estado);
+            Response.Redirect("/RecepcionTiraje/Reception?id=" + idTIR + "&est=" + estado);
         }
     }
 }
