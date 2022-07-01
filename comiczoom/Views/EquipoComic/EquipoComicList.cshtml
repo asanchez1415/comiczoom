@@ -2,7 +2,8 @@
 @using prueba.Models.EquipoComic;
 @{
     ViewBag.Title = "ListaEmpleados";
-    
+
+    TipoEmpleado te = new TipoEmpleado();
 }
 
 <link href="~/Src/Css/Lists.css" rel="stylesheet" />
@@ -17,8 +18,8 @@
         </div>
 
         <div class="d-flex justify-content-between mt-5">
-            <h2 class="text-white">Lista de comics</h2>
-            <a href="@Url.Action("AddEmpleado","EquipoComic")" class="btn btn-success d-flex align-items-center" role="button">
+            <h2 class="text-white">Equipo del Comic</h2>
+            <a href="@Url.Action("AddEmpleadoEC","EquipoComic")" class="btn btn-success d-flex align-items-center" role="button">
                 AÑADIR EMPLEADO
             </a>
         </div>
@@ -32,6 +33,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">ROL</th>
                     <th scope="col">RUT</th>
                     <th scope="col">NOMBRE</th>
                 </tr>
@@ -39,11 +41,18 @@
             <tbody>
                 @foreach (Employee emp in ViewBag.ListaEmpleados)
                 {
-                    <tr>
-                        <th scope="row">@emp.Id</th>
-                        <td>@emp.Rut</td>
-                        <td>@emp.Nombre</td>
-                    </tr>
+                    TipoEmpleado teNombre = te.NombreTE(emp.IdRol)[0];
+                <tr>
+                    <th scope="row">@emp.Id</th>
+                    <td>@teNombre.NomTE</td>
+                    <td>@emp.Rut</td>
+                    <td>@emp.Nombre @emp.Apellido @emp.SegApellido</td>
+                    <td class="text-center">
+                        <a href="@Url.Content("/EquipoComic/EliminarEmpleado?id=" /*+ necesito la id del eec xd*/)">
+                            <i class="bi bi-pencil-square text-primary h4"></i>
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

@@ -267,6 +267,7 @@
     <Content Include="Views\Supplies\CreateSupplies.cshtml" />
     <Content Include="Views\Supplies\EditSupply.cshtml" />
     <Content Include="Views\EquipoComic\EquipoComicList.cshtml" />
+    <Content Include="Views\EquipoComic\AddEmpleadoEC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

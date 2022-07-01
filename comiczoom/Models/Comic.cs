@@ -111,18 +111,22 @@ namespace prueba.Models
 
             return ListComboCategoria;
         }
-        public void InsertarComic(Comic pCom)
+        public int InsertarComic(Comic pCom)
         {
             ConnectionDB connection = new ConnectionDB();
             connection.Open();
 
             string cad = $@"INSERT INTO COMIC(nombre, volumen, estado, isbn, categoria, fechaCreacion) VALUES
-            ('{pCom.Nombre}', {pCom.Volumen}, {pCom.intEstado}, '{pCom.Isbn}', '{pCom.Categoria}', '{pCom.fechaCreacion.ToString("yyyy-MM-dd")}')";
+            ('{pCom.Nombre}', {pCom.Volumen}, {pCom.intEstado}, '{pCom.Isbn}', '{pCom.Categoria}', '{pCom.fechaCreacion.ToString("yyyy-MM-dd")}')
+             SELECT @@IDENTITY AS id;";
 
             SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
-            queryInsert.ExecuteNonQuery();
 
+            int idIngresado = Convert.ToInt32(queryInsert.ExecuteScalar());
+            
             connection.Close();
+
+            return idIngresado;
         }
 
         public List<Comic> ObtenerComic(string pId)

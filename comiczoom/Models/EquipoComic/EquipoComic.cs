@@ -43,5 +43,19 @@ namespace prueba.Models.EquipoComic
 
             return ListEquipoComic;
         }
+
+        public void InsertarEquipoComic(int idCOM)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"INSERT INTO EQUIPO_COMIC(idcom, fechaCreacion) VALUES
+            ('{idCOM}', '{DateTime.Now.ToString("yyyy-MM-dd")}');";
+
+            SqlCommand queryInsert = new SqlCommand(cad, connection.connectDb);
+            queryInsert.ExecuteNonQuery();
+            
+            connection.Close();
+        }
     }
 }

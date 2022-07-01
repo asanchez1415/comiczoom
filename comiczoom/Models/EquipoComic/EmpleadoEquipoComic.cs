@@ -41,6 +41,20 @@ namespace prueba.Models.EquipoComic
 
             return ListEEC;
         }
+
+        public void DeleteEmpleado(int id)
+        {
+            ConnectionDB connection = new ConnectionDB();
+            connection.Open();
+
+            string cad = $@"DELETE FROM EMPLEADO_EQUIPO_COMIC WHERE id = '{id}'";
+
+            SqlCommand queryDelete = new SqlCommand(cad, connection.connectDb);
+
+            queryDelete.ExecuteNonQuery();
+
+            connection.Close();
+        }                   
     }
 
 
