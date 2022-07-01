@@ -67,6 +67,7 @@
                 <th scope="col">CATEGORIA</th>
                 <th scope="col">FECHA DE CREACION</th>
                 <th scope="col">EQUIPO</th>
+                <th scope="col">PRECIOS</th>
                 <th scope="col">EDITAR</th>
             </tr>
         </thead>
@@ -84,6 +85,11 @@
                 <td class="text-center">
                     <a href="@Url.Content("/EquipoComic/EquipoComicList?id=" + Com.Id)">
                         <i class="bi bi-people text-primary h4"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a href="@Url.Content("/PrecioSucursal/PrecioSucursalList?id=" + Com.Id)">
+                        <i class="bi bi-currency-dollar text-primary h4"></i>
                     </a>
                 </td>
                 <td class="text-center">

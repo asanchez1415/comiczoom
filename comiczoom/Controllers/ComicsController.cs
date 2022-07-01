@@ -14,6 +14,7 @@ namespace prueba.Controllers
     {
         Comic com = new Comic();
         EquipoComic EC = new EquipoComic();
+        PrecioSucursal PS = new PrecioSucursal();
         // GET: Comics
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult ComicsList(FormCollection formCollection)
@@ -42,6 +43,8 @@ namespace prueba.Controllers
         [Permissions.PermissionsRol(Rol.Administrador)]
         public ActionResult InsertComic(FormCollection formCollection)
         {
+            Branches res = new Branches();
+            List<Branches> sucList = res.ComboSucursal();
 
             int numEstado;
             if (formCollection["inpEstado"].Equals("En Desarrollo"))
@@ -71,6 +74,11 @@ namespace prueba.Controllers
             int idInsertado = com.InsertarComic(comic);
 
             EC.InsertarEquipoComic(idInsertado);
+
+            for(int i = 0; i < sucList.Count; i++)
+            {
+                PS.InsertarPrecioSucursal(sucList[i].IdSUC, idInsertado);
+            }
 
             return RedirectToAction("ComicsList", "Comics");
         }
